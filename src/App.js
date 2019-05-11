@@ -13,14 +13,14 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'react-native-firebase'
 
 // Screens
-import SignUp from './screens/SignUp';
-import SignIn from './screens/SignIn';
-import InBox from './screens/InBox';
-import ComposeMessage from './screens/ComposeMessage';
-import InputNumber from './screens/InputNumber';
-import SelectRecipient from './screens/SelectRecipient';
-import MessageDeliveryStatus from './screens/MessageDeliveryStatus';
-import MessageConfirm from './screens/MessageConfirm';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import InBox from './components/InBox';
+import ComposeMessage from './components/ComposeMessage';
+import InputNumber from './components/InputNumber';
+import SelectRecipient from './components/SelectRecipient';
+import MessageDeliveryStatus from './components/MessageDeliveryStatus';
+import MessageConfirm from './components/MessageConfirm';
 
 const App = () => <AppContainer />;
 
