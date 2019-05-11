@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "47249699259",
+    "firebase_url": "https://gold-message.firebaseio.com",
+    "project_id": "gold-message",
+    "storage_bucket": "gold-message.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47249699259:android:4c6572514a7d4931",
+        "android_client_info": {
+          "package_name": "com.goldmessage.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47249699259-j32i66g01sd31t3clt4ts8fbg1u16dph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8ItADmqsqC1604oeqkm-wyXvdoQI9qCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47249699259-j32i66g01sd31t3clt4ts8fbg1u16dph.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "47249699259-r0qm3m37i6o7heqbnupqihv2o96gdv4v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.goldmessage.test"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
