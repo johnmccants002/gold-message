@@ -10,6 +10,7 @@ import React from 'react';
 
 
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import firebase from 'react-native-firebase'
 
 // Screens
 import SignUp from './screens/SignUp';
@@ -24,6 +25,16 @@ import MessageConfirm from './screens/MessageConfirm';
 const App = () => <AppContainer />;
 
 export default App;
+
+firebase.auth()
+  .signInAnonymously()
+  .then(credential => {
+    if (credential) {
+      console.log('default app user ->', credential.user.toJSON());
+    }
+  }).catch(e => {
+    console.log('e', e)
+  });
 
 const screensViews = {
   SignIn,
