@@ -1,40 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {
-    View,
     Text,
     StyleSheet,
-    Platform,
-    KeyboardAvoidingView,
-    ScrollView,
-    TouchableOpacity,
-    Dimensions
 } from 'react-native';
+import firebase from 'react-native-firebase'
 
-
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { Button, Input, ThemeProvider } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import Colors from '../ui-conf/colors';
-
-// Strings
-const WINDOW = 'window';
-
-const screenHeight = Dimensions.get(WINDOW).height;
+import AuthenticationScreen from './common/AuthenticationScreen';
+import AuthenticationTitle from './common/AuthenticationTitle';
+import AuthenticationButton from './common/AuthenticationButton';
+import { completeSignIn, authenticatedUser } from '../actions/profile';
 
 // Placeholders, labels
 const fName = 'First Name';
 const lName = 'Last Name';
-const uName = 'Username';
 
 const styles = StyleSheet.create({
-    containerWrapper: {
-        height: screenHeight,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: Colors.gold1,
-        padding: 20,
-    },
     inputLabels: {
         marginTop: 10,
         marginBottom: 0,
@@ -56,22 +39,6 @@ const styles = StyleSheet.create({
         margin: 0,
         borderBottomWidth: 0,
     },
-    create: {
-        fontSize: 15,
-        textAlign: 'left',
-        alignSelf: 'stretch',
-        color: Colors.white,
-        margin: 0,
-        marginTop: 120,
-        textTransform: 'uppercase',
-    },
-    welcome: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        textAlign: 'left',
-        color: Colors.white,
-        marginTop: 5,
-    },
     invited: {
         fontSize: 15,
         textAlign: 'left',
@@ -81,84 +48,99 @@ const styles = StyleSheet.create({
         margin: 0,
         marginTop: 85,
     },
-    instructions: {
-        textAlign: 'center',
-        color: Colors.white,
-        marginBottom: 5,
-    },
-    btnSignUp: {
-        marginBottom: 20,
-        padding: 15,
-        backgroundColor: Colors.white,
-    },
-    btnSignUpText: {
-        color: Colors.gold1,
-        fontSize: 20,
-    },
 
 });
 
 
 class SignUp extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { email : '', firstName: '', lastName: '' }
+    }
+
+    componentDidMount() {
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+          this.props.authenticatedUser(user)
+        })
+      }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+    
+    componentDidUpdate(prevProps) {
+        const { displayName: prevDisplayName } = prevProps
+        const { displayName } = this.props
+
+        if(prevDisplayName !== displayName) {
+            this.props.navigation.navigate('InBox')
+        }
+    }
+
+    completeSignIn = () => {
+        const { email, firstName, lastName } = this.state
+
+        this.props.completeSignIn(email, firstName, lastName)
+    }
+
     render() {
+        const { email, firstName, lastName } = this.state
+
         return (
-            <View style={styles.containerWrapper}>
-                <ScrollView>
-                    <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-                        <Text style={styles.create}>Create Your Profile</Text>
-                        <Text style={styles.welcome}>Welcome to Gold Message</Text>
-                        <Text style={styles.invited}>You're invited by Alexander S</Text>
+            <AuthenticationScreen>
+                <AuthenticationTitle leadingText={'Complete Sign In'} title={'Welcome to Gold Message'} />
+                <Text style={styles.invited}>You're invited by Alexander S</Text>
 
 
-                        <Text style={styles.inputLabels}>{uName}</Text>
-                        <Input
-                            containerStyle={styles.inputContainer}
-                            inputStyle={styles.inputStyle}
-                            inputContainerStyle={styles.inputContainerStyle}
-                            placeholder={uName}
-                            rightIcon={{ type: 'font-awesome', name: 'check', color: Colors.white }}
-                        />
+                <Text style={styles.inputLabels}>Email Address</Text>
+                <Input
+                    containerStyle={styles.inputContainer}
+                    inputStyle={styles.inputStyle}
+                    inputContainerStyle={styles.inputContainerStyle}
+                    placeholder={'user@domain.com'}
+                    rightIcon={{ type: 'font-awesome', name: 'check', color: Colors.white }}
+                    value={email}
+                    onChangeText={value => this.setState({ email: value })}
+                    autoCapitalize = 'none'
+                />
 
-                        <Text style={styles.inputLabels}>{fName}</Text>
-                        <Input
-                            containerStyle={styles.inputContainer}
-                            inputStyle={styles.inputStyle}
-                            inputContainerStyle={styles.inputContainerStyle}
-                            placeholder={fName}
-                            rightIcon={{ type: 'font-awesome', name: 'check', color: Colors.white }}
-                        />
+                <Text style={styles.inputLabels}>{fName}</Text>
+                <Input
+                    containerStyle={styles.inputContainer}
+                    inputStyle={styles.inputStyle}
+                    inputContainerStyle={styles.inputContainerStyle}
+                    placeholder={fName}
+                    rightIcon={{ type: 'font-awesome', name: 'check', color: Colors.white }}
+                    value={firstName}
+                    onChangeText={value => this.setState({ firstName: value })}
+                />
 
-                        <Text style={styles.inputLabels}>{lName}</Text>
-                        <Input
-                            containerStyle={{
-                                margin: 0, padding: 0, borderBottomWidth: 1, borderColor: Colors.white, marginBottom: 85,
-                            }}
-                            inputStyle={styles.inputStyle}
-                            inputContainerStyle={styles.inputContainerStyle}
-                            placeholder={lName}
-                            rightIcon={{ type: 'font-awesome', name: 'check', color: Colors.white }}
-                        />
+                <Text style={styles.inputLabels}>{lName}</Text>
+                <Input
+                    containerStyle={{
+                        margin: 0, padding: 0, borderBottomWidth: 1, borderColor: Colors.white, marginBottom: 85,
+                    }}
+                    inputStyle={styles.inputStyle}
+                    inputContainerStyle={styles.inputContainerStyle}
+                    placeholder={lName}
+                    rightIcon={{ type: 'font-awesome', name: 'check', color: Colors.white }}
+                    value={lastName}
+                    onChangeText={value => this.setState({ lastName: value })}
+                />
 
-                        <ThemeProvider>
-                            <Button
-                                buttonStyle={styles.btnSignUp}
-                                titleStyle={styles.btnSignUpText}
-                                onPress={() => this.props.navigation.navigate('InBox')}
-                                title="Sign Up"
-                            />
-                        </ThemeProvider>
-
-
-                        <Text style={styles.instructions}>
-                            Have an account?
-                            <Text style={{ textDecorationLine: 'underline' }} onPress={() => this.props.navigation.navigate('SignIn')}>Sign In</Text>
-                        </Text>
-                        <Text style={styles.instructions}>Recover password</Text>
-                    </KeyboardAvoidingView>
-                </ScrollView>
-            </View>
+                <AuthenticationButton title="Complete Sign In" onPress={() => this.completeSignIn()} />
+            </AuthenticationScreen>
         );
     }
 }
 
-export default SignUp;
+const mapStateToProps = ({ profile }) => {
+    const { displayName } = profile
+  
+    return {
+        displayName
+    }
+}
+
+export default connect(mapStateToProps, { completeSignIn, authenticatedUser } )(SignUp);

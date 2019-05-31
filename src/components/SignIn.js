@@ -1,108 +1,121 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import firebase from 'react-native-firebase'
 import {
-  View,
   Text,
   StyleSheet,
-  Platform,
-  KeyboardAvoidingView,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Button, Input, ThemeProvider } from 'react-native-elements';
+import { Input } from 'react-native-elements';
+import { phoneAuthentication, authenticatedUser } from '../actions/profile';
+import AuthenticationButton from './common/AuthenticationButton';
+import AuthenticationTitle from './common/AuthenticationTitle';
+import AuthenticationScreen from './common/AuthenticationScreen';
 
-// Strings
-const WINDOW = 'window';
-
-const screenHeight = Dimensions.get(WINDOW).height;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffd64d',
-    padding: 20,
-    height: screenHeight,
-  },
-  create: {
-    fontSize: 15,
-    textAlign: 'left',
-    alignSelf: 'stretch',
-    color: '#fff',
+  inputContainerStyle: {
     margin: 0,
-    marginTop: 120,
-    textTransform: 'uppercase',
+    padding: 0,
+    borderBottomWidth: 1,
+    borderColor: '#fff',
+    marginBottom: 100,
+    marginTop: 180,
   },
-  welcome: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'left',
+  inputStyle: {
     color: '#fff',
-    marginTop: 5,
-  },
-  invited: {
-    fontSize: 15,
-    textAlign: 'left',
-    alignSelf: 'stretch',
-    textTransform: 'uppercase',
-    color: '#fff',
+    padding: 0,
     margin: 0,
-    marginTop: 85,
+    textAlign: 'center',
+  },
+  inputComponentContainerStyle: {
+    padding: 0,
+    margin: 0,
+    borderBottomWidth: 0
   },
   instructions: {
     textAlign: 'center',
     color: '#fff',
     marginBottom: 5,
   },
-  btnSignUp: {
-    marginBottom: 20,
-    padding: 15,
-    backgroundColor: '#ffffff',
-  },
-  btnSignUpText: {
-    color: '#ffd64d',
-    fontSize: 20,
-  },
-
 });
 
 class SignIn extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { phoneNumber : '' }
+  }
+
+  componentDidMount() {
+    this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      this.props.authenticatedUser(user)
+
+      if(!user || !user.displayName) {
+        return
+      }
+
+      //Leaving in here for testing purposes, this will clear the display name to facilitate testing signup
+      //user.updateProfile({ displayName: ``})
+      if(user.displayName) {
+        this.props.navigation.navigate('InBox')
+      } else {
+        this.props.navigation.navigate('SignUp')
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { verification: prevVerification } = prevProps
+    const { verification } = this.props
+
+    if(prevVerification !== verification) {
+      this.props.navigation.navigate('PhoneVerification')
+    }
+  }
+
+  authenticate = () => {
+    const { phoneNumber } = this.state
+
+    this.props.phoneAuthentication(phoneNumber)
+  }
+
   render() {
+    const { phoneNumber } = this.state
+    const { inputContainerStyle, inputStyle, inputComponentContainerStyle } = styles
+
     return (
-      <ScrollView>
-        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-          <Text style={styles.create}>Lorem Ipsum</Text>
-          <Text style={styles.welcome}>Sign In</Text>
+      <AuthenticationScreen>
+        <AuthenticationTitle leadingText={'Phone Verification'} title={'Sign In'} />
 
+        <Input
+          containerStyle={inputContainerStyle}
+          inputStyle={inputStyle}
+          inputContainerStyle={inputComponentContainerStyle}
+          keyboardType="number-pad"
+          placeholder="ENTER PHONE NUMBER"
+          value={phoneNumber}
+          onChangeText={(value) => this.setState({ phoneNumber: value})}
+        />
 
-          <Input
-            containerStyle={{
-              margin: 0, padding: 0, borderBottomWidth: 1, borderColor: '#fff', marginBottom: 100, marginTop: 180,
-            }}
-            inputStyle={{
-              color: '#fff', padding: 0, margin: 0, textAlign: 'center',
-            }}
-            inputContainerStyle={{ padding: 0, margin: 0, borderBottomWidth: 0 }}
-            keyboardType="number-pad"
-            placeholder="ENTER PHONE NUMBER"
-          />
+        <AuthenticationButton title="Sign In" onPress={() => this.authenticate()} />
 
-          <ThemeProvider>
-            <Button
-              buttonStyle={styles.btnSignUp}
-              titleStyle={styles.btnSignUpText}
-              onPress={() => this.props.navigation.navigate('Inbox')}
-              title="Sign In"
-            />
-          </ThemeProvider>
-
-
-          <Text style={styles.instructions}>Recover password</Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        <Text style={styles.instructions}>Recover password</Text>
+      </AuthenticationScreen>
     );
   }
 }
 
-export default SignIn;
+const mapStateToProps = ({ profile }) => {
+  const { verification } = profile
+
+  return {
+    verification
+  }
+}
+
+export default connect(mapStateToProps, { phoneAuthentication, authenticatedUser } )(SignIn);

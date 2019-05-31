@@ -9,6 +9,7 @@ import InputNumber from './components/InputNumber';
 import SelectRecipient from './components/SelectRecipient';
 import MessageDeliveryStatus from './components/MessageDeliveryStatus';
 import MessageConfirm from './components/MessageConfirm';
+import PhoneVerification from './components/PhoneVerification';
 
 const screensViews = {
   SignIn,
@@ -46,8 +47,11 @@ const AppNav = createStackNavigator({
   SelectRecipient: {
     screen: screensViews.SelectRecipient,
   },
+  PhoneVerification: {
+    screen: PhoneVerification,
+  },
 }, {
-  initialRouteName: 'SignUp',
+  initialRouteName: 'SignIn',
   defaultNavigationOptions: {
     headerLeft: null,
     headerStyle: {

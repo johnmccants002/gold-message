@@ -5,9 +5,9 @@ import {
     ScrollView,
     Linking,
     SafeAreaView,
-    Platform
+    Text
 } from 'react-native';
-
+import { connect } from 'react-redux'
 import {
     ListItem,
 } from 'react-native-elements';
@@ -167,6 +167,8 @@ class InBox extends Component {
             },
         ];
 
+        const { displayName } = this.props
+
         return (
 
             <ScrollView>
@@ -181,6 +183,7 @@ class InBox extends Component {
                         leftAvatar={{ source: { uri: demoImage } }}
                     />
                 </SafeAreaView>
+                <Text style={{ width : '100%', textAlign: 'center' }}>{displayName}</Text>
                 <SafeAreaView>
                     <View>
                         {
@@ -206,5 +209,11 @@ class InBox extends Component {
         );
     }
 }
+const mapStateToProps = ({ profile }) => {
+    const { displayName } = profile
 
-export default InBox;
+    return {
+        displayName
+    }
+}
+export default connect(mapStateToProps)(InBox);
