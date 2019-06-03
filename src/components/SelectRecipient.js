@@ -3,187 +3,84 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform,
   KeyboardAvoidingView,
   ScrollView,
-  Alert,
   Dimensions,
+  SafeAreaView
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {
-  Button, Input, ListItem, Badge,
+  Input, Icon,ListItem
 } from 'react-native-elements';
 
-// Strings
-const WINDOW = 'window';
+import Header from './common/Header';
+import HeaderIconButton from './common/HeaderIconButton';
+import HeaderTextButton from './common/HeaderTextButton';
+import ComposeMessageContainer from './ComposeMessageContainer';
+import GoldButton from './common/GoldButton';
 
-const screenHeight = Dimensions.get(WINDOW).height;
+const selectRecipient = 'SelectRecipient';
 
-const userSelected = () => {
-  Alert.alert('User Selected', '..........');
-};
+const styles = StyleSheet.create({
+  inputContainerStyle: {
+    margin: 0, padding: 0, borderBottomWidth: 1, borderColor: '#fff', marginBottom: 0, marginTop: 0,
+  },
+  inputStyle: {
+    color: '#000', padding: 0, margin: 0, textAlign: 'center', fontSize: 25,
+  },
+  inputComponentContainerStyle: {
+    padding: 0,
+    margin: 0,
+    borderBottomWidth: 0
+  }
+
+});
+
 
 class SelectRecipient extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = { phoneNumber : '' }
+  }
+
+  sendGoldMessage = () => {
+    const { phoneNumber } = this.state
+    console.log('send gold message', phoneNumber)
+  }
   render() {
-    const list = [
-      {
-        name: 'Bruce Farha',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Chris Jackson',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Amy Farha2',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Chris Jackson2',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Amy Farha3',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Chris Jackson3',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Bruce Farha',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Chris Jackson',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Amy Farha2',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Chris Jackson2',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Amy Farha3',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-      {
-        name: 'Chris Jackson3',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-      },
-    ];
+    const { inputContainerStyle, inputStyle, inputComponentContainerStyle } = styles
+    const { phoneNumber } = this.state
 
     return (
-      <ScrollView>
-        <View style={{
-          flex: 1, flexDirection: 'row', justifyContent: 'space-between', height: 55, backgroundColor: '#fff', shadowOffset: 4, borderBottomColor: '#ccc', borderBottomWidth: 0.6,
-        }}
-        >
-          <View style={{ padding: 15, paddingTop: 10 }}>
-            <Icon
-              name="times"
-              size={29}
-              type="font-awesome"
-              color="#ffd64d"
-              onPress={() => this.props.navigation.goBack()}
-            />
-          </View>
-          <View style={{ padding: 15 }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000' }}>Select Recipient</Text>
-          </View>
-          <View style={{ padding: 15 }}>
-            <Text style={{ color: '#fff', fontSize: 17 }}>Next</Text>
-          </View>
-        </View>
-        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-          <View>
-
-            {
-                            list.map((l, i) => (
-                              <ListItem
-                                onPress={userSelected}
-                                key={i}
-                                title={l.name}
-                                titleStyle={{
-                                  color: '#000', marginLeft: -10, marginBottom: 8, fontWeight: 'bold', width: 200,
-                                }}
-                              />
-                            ))
-                        }
-          </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <Header
+          title={"New Gold Message"}
+          leftElement={() => <HeaderIconButton iconName={'times'} onPress={() => this.props.navigation.goBack()} />}
+        />
+        
+        <ComposeMessageContainer title={'Phone Number'}>
+            <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 20 }} >
+              <Input
+                containerStyle={inputContainerStyle}
+                inputStyle={inputStyle}
+                inputContainerStyle={inputComponentContainerStyle}
+                placeholder="+1(999)111-5555"
+                maxLength={16}
+                keyboardType="number-pad"
+                value={phoneNumber}
+                onChangeText={(value) => { this.setState({ phoneNumber: value })}}
+                numberOfLines={1}
+              />
+              <GoldButton title={"Send Gold Message"} onPress={() => this.sendGoldMessage()} />
+            </View>
+        </ComposeMessageContainer>
+      </View>
     );
   }
 }
 
 export default SelectRecipient;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fafbfc',
-    padding: 20,
-    height: screenHeight,
-  },
-  create: {
-    fontSize: 15,
-    textAlign: 'left',
-    alignSelf: 'stretch',
-    color: '#fff',
-    margin: 0,
-    marginTop: 120,
-    textTransform: 'uppercase',
-  },
-  welcome: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'left',
-    color: '#fff',
-    marginTop: 5,
-  },
-  invited: {
-    fontSize: 15,
-    textAlign: 'left',
-    alignSelf: 'stretch',
-    textTransform: 'uppercase',
-    color: '#fff',
-    margin: 0,
-    marginTop: 85,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#fff',
-    marginBottom: 5,
-  },
-  btnSignUp: {
-    marginBottom: 20,
-    padding: 15,
-    backgroundColor: '#ffffff',
-  },
-  btnXO: {
-    backgroundColor: '#ccc',
-    paddingVertical: 15,
-  },
-  btnSignUpText: {
-    color: '#ffd64d',
-    fontSize: 20,
-  },
-
-});

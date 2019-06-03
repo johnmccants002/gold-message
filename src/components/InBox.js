@@ -13,6 +13,8 @@ import {
 } from 'react-native-elements';
 
 import Colors from '../ui-conf/colors';
+import Header from './common/Header';
+import HeaderIconButton from './common/HeaderIconButton';
 
 // Strings
 const COMPOSE_MESSAGE = 'ComposeMessage';
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         borderBottomColor: Colors.white,
         backgroundColor: Colors.white,
+        shadowOffset: { width: 4, height: 4 }
     },
     containerStyleInner: {
         backgroundColor: Colors.white,
@@ -170,42 +173,37 @@ class InBox extends Component {
         const { displayName } = this.props
 
         return (
-
-            <ScrollView>
-                <SafeAreaView>
-                    <ListItem
-                        title="Gold Messages"
-                        rightIcon={{
-                            type: 'font-awesome', name: 'plus', color: Colors.gold1, onPress: () => this.props.navigation.navigate(COMPOSE_MESSAGE),
-                        }}
-                        titleStyle={styles.titleStyle}
-                        containerStyle={styles.containerStyleOuter}
-                        leftAvatar={{ source: { uri: demoImage } }}
-                    />
-                </SafeAreaView>
+            <View>
+                <Header
+                    title={"New Gold Message"}
+                    leftAvatar={{ source: { uri: demoImage } }}
+                    rightElement={() => <HeaderIconButton iconName={'plus'} onPress={() => this.props.navigation.navigate(COMPOSE_MESSAGE)} />}
+                />
                 <Text style={{ width : '100%', textAlign: 'center' }}>{displayName}</Text>
-                <SafeAreaView>
-                    <View>
-                        {
-                            demoData.map((l, i) => (
-                                <ListItem
-                                    key={i}
-                                    title={l.name}
-                                    underlayColor={Colors.gold1}
-                                    badge={{
-                                        value: 3, containerStyle: { marginTop: -20 }, badgeStyle: { padding: 5 }, status: 'warning',
-                                    }}
-                                    subtitle={l.subtitle}
-                                    containerStyle={styles.containerStyleInner}
-                                    titleStyle={styles.titleStyleInner}
-                                    righTitleStyle={styles.righTitleStyle}
-                                    subtitleStyle={styles.subtitleStyle}
-                                />
-                            ))
-                        }
-                    </View>
-                </SafeAreaView>
-            </ScrollView>
+                <ScrollView>
+                    <SafeAreaView>
+                        <View>
+                            {
+                                demoData.map((l, i) => (
+                                    <ListItem
+                                        key={i}
+                                        title={l.name}
+                                        underlayColor={Colors.gold1}
+                                        badge={{
+                                            value: 3, containerStyle: { marginTop: -20 }, badgeStyle: { padding: 5 }, status: 'warning',
+                                        }}
+                                        subtitle={l.subtitle}
+                                        containerStyle={styles.containerStyleInner}
+                                        titleStyle={styles.titleStyleInner}
+                                        righTitleStyle={styles.righTitleStyle}
+                                        subtitleStyle={styles.subtitleStyle}
+                                    />
+                                ))
+                            }
+                        </View>
+                    </SafeAreaView>
+                </ScrollView>
+            </View>
         );
     }
 }

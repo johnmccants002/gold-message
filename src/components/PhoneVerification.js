@@ -85,8 +85,9 @@ class PhoneVerification extends Component {
           value={verificationCode}
           onChangeText={(value) => this.setState({ verificationCode: value})}
         />
-
+        <View style={{ flex: 1, }}>
         <AuthenticationButton title={"Sign In"} onPress={() => this.verifyCode()} />
+        </View>
       </AuthenticationScreen>
     );
   }
