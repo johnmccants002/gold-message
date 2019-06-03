@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {
   View,
   Text,
@@ -18,6 +19,7 @@ import HeaderIconButton from './common/HeaderIconButton';
 import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import GoldButton from './common/GoldButton';
+import { sendGoldMessage } from '../actions/messages'
 
 const selectRecipient = 'SelectRecipient';
 
@@ -48,8 +50,12 @@ class SelectRecipient extends Component {
   }
 
   sendGoldMessage = () => {
+    const { messageText } = this.props
     const { phoneNumber } = this.state
+    
     console.log('send gold message', phoneNumber)
+
+    this.props.sendGoldMessage(phoneNumber, messageText)
   }
   render() {
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle } = styles
@@ -82,5 +88,11 @@ class SelectRecipient extends Component {
     );
   }
 }
-
-export default SelectRecipient;
+const mapStateToProps = ({ messages }) => {
+  const { messageText } = messages
+  
+  return {
+    messageText
+  }
+}
+export default connect(mapStateToProps, { sendGoldMessage })(SelectRecipient);
