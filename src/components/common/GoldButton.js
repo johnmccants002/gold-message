@@ -17,14 +17,19 @@ const styles = StyleSheet.create({
   
   });
 
-const GoldButton = ({ title, onPress }) => {
+const GoldButton = ({ title, onPress, buttonColor, textColor, loading, disabled }) => {
     const { buttonStyle, titleStyle } = styles
+
+    const buttonColorStyle = buttonColor ? { backgroundColor: buttonColor } : { }
+    const textColorStyle = textColor ? { color: textColor } : { }
 
     return (
         <ThemeProvider>
             <Button
-              buttonStyle={buttonStyle}
-              titleStyle={titleStyle}
+              disabled={loading || disabled}
+              loading={loading}
+              buttonStyle={[buttonStyle, buttonColorStyle]}
+              titleStyle={[titleStyle, textColorStyle]}
               title={title}
               onPress={onPress} />
         </ThemeProvider>

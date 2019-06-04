@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import firebase from 'react-native-firebase'
 import {
+  View,
   StyleSheet,
 } from 'react-native';
 
@@ -80,13 +81,13 @@ class PhoneVerification extends Component {
           containerStyle={inputContainerStyle}
           inputStyle={inputStyle}
           inputContainerStyle={inputComponentContainerStyle}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           placeholder="VERIFICATION CODE"
           value={verificationCode}
           onChangeText={(value) => this.setState({ verificationCode: value})}
         />
         <View style={{ flex: 1, }}>
-        <AuthenticationButton title={"Sign In"} onPress={() => this.verifyCode()} />
+          <AuthenticationButton title={"Sign In"} onPress={() => this.verifyCode()} />
         </View>
       </AuthenticationScreen>
     );

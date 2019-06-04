@@ -11,7 +11,10 @@ import Colors from '../ui-conf/colors';
 import AuthenticationScreen from './common/AuthenticationScreen';
 import AuthenticationTitle from './common/AuthenticationTitle';
 import AuthenticationButton from './common/AuthenticationButton';
+import ErrorModal from './common/ErrorModal';
+
 import { completeSignIn, authenticatedUser } from '../actions/profile';
+import { clearError } from '../actions/errors';
 
 // Placeholders, labels
 const fName = 'First Name';
@@ -84,11 +87,17 @@ class SignUp extends Component {
         this.props.completeSignIn(email, firstName, lastName)
     }
 
+    onErrorDismissed = () => {
+      this.props.clearError()
+    }
+
     render() {
         const { email, firstName, lastName } = this.state
+        const { loading, error } = this.props
 
         return (
             <AuthenticationScreen>
+                <ErrorModal isVisible={error != undefined} message={error} onDismissed={this.onErrorDismissed} backgroundColor={Colors.white} textColor={Colors.gold1} />
                 <AuthenticationTitle leadingText={'Complete Sign In'} title={'Welcome to Gold Message'} />
                 <Text style={styles.invited}>You're invited by Alexander S</Text>
 
@@ -129,18 +138,20 @@ class SignUp extends Component {
                     onChangeText={value => this.setState({ lastName: value })}
                 />
 
-                <AuthenticationButton title="Complete Sign In" onPress={() => this.completeSignIn()} />
+                <AuthenticationButton title="Complete Sign In" onPress={() => this.completeSignIn()} loading={loading} />
             </AuthenticationScreen>
         );
     }
 }
 
 const mapStateToProps = ({ profile }) => {
-    const { displayName } = profile
+    const { displayName, loading, error } = profile
   
     return {
-        displayName
+        displayName,
+        loading,
+        error,
     }
 }
 
-export default connect(mapStateToProps, { completeSignIn, authenticatedUser } )(SignUp);
+export default connect(mapStateToProps, { completeSignIn, authenticatedUser, clearError } )(SignUp);

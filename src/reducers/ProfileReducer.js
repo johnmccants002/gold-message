@@ -4,6 +4,7 @@ import {
     PHONE_VERIFIED,
     LOADING,
     USER_AUTHENTICATION_ERROR,
+    CLEAR_ERROR,
 } from '../actions/types';
   
   const INITIAL_STATE = {
@@ -18,10 +19,12 @@ import {
   export default (state = INITIAL_STATE, action) => {
     const { type, payload } = action
     switch (type) {
+      case CLEAR_ERROR:
+        return { ...state, error : undefined }
       case USER_AUTHENTICATED:
         return { ...state, user : payload, displayName: payload && payload.displayName ? payload.displayName : '', loading: false, error: undefined}
       case USER_AUTHENTICATION_ERROR:
-        return { ...state, error : payload }
+        return { ...state, error : payload, loading: false }
       case PHONE_VERIFICATION_RECEIVED:
         return { ...state, verification : payload, loading: false, error: undefined }
       case PHONE_VERIFIED:

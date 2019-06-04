@@ -1,34 +1,11 @@
 import React from 'react';
-import { Button, ThemeProvider } from 'react-native-elements';
-import {
-  StyleSheet
-} from 'react-native';
+import GoldButton from './GoldButton';
 
-const styles = StyleSheet.create({
-    buttonStyle: {
-      marginBottom: 20,
-      padding: 15,
-      backgroundColor: '#ffffff',
-    },
-    titleStyle: {
-      color: '#ffd64d',
-      fontSize: 20,
-    },
-  
-  });
-
-const RegistrationButton = ({ title, onPress }) => {
-    const { buttonStyle, titleStyle } = styles
+const AuthenticationButton = (props) => {
 
     return (
-        <ThemeProvider>
-            <Button
-              buttonStyle={buttonStyle}
-              titleStyle={titleStyle}
-              title={title}
-              onPress={onPress} />
-        </ThemeProvider>
+        <GoldButton buttonColor={'#ffffff'} textColor={'#ffd64d'} {...props} />
     )
 }
 
-export default RegistrationButton
+export default AuthenticationButton

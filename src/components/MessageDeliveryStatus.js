@@ -15,7 +15,7 @@ import {
 
 // Strings
 const WINDOW = 'window';
-const selectRecipient = 'SelectRecipient';
+const ComposeMessageRecipient = 'ComposeMessageRecipient';
 const inbox = 'InBox';
 
 const screenHeight = Dimensions.get(WINDOW).height;
@@ -59,7 +59,7 @@ class MessageDeliveryStatus extends Component {
               size={29}
               type="font-awesome"
               color="#fff"
-              onPress={() => this.props.navigation.navigate('SelectRecipient')}
+              onPress={() => this.props.navigation.navigate('ComposeMessageRecipient')}
             />
           </View>
         </View>
@@ -67,20 +67,6 @@ class MessageDeliveryStatus extends Component {
         <KeyboardAvoidingView style={{ flex: 1 }}>
           <View style={{ flex: 1, backgroundColor: '#fafbfc' }} />
           <View style={{ flex: 2, backgroundColor: '#fafbfc' }}>
-            <Icon
-              name="check-circle"
-              size={55}
-              type="font-awesome"
-              color="#ffd64d"
-              onPress={() => this.props.navigation.navigate('SelectRecipient')}
-            />
-            <Text style={{
-              textAlign: 'center',
-              fontSize: 20,
-            }}
-            >
-                            Your Gold Message was sent!
-            </Text>
           </View>
           <View style={{
             flex: 1, backgroundColor: '#fafbfc', marginBottom: 0, flexDirection: 'column-reverse',

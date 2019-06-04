@@ -6,7 +6,7 @@ import SignIn from './components/SignIn';
 import InBox from './components/InBox';
 import ComposeMessage from './components/ComposeMessage';
 import InputNumber from './components/InputNumber';
-import SelectRecipient from './components/SelectRecipient';
+import ComposeMessageRecipient from './components/ComposeMessageRecipient';
 import MessageDeliveryStatus from './components/MessageDeliveryStatus';
 import MessageConfirm from './components/MessageConfirm';
 import PhoneVerification from './components/PhoneVerification';
@@ -19,7 +19,7 @@ const screensViews = {
   ComposeMessage,
   MessageDeliveryStatus,
   MessageConfirm,
-  SelectRecipient,
+  ComposeMessageRecipient,
 };
 
 const AppNav = createStackNavigator({
@@ -44,8 +44,8 @@ const AppNav = createStackNavigator({
   MessageConfirm: {
     screen: screensViews.MessageConfirm,
   },
-  SelectRecipient: {
-    screen: screensViews.SelectRecipient,
+  ComposeMessageRecipient: {
+    screen: screensViews.ComposeMessageRecipient,
   },
   PhoneVerification: {
     screen: PhoneVerification,

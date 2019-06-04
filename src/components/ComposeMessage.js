@@ -13,9 +13,9 @@ import Header from './common/Header';
 import HeaderIconButton from './common/HeaderIconButton';
 import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
-import { composeMessageText } from '../actions/messages';
+import { composeMessageText } from '../actions/composeMessages';
 
-const selectRecipient = 'SelectRecipient';
+const ComposeMessageRecipient = 'ComposeMessageRecipient';
 
 const styles = StyleSheet.create({
 
@@ -36,7 +36,7 @@ class ComposeMessage extends Component {
       return
     }
 
-    this.props.navigation.navigate(selectRecipient)
+    this.props.navigation.navigate(ComposeMessageRecipient)
   }
 
   render() {
@@ -74,8 +74,8 @@ class ComposeMessage extends Component {
   }
 }
 
-const mapStateToProps = ({ messages }) => {
-  const { messageText } = messages
+const mapStateToProps = ({ composeMessages }) => {
+  const { messageText } = composeMessages
 
   return {
     messageText

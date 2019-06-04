@@ -15,7 +15,7 @@ import Colors from '../ui-conf/colors';
 
 // Strings
 const WINDOW = 'window';
-const SEL_RECIP = 'SelectRecipient';
+const SEL_RECIP = 'ComposeMessageRecipient';
 const PH_NUM = 'Phone Number';
 const MESS_DLY_STATUS = 'MessageDeliveryStatus';
 
@@ -80,7 +80,7 @@ class InputNumber extends Component {
               inputStyle={{
                 color: Colors.black, padding: 0, margin: 0, textAlign: 'center', fontSize: 20,
               }}
-              keyboardType="number-pad"
+              keyboardType="phone-pad"
               multiline={false}
               maxLength={11}
               numberOfLines={4}

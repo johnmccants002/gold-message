@@ -15,6 +15,7 @@ import {
 import Colors from '../ui-conf/colors';
 import Header from './common/Header';
 import HeaderIconButton from './common/HeaderIconButton';
+import { resetComposeMessage } from '../actions/composeMessages';
 
 // Strings
 const COMPOSE_MESSAGE = 'ComposeMessage';
@@ -64,6 +65,11 @@ class InBox extends Component {
     static navigationOptions = {
         header: null,
     };
+    
+    onNewGoldMessage = () => {
+        this.props.resetComposeMessage()
+        this.props.navigation.navigate(COMPOSE_MESSAGE)
+    }
 
     render() {
         // Only for demo.  Move call to componentDidMount
@@ -177,7 +183,7 @@ class InBox extends Component {
                 <Header
                     title={"New Gold Message"}
                     leftAvatar={{ source: { uri: demoImage } }}
-                    rightElement={() => <HeaderIconButton iconName={'plus'} onPress={() => this.props.navigation.navigate(COMPOSE_MESSAGE)} />}
+                    rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
                 />
                 <Text style={{ width : '100%', textAlign: 'center' }}>{displayName}</Text>
                 <ScrollView>
@@ -214,4 +220,4 @@ const mapStateToProps = ({ profile }) => {
         displayName
     }
 }
-export default connect(mapStateToProps)(InBox);
+export default connect(mapStateToProps, { resetComposeMessage })(InBox);

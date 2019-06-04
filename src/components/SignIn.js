@@ -7,10 +7,13 @@ import {
 } from 'react-native';
 
 import { Input } from 'react-native-elements';
+import Colors from '../ui-conf/colors';
 import { phoneAuthentication, authenticatedUser } from '../actions/profile';
 import AuthenticationButton from './common/AuthenticationButton';
 import AuthenticationTitle from './common/AuthenticationTitle';
 import AuthenticationScreen from './common/AuthenticationScreen';
+import ErrorModal from './common/ErrorModal';
+import { clearError } from '../actions/errors';
 
 
 const styles = StyleSheet.create({
@@ -50,7 +53,7 @@ class SignIn extends Component {
   componentDidMount() {
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       this.props.authenticatedUser(user)
-
+      //firebase.auth().signOut();
       if(!user || !user.displayName) {
         return
       }
@@ -84,25 +87,31 @@ class SignIn extends Component {
     this.props.phoneAuthentication(phoneNumber)
   }
 
+  onErrorDismissed = () => {
+    this.props.clearError()
+  }
+
   render() {
     const { phoneNumber } = this.state
+    const { loading, error } = this.props
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle } = styles
 
     return (
       <AuthenticationScreen>
+      <ErrorModal isVisible={error != undefined} message={error} onDismissed={this.onErrorDismissed} backgroundColor={Colors.white} textColor={Colors.gold1} />
         <AuthenticationTitle leadingText={'Phone Verification'} title={'Sign In'} />
 
         <Input
           containerStyle={inputContainerStyle}
           inputStyle={inputStyle}
           inputContainerStyle={inputComponentContainerStyle}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           placeholder="ENTER PHONE NUMBER"
           value={phoneNumber}
           onChangeText={(value) => this.setState({ phoneNumber: value})}
         />
 
-        <AuthenticationButton title="Sign In" onPress={() => this.authenticate()} />
+        <AuthenticationButton title="Sign In" onPress={() => this.authenticate()} loading={loading} />
 
         <Text style={styles.instructions}>Recover password</Text>
       </AuthenticationScreen>
@@ -111,11 +120,13 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = ({ profile }) => {
-  const { verification } = profile
+  const { verification, loading, error } = profile
 
   return {
-    verification
+    verification,
+    loading,
+    error,
   }
 }
 
-export default connect(mapStateToProps, { phoneAuthentication, authenticatedUser } )(SignIn);
+export default connect(mapStateToProps, { phoneAuthentication, authenticatedUser, clearError } )(SignIn);

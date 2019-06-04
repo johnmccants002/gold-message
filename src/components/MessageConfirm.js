@@ -16,7 +16,7 @@ import {
 
 // Strings
 const WINDOW = 'window';
-const selectRecipient = 'SelectRecipient';
+const ComposeMessageRecipient = 'ComposeMessageRecipient';
 const inbox = 'InBox';
 
 const screenHeight = Dimensions.get(WINDOW).height;
@@ -46,7 +46,7 @@ class ComposeMessage extends Component {
             <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000' }}>New Gold Message</Text>
           </View>
           <View style={{ padding: 15 }}>
-            <Text style={{ color: '#ffd64d', fontSize: 17 }} onPress={() => this.props.navigation.navigate(selectRecipient)}>Next</Text>
+            <Text style={{ color: '#ffd64d', fontSize: 17 }} onPress={() => this.props.navigation.navigate(ComposeMessageRecipient)}>Next</Text>
           </View>
         </View>
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
