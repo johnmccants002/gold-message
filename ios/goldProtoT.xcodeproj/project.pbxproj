@@ -877,8 +877,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Z3XH553T3R;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 7HTV4A5W6Y;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1525,10 +1525,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = Z3XH553T3R;
+				DEVELOPMENT_TEAM = 7HTV4A5W6Y;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1542,9 +1542,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldmessage.test2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldmessage.goldmessage;
 				PRODUCT_NAME = goldProtoT;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Gold Message";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1554,10 +1554,10 @@
 			baseConfigurationReference = 9FC03996C0448181345E3160 /* Pods-goldProtoT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z3XH553T3R;
+				DEVELOPMENT_TEAM = 7HTV4A5W6Y;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1571,9 +1571,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldmessage.test2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldmessage.goldmessage;
 				PRODUCT_NAME = goldProtoT;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Gold Message-App Store";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
