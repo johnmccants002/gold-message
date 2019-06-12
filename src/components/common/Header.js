@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
     textAlign: 'center' 
   },
   containerStyleOuter: {
-    shadowOffset: { width: 4, height: 4 }
+    shadowOffset: { width: 4, height: 4 },
+    borderBottomColor: colors.gray1,
+    borderBottomWidth: .5,
   },
 });
 

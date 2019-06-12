@@ -1,5 +1,5 @@
 import { 
-    COMPOSE_MESSAGE_TEXT, GOLD_MESSAGE_SENT, GOLD_MESSAGE_SENT_FAILED, RESET_COMPOSE_MESSAGE, CLEAR_ERROR, GOLD_MESSAGE_SENDING,
+    COMPOSE_MESSAGE_TEXT, GOLD_MESSAGE_SENT, GOLD_MESSAGE_SENT_FAILED, RESET_COMPOSE_MESSAGE, CLEAR_ERROR, GOLD_MESSAGE_SENDING, UPDATE_PHONE_NUMBER,
 } from '../actions/types';
   
   const INITIAL_STATE = {
@@ -7,6 +7,7 @@ import {
       messageSent: false,
       messageError: undefined,
       loading: false,
+      phoneNumber: '',
   };
   
   export default (state = INITIAL_STATE, action) => {
@@ -23,6 +24,8 @@ import {
         return { ...state, messageSent : false, messageError: payload, loading: false }
       case COMPOSE_MESSAGE_TEXT:
         return { ...state, messageText : payload }
+      case UPDATE_PHONE_NUMBER:
+        return { ...state, phoneNumber: payload }
       case RESET_COMPOSE_MESSAGE:
         return {...INITIAL_STATE }
       default:

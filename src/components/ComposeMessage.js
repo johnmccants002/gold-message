@@ -13,7 +13,7 @@ import Header from './common/Header';
 import HeaderIconButton from './common/HeaderIconButton';
 import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
-import { composeMessageText } from '../actions/composeMessages';
+import { composeMessageText, resetComposeMessage } from '../actions/composeMessages';
 
 const ComposeMessageRecipient = 'ComposeMessageRecipient';
 
@@ -39,6 +39,11 @@ class ComposeMessage extends Component {
     this.props.navigation.navigate(ComposeMessageRecipient)
   }
 
+  onBack = () => {
+    this.props.resetComposeMessage()
+    this.props.navigation.goBack()
+  }
+
   render() {
     const { messageText } = this.props
     
@@ -46,7 +51,7 @@ class ComposeMessage extends Component {
       <View style={{ flex: 1 }}>
         <Header
           title={"New Gold Message"}
-          leftElement={() => <HeaderIconButton iconName={'times'} onPress={() => this.props.navigation.goBack()} />}
+          leftElement={() => <HeaderIconButton iconName={'times'} onPress={() => this.onBack()} />}
           rightElement={() => <HeaderTextButton title={'Next'} onPress={() => this.onNext() } />}
         />
         
@@ -82,4 +87,4 @@ const mapStateToProps = ({ composeMessages }) => {
   }
 }
 
-export default connect(mapStateToProps, { composeMessageText })(ComposeMessage)
+export default connect(mapStateToProps, { composeMessageText, resetComposeMessage })(ComposeMessage)

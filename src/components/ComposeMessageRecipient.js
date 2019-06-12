@@ -15,7 +15,7 @@ import HeaderIconButton from './common/HeaderIconButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import GoldButton from './common/GoldButton';
 
-import { sendGoldMessage } from '../actions/composeMessages'
+import { sendGoldMessage, updatePhoneNumber } from '../actions/composeMessages'
 import { Icon } from 'react-native-elements';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
@@ -55,12 +55,10 @@ class ComposeMessageRecipient extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { phoneNumber : '' }
   }
 
   sendGoldMessage = () => {
-    const { messageText, messageSent } = this.props
-    const { phoneNumber } = this.state
+    const { messageText, messageSent, phoneNumber } = this.props
 
     if(messageSent) {
       this.props.navigation.navigate(INBOX)
@@ -85,8 +83,7 @@ class ComposeMessageRecipient extends Component {
   
   render() {
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle, contentContainerStyle, messageSentStyle } = styles
-    const { phoneNumber } = this.state
-    const { messageSent, messageError, loading } = this.props
+    const { messageSent, messageError, loading, phoneNumber } = this.props
 
     const containerTitle = messageSent ? '' : 'Phone Number'
     const buttonText = messageSent ? 'Sent!' : 'Send Gold Message'
@@ -110,7 +107,7 @@ class ComposeMessageRecipient extends Component {
                   maxLength={16}
                   keyboardType="phone-pad"
                   value={phoneNumber}
-                  onChangeText={(value) => { this.setState({ phoneNumber: value })}}
+                  onChangeText={(value) => { this.props.updatePhoneNumber(value) }}
                   numberOfLines={1}
                 />
               }
@@ -133,13 +130,14 @@ class ComposeMessageRecipient extends Component {
   }
 }
 const mapStateToProps = ({ composeMessages }) => {
-  const { messageText, messageSent, messageError, loading } = composeMessages
+  const { messageText, messageSent, messageError, loading, phoneNumber } = composeMessages
   
   return {
     messageText,
     messageSent,
     messageError,
     loading,
+    phoneNumber,
   }
 }
-export default connect(mapStateToProps, { sendGoldMessage, clearError })(ComposeMessageRecipient);
+export default connect(mapStateToProps, { sendGoldMessage, clearError, updatePhoneNumber })(ComposeMessageRecipient);

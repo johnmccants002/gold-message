@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import firebase from 'react-native-firebase'
 import {
     View,
     StyleSheet,
@@ -8,7 +9,7 @@ import {
 } from 'react-native'
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
-import { refreshInbox, clearUnread } from '../actions/inbox'
+import { selectedItem, refreshInbox, clearUnread, getIncomingGoldMessage } from '../actions/inbox'
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
@@ -17,6 +18,7 @@ import InboxGoldMessage from './InboxGoldMessage';
 
 // Strings
 const COMPOSE_MESSAGE = 'ComposeMessage'
+const INBOX_PROFILE = 'InboxProfile'
 
 const styles = StyleSheet.create({
     containerStyle: {
@@ -38,12 +40,15 @@ class Inbox extends Component {
     }
 
     componentDidMount() {
-        this.props.refreshInbox()
+        const usersRef = firebase.firestore().collection('users');
+        this.userDetailsRef = usersRef.doc(firebase.auth().currentUser.phoneNumber).collection('inbox').onSnapshot((snapshot) => {
+            this.props.refreshInbox()
+        })
     }
 
     goldMessageSelected = (item) => {
-        console.log('selected item', item)
-        this.props.clearUnread(item.phoneNumber)
+        this.props.selectedItem(item)
+        this.props.navigation.navigate(INBOX_PROFILE)
     }
     
     renderItem = ({ item }) => {
@@ -91,4 +96,4 @@ const mapStateToProps = ({ profile, inbox }) => {
         loading
     }
 }
-export default connect(mapStateToProps, { refreshInbox, clearUnread, resetComposeMessage })(Inbox)
+export default connect(mapStateToProps, { selectedItem, getIncomingGoldMessage, refreshInbox, clearUnread, resetComposeMessage })(Inbox)

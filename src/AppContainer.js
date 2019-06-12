@@ -10,6 +10,7 @@ import ComposeMessageRecipient from './components/ComposeMessageRecipient';
 import MessageDeliveryStatus from './components/MessageDeliveryStatus';
 import MessageConfirm from './components/MessageConfirm';
 import PhoneVerification from './components/PhoneVerification';
+import InboxProfile from './components/InboxProfile';
 
 const screensViews = {
   SignIn,
@@ -49,6 +50,9 @@ const AppNav = createStackNavigator({
   },
   PhoneVerification: {
     screen: PhoneVerification,
+  },
+  InboxProfile: {
+    screen: InboxProfile,
   },
 }, {
   initialRouteName: 'SignIn',

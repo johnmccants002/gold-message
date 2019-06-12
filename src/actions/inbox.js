@@ -1,8 +1,9 @@
 import firebase from 'react-native-firebase'
+import { REFRESHING_INBOX, INBOX_REFRESHED, REFRESHING_INBOX_ERROR, SELECTED_USER_GOLD_MESSAGES, SELECTED_USER, SELECTED_USER_GOLD_MESSAGES_LOADING } from './types';
+import { errorReceived } from './errors';
+
 const usersRef = firebase.firestore().collection('users');
 
-import { REFRESHING_INBOX, INBOX_REFRESHED, REFRESHING_INBOX_ERROR } from './types';
-import { errorReceived } from './errors';
 
 
 export const refreshInbox = () => {
@@ -35,6 +36,31 @@ export const refreshInbox = () => {
     }
 }
 
+export const selectedItem = (item) => {
+    return { type: SELECTED_USER,  payload: item }
+}
+
+export const getIncomingGoldMessage = (phone) => {
+    return async(dispatch, getStore) => {
+        const { profile } = getStore()
+        const { user } = profile
+
+        dispatch({ type: SELECTED_USER_GOLD_MESSAGES_LOADING })
+        try {
+            const userPhoneNumber = user.phoneNumber
+            const goldMessagesSnapshot = await usersRef.doc(userPhoneNumber).collection('inbox').doc(phone).collection('goldMessages').get()
+            const goldMessages = goldMessagesSnapshot.docs.map((doc) => { 
+                    return { goldMessage: doc.id, ...doc.data() } 
+            })
+            
+
+            dispatch({ type: SELECTED_USER_GOLD_MESSAGES, payload: goldMessages })
+        }catch(e) {
+            dispatch(errorReceived(REFRESHING_INBOX_ERROR, e))
+        }
+    }
+}
+
 
 export const clearUnread = (phone) => {
     return async(dispatch, getStore) => {
@@ -44,7 +70,7 @@ export const clearUnread = (phone) => {
 
         try {
             const userPhoneNumber = user.phoneNumber
-            await usersRef.doc(userPhoneNumber).collection('inbox').doc(phone).update({ unread: 0 })
+            await usersRef.doc(userPhoneNumber).collection('inbox').doc(phone).set({ unread: 0 }, {merge: true})
 
             const updateItems = items.map((item) => {
                 if(item.phoneNumber == phone) {

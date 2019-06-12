@@ -4,21 +4,12 @@ import moment from 'moment'
 
 import {
   StyleSheet,
-  TouchableOpacity,
   View,
   Text
 } from 'react-native';
+import GoldListItem from './common/GoldListItem';
 
 const styles = StyleSheet.create({
-  goldMessageContainer: {
-      flex: 1,
-      flexDirection: 'column',
-      margin: 10,
-      paddingTop: 10,
-      paddingBottom: 10,
-      borderBottomColor: colors.gray1,
-      borderBottomWidth: .25,
-  },
   goldMessageLineContainer: {
       flex: 1,
       flexDirection: 'row'
@@ -52,16 +43,16 @@ const styles = StyleSheet.create({
   });
 
 const InboxGoldMessage = ({ item, onPress }) => {
-  const { goldMessageContainer, goldMessageLineContainer, titleStyle, subtitleStyle, sentTimeStyle, messageCountContainer, messageCountStyle } = styles
+  const { goldMessageLineContainer, titleStyle, subtitleStyle, sentTimeStyle, messageCountContainer, messageCountStyle } = styles
   const { displayName, lastGoldMessage, lastGoldMessageTime, messageCount, unread } = item
-  const lastGoldMessageTimeMillis = lastGoldMessageTime.toMillis()
-  const time = moment(lastGoldMessageTimeMillis).fromNow()
+  const lastGoldMessageTimeMillis = lastGoldMessageTime ? lastGoldMessageTime.toMillis() : 0
+  const time = lastGoldMessageTimeMillis > 0 ? moment(lastGoldMessageTimeMillis).fromNow() : ''
   const containsUnread = unread > 0
   const messageCountContainerColor = { backgroundColor: containsUnread ? colors.gold1 : colors.lightGray }
   const messageCountTextColor = { color: containsUnread ? colors.white : colors.gold1, fontSize: 12 }
 
   return (
-      <TouchableOpacity style={goldMessageContainer} onPress={onPress}>
+      <GoldListItem onPress={onPress}>
           <View style={goldMessageLineContainer}>
               <Text style={titleStyle}>{displayName}</Text>
               <Text style={sentTimeStyle}>{time}</Text>
@@ -76,7 +67,7 @@ const InboxGoldMessage = ({ item, onPress }) => {
                 }
               </View>
           </View>
-      </TouchableOpacity>
+      </GoldListItem>
   )
 }
 

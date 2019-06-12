@@ -9,8 +9,7 @@ import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   containerStyle: {
-    padding: 15,
-    paddingTop: 10,
+    padding: 10,
   }
 });
 
