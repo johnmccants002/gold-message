@@ -77,7 +77,7 @@ class SignUp extends Component {
         const { displayName } = this.props
 
         if(prevDisplayName !== displayName) {
-            this.props.navigation.navigate('InBox')
+            this.props.navigation.navigate('Inbox')
         }
     }
 

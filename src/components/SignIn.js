@@ -61,7 +61,7 @@ class SignIn extends Component {
       //Leaving in here for testing purposes, this will clear the display name to facilitate testing signup
       //user.updateProfile({ displayName: ``})
       if(user.displayName) {
-        this.props.navigation.navigate('InBox')
+        this.props.navigation.navigate('Inbox')
       } else {
         this.props.navigation.navigate('SignUp')
       }

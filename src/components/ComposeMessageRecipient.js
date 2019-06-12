@@ -20,7 +20,7 @@ import { Icon } from 'react-native-elements';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
 
-const INBOX = 'InBox'
+const INBOX = 'Inbox'
 
 
 const styles = StyleSheet.create({

@@ -3,7 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import InBox from './components/InBox';
+import Inbox from './components/Inbox';
 import ComposeMessage from './components/ComposeMessage';
 import InputNumber from './components/InputNumber';
 import ComposeMessageRecipient from './components/ComposeMessageRecipient';
@@ -14,7 +14,7 @@ import PhoneVerification from './components/PhoneVerification';
 const screensViews = {
   SignIn,
   SignUp,
-  InBox,
+  Inbox,
   InputNumber,
   ComposeMessage,
   MessageDeliveryStatus,
@@ -29,8 +29,8 @@ const AppNav = createStackNavigator({
   SignIn: {
     screen: screensViews.SignIn,
   },
-  InBox: {
-    screen: screensViews.InBox,
+  Inbox: {
+    screen: screensViews.Inbox,
   },
   InputNumber: {
     screen: screensViews.InputNumber,

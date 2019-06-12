@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     }
 })
 
-class InBox extends Component {
+class Inbox extends Component {
     static navigationOptions = {
         header: null,
     }
@@ -91,4 +91,4 @@ const mapStateToProps = ({ profile, inbox }) => {
         loading
     }
 }
-export default connect(mapStateToProps, { refreshInbox, clearUnread, resetComposeMessage })(InBox)
+export default connect(mapStateToProps, { refreshInbox, clearUnread, resetComposeMessage })(Inbox)

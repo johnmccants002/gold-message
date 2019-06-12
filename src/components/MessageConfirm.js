@@ -17,7 +17,7 @@ import {
 // Strings
 const WINDOW = 'window';
 const ComposeMessageRecipient = 'ComposeMessageRecipient';
-const inbox = 'InBox';
+const inbox = 'Inbox';
 
 const screenHeight = Dimensions.get(WINDOW).height;
 

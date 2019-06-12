@@ -57,7 +57,7 @@ class PhoneVerification extends Component {
 
     if(phoneVerified && phoneVerified !== prevPhoneVerified) {
       if(user.displayName) {
-        this.props.navigation.navigate('InBox')
+        this.props.navigation.navigate('Inbox')
       } else {
         this.props.navigation.navigate('SignUp')
       }
