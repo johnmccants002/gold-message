@@ -18,17 +18,24 @@ export const sendGoldMessage = (phone, messageText) => {
         try {
             dispatch({ type: GOLD_MESSAGE_SENDING  })
             const userPhoneNumber = user.phoneNumber
+            const createdAt = firebase.firestore.Timestamp.fromDate(new Date())
 
             const senderUser = usersRef.doc(userPhoneNumber)
             const recipientUser = usersRef.doc(phone)
+                                    
+            const increment = firebase.firestore.FieldValue.increment(1);
 
-            
-            const inboxAddPromise = recipientUser.collection('inbox').doc(userPhoneNumber).collection('goldMessages').add({ goldMessage: messageText })
+            const inboxLastMessagePromise = recipientUser.collection('inbox').doc(userPhoneNumber).update({ lastGoldMessage: messageText, lastGoldMessageTime: createdAt, unread: increment })
+            const inboxAddPromise = recipientUser.collection('inbox').doc(userPhoneNumber).collection('goldMessages').add({ goldMessage: messageText, created: createdAt })
+
+            const outboxLastMessagePromise = senderUser.collection('outbox').doc(phone).set({ lastGoldMessage: messageText, lastGoldMessageTime: createdAt })
             const outboxAddPromise = senderUser.collection('outbox').doc(phone).collection('goldMessages').add({ goldMessage: messageText })
+
+            const goldMessagesLastRecipientPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).set({ lastRecipient: phone })
             const goldMessagesAddPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).collection('recipients').doc(phone).set({})
             const userDetailsPromise = recipientUser.get()
 
-            const { 0: inboxAdd, 1: outboxAdd, 2: goldMessagesAdd, 3: userDetails} = await Promise.all([inboxAddPromise, outboxAddPromise, goldMessagesAddPromise, userDetailsPromise])
+            const { 6: userDetails} = await Promise.all([inboxLastMessagePromise, inboxAddPromise, outboxLastMessagePromise, outboxAddPromise, goldMessagesLastRecipientPromise, goldMessagesAddPromise, userDetailsPromise])
             
             const smsLink = `sms:${phone};?&body=${messageText}`
             if(userDetails.get('profile') == undefined) {
@@ -41,7 +48,6 @@ export const sendGoldMessage = (phone, messageText) => {
         }
     }
 }
-
 export const composeMessageText = (messageText) => {
     return { type: COMPOSE_MESSAGE_TEXT, payload: messageText }
 }

@@ -1,223 +1,94 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
     View,
     StyleSheet,
-    ScrollView,
-    Linking,
-    SafeAreaView,
-    Text
-} from 'react-native';
-import { connect } from 'react-redux'
-import {
-    ListItem,
-} from 'react-native-elements';
+    FlatList,
+    RefreshControl,
+} from 'react-native'
+import Header from './common/Header'
+import HeaderIconButton from './common/HeaderIconButton'
+import { refreshInbox, clearUnread } from '../actions/inbox'
 
-import Colors from '../ui-conf/colors';
-import Header from './common/Header';
-import HeaderIconButton from './common/HeaderIconButton';
-import { resetComposeMessage } from '../actions/composeMessages';
+const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
+
+import { resetComposeMessage } from '../actions/composeMessages'
+import InboxGoldMessage from './InboxGoldMessage';
 
 // Strings
-const COMPOSE_MESSAGE = 'ComposeMessage';
-
-const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg';
-
-const genericAlert = () => {
-    Linking.openURL(`sms:+19725551244?body=Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt${new Date()}`);
-};
+const COMPOSE_MESSAGE = 'ComposeMessage'
 
 const styles = StyleSheet.create({
-    titleStyle: {
-        color: Colors.black,
-        fontSize: 20,
-        marginLeft: 60,
-        fontWeight: 'bold',
-        width: 200,
+    containerStyle: {
+        flex: 1
     },
-    containerStyleOuter: {
-        marginBottom: 10,
-        borderBottomWidth: 0.2,
-        paddingBottom: 10,
-        borderBottomColor: Colors.white,
-        backgroundColor: Colors.white,
-        shadowOffset: { width: 4, height: 4 }
-    },
-    containerStyleInner: {
-        backgroundColor: Colors.white,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 10,
-        borderBottomWidth: 0.6,
-        borderBottomColor: Colors.gray1,
-    },
-    titleStyleInner: {
-        color: Colors.white,
-        marginLeft: -10,
-        marginBottom: 8,
-        fontWeight: 'bold',
-        width: 200,
-    },
-    righTitleStyle: { marginTop: -5 },
-    subtitleStyle: { marginLeft: -10 },
-});
+    goldMessageListContainer: {
+        flex: 1,
+    }
+})
 
 class InBox extends Component {
     static navigationOptions = {
         header: null,
-    };
-    
+    }
+
     onNewGoldMessage = () => {
         this.props.resetComposeMessage()
         this.props.navigation.navigate(COMPOSE_MESSAGE)
     }
 
-    render() {
-        // Only for demo.  Move call to componentDidMount
-        const demoData = [
-            {
-                name: 'Bruce Farha',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Bruce Farha',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Amy Farha3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-            {
-                name: 'Chris Jackson3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur',
-            },
-        ];
+    componentDidMount() {
+        this.props.refreshInbox()
+    }
 
-        const { displayName } = this.props
+    goldMessageSelected = (item) => {
+        console.log('selected item', item)
+        this.props.clearUnread(item.phoneNumber)
+    }
+    
+    renderItem = ({ item }) => {
 
         return (
-            <View>
+            <InboxGoldMessage key={item.phoneNumber} item={item} onPress={() => this.goldMessageSelected(item)} />
+        )
+    }
+
+    render() {
+        const { items, loading } = this.props
+        const { containerStyle, goldMessageListContainer } = styles
+
+        return (
+            <View style={containerStyle}>
                 <Header
                     title={"New Gold Message"}
                     leftAvatar={{ source: { uri: demoImage } }}
                     rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
                 />
-                <Text style={{ width : '100%', textAlign: 'center' }}>{displayName}</Text>
-                <ScrollView>
-                    <SafeAreaView>
-                        <View>
-                            {
-                                demoData.map((l, i) => (
-                                    <ListItem
-                                        key={i}
-                                        title={l.name}
-                                        underlayColor={Colors.gold1}
-                                        badge={{
-                                            value: 3, containerStyle: { marginTop: -20 }, badgeStyle: { padding: 5 }, status: 'warning',
-                                        }}
-                                        subtitle={l.subtitle}
-                                        containerStyle={styles.containerStyleInner}
-                                        titleStyle={styles.titleStyleInner}
-                                        righTitleStyle={styles.righTitleStyle}
-                                        subtitleStyle={styles.subtitleStyle}
-                                    />
-                                ))
-                            }
-                        </View>
-                    </SafeAreaView>
-                </ScrollView>
+                <FlatList
+                    style={goldMessageListContainer}
+                    extraData={items}
+                    data={items}
+                    keyExtractor={item => `${item.phoneNumber}`}
+                    renderItem={this.renderItem}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={loading}
+                            onRefresh={() => this.props.refreshInbox() }
+                        />
+                    }
+                    /> 
             </View>
-        );
+        )
     }
 }
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, inbox }) => {
     const { displayName } = profile
+    const { items, loading } = inbox
 
     return {
-        displayName
+        displayName,
+        items,
+        loading
     }
 }
-export default connect(mapStateToProps, { resetComposeMessage })(InBox);
+export default connect(mapStateToProps, { refreshInbox, clearUnread, resetComposeMessage })(InBox)
