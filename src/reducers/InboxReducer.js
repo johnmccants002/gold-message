@@ -6,6 +6,9 @@ import {
     SELECTED_USER_GOLD_MESSAGES_LOADING,
     SELECTED_USER,
     SELECTED_USER_GOLD_MESSAGES,
+    SENT_GOLD_MESSAGES_LOADING,
+    SENT_GOLD_MESSAGES_ERROR,
+    SENT_GOLD_MESSAGES_RECEIVED,
 } from '../actions/types';
   
   const INITIAL_STATE = {
@@ -22,11 +25,15 @@ import {
     switch (type) {
       case CLEAR_ERROR:
         return { ...state, error : undefined }
+      case SENT_GOLD_MESSAGES_LOADING:
       case SELECTED_USER_GOLD_MESSAGES_LOADING:
       case REFRESHING_INBOX:
         return { ...state, error : undefined, loading: true}
       case INBOX_REFRESHED:
         return { ...state, items: payload, error : undefined, loading: false }
+      case SENT_GOLD_MESSAGES_RECEIVED:
+        return { ...state, sentGoldMessages: payload, error : payload, loading: false }
+      case SENT_GOLD_MESSAGES_ERROR:
       case REFRESHING_INBOX_ERROR:
         return { ...state, error : payload, loading: false }
       case SELECTED_USER:

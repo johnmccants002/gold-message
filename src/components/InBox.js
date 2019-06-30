@@ -11,14 +11,13 @@ import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
 import { selectedItem, refreshInbox, clearUnread, getIncomingGoldMessage } from '../actions/inbox'
 
-const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
-
-import { resetComposeMessage } from '../actions/composeMessages'
 import InboxGoldMessage from './InboxGoldMessage';
 
-// Strings
-const COMPOSE_MESSAGE = 'ComposeMessage'
-const INBOX_PROFILE = 'InboxProfile'
+import { resetComposeMessage } from '../actions/composeMessages'
+import { COMPOSE_MESSAGE, INBOX_PROFILE, PROFILE, EDIT_PROFILE } from '../actions/screens';
+
+
+const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
 const styles = StyleSheet.create({
     containerStyle: {
@@ -58,15 +57,19 @@ class Inbox extends Component {
         )
     }
 
+    onProfilePress = () => {
+        this.props.navigation.navigate(PROFILE)
+    }
+
     render() {
-        const { items, loading } = this.props
+        const { items, loading, photoURL } = this.props
         const { containerStyle, goldMessageListContainer } = styles
 
         return (
             <View style={containerStyle}>
                 <Header
                     title={"New Gold Message"}
-                    leftAvatar={{ source: { uri: demoImage } }}
+                    leftAvatar={{ source: { uri: photoURL ? photoURL : demoImage }, onPress: this.onProfilePress }}
                     rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
                 />
                 <FlatList
@@ -87,11 +90,13 @@ class Inbox extends Component {
     }
 }
 const mapStateToProps = ({ profile, inbox }) => {
-    const { displayName } = profile
+    const { displayName, user, photoURL } = profile
     const { items, loading } = inbox
 
     return {
+        user,
         displayName,
+        photoURL,
         items,
         loading
     }

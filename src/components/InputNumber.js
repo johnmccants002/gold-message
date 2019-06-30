@@ -39,7 +39,7 @@ class InputNumber extends Component {
           height: 55,
           backgroundColor: Colors.white,
           shadowOffset: 4,
-          borderBottomColor: Colors.gray1,
+          borderBottomColor: Colors.windowMuted,
           borderBottomWidth: 0.6,
         }}
         >

@@ -15,6 +15,7 @@ import ErrorModal from './common/ErrorModal';
 
 import { completeSignIn, authenticatedUser } from '../actions/profile';
 import { clearError } from '../actions/errors';
+import { INBOX } from '../actions/screens';
 
 // Placeholders, labels
 const fName = 'First Name';
@@ -77,7 +78,7 @@ class SignUp extends Component {
         const { displayName } = this.props
 
         if(prevDisplayName !== displayName) {
-            this.props.navigation.navigate('Inbox')
+            this.props.navigation.navigate(INBOX)
         }
     }
 

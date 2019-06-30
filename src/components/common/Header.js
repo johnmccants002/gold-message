@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   containerStyleOuter: {
     shadowOffset: { width: 4, height: 4 },
-    borderBottomColor: colors.gray1,
+    borderBottomColor: colors.windowMuted,
     borderBottomWidth: .5,
   },
 });

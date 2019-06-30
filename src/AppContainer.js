@@ -11,6 +11,9 @@ import MessageDeliveryStatus from './components/MessageDeliveryStatus';
 import MessageConfirm from './components/MessageConfirm';
 import PhoneVerification from './components/PhoneVerification';
 import InboxProfile from './components/InboxProfile';
+import Profile from './components/Profile';
+import EditProfile from './components/EditProfile';
+import GoldMessagesSent from './components/GoldMessagesSent';
 
 const screensViews = {
   SignIn,
@@ -54,6 +57,15 @@ const AppNav = createStackNavigator({
   InboxProfile: {
     screen: InboxProfile,
   },
+  Profile: {
+    screen: Profile,
+  },
+  EditProfile: {
+    screen: EditProfile,
+  },
+  GoldMessagesSent: {
+    screen: GoldMessagesSent,
+  }
 }, {
   initialRouteName: 'SignIn',
   defaultNavigationOptions: {

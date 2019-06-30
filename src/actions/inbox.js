@@ -1,5 +1,5 @@
 import firebase from 'react-native-firebase'
-import { REFRESHING_INBOX, INBOX_REFRESHED, REFRESHING_INBOX_ERROR, SELECTED_USER_GOLD_MESSAGES, SELECTED_USER, SELECTED_USER_GOLD_MESSAGES_LOADING } from './types';
+import { REFRESHING_INBOX, INBOX_REFRESHED, REFRESHING_INBOX_ERROR, SELECTED_USER_GOLD_MESSAGES, SELECTED_USER, SELECTED_USER_GOLD_MESSAGES_LOADING, SENT_GOLD_MESSAGES_LOADING, SENT_GOLD_MESSAGES_ERROR, SENT_GOLD_MESSAGES_RECEIVED } from './types';
 import { errorReceived } from './errors';
 
 const usersRef = firebase.firestore().collection('users');
@@ -11,8 +11,6 @@ export const refreshInbox = () => {
         const { profile } = getStore()
         const { user } = profile
         const { phoneNumber } = user
-
-        console.log('phoneNumber', phoneNumber)
         
         dispatch({ type: REFRESHING_INBOX })
         try {
@@ -83,6 +81,53 @@ export const clearUnread = (phone) => {
             dispatch({ type: INBOX_REFRESHED, payload: updateItems })
         }catch(e) {
             dispatch(errorReceived(REFRESHING_INBOX_ERROR, e))
+        }
+    }
+}
+
+export const getSentGoldMessages = () => {
+    return async(dispatch, getStore) => {
+        const { profile } = getStore()
+        const { user } = profile
+        const { phoneNumber } = user
+        
+        dispatch({ type: SENT_GOLD_MESSAGES_LOADING })
+        try {
+
+            const sentGoldMessages = await usersRef.doc(phoneNumber).collection('goldMessages').get()
+            
+            const goldMessagesPromises = sentGoldMessages.docs.map((goldMessage) => {
+                return new Promise(async(resolve, reject) => {
+                    try {
+                        const { lastRecipient, lastSent } = goldMessage.data()
+
+                        const goldMessageRecipientsCollection = await goldMessage.ref.collection('recipients').get()
+                        
+                        const goldMessageRecipientsPromises = goldMessageRecipientsCollection.docs.map((doc) => {
+                            return usersRef.doc(doc.id).get()
+                        })
+                        const goldMessageRecipients = await Promise.all(goldMessageRecipientsPromises)
+                        const recipients = goldMessageRecipients.map((goldMessageRecipient) => {
+                            const goldMessageRecipientData = goldMessageRecipient.data()
+                            const { profile } = goldMessageRecipientData || { }
+
+                            return {...(profile || {}), ...(goldMessageRecipientData || {}), phoneNumber: goldMessageRecipient.id }
+                        })
+
+                        return resolve({ goldMessage: goldMessage.id, lastRecipient, lastSent, recipients: recipients })
+                    } catch (e) {
+                        console.log('e', e)
+                    }
+                    return resolve({ goldMessage: doc.id, recipients: [] })
+                })
+            })
+            
+            const goldMessages = await Promise.all(goldMessagesPromises)
+            
+            dispatch({ type: SENT_GOLD_MESSAGES_RECEIVED, payload: goldMessages })
+            
+        }catch(e) {
+            dispatch(errorReceived(SENT_GOLD_MESSAGES_ERROR, e))
         }
     }
 }

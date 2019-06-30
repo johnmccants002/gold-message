@@ -5,7 +5,8 @@ import {
     StyleSheet,
     FlatList,
     RefreshControl,
-    Text
+    Text,
+    Linking
 } from 'react-native'
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
@@ -53,8 +54,9 @@ class InboxProfile extends Component {
     onNewGoldMessage = () => {
         const { selectedUser } = this.props
         const { phoneNumber } = selectedUser
-        this.props.updatePhoneNumber(phoneNumber)
-        this.props.navigation.navigate(COMPOSE_MESSAGE)
+
+        const smsLink = `sms:${phoneNumber}`
+        Linking.openURL(smsLink);
     }
 
     componentDidMount() {
@@ -89,7 +91,7 @@ class InboxProfile extends Component {
             <View style={containerStyle}>
                 <Header
                     title={displayName}
-                    leftElement={() => <HeaderIconButton iconName={'caret-left'} onPress={this.onBack} />}
+                    leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={this.onBack} />}
                     rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
                 />
                 <FlatList

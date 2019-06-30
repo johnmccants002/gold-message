@@ -12,6 +12,8 @@ import {
 import {
   Button, Input, ThemeProvider, Icon,
 } from 'react-native-elements';
+import colors from '../ui-conf/colors';
+import { COMPOSE_MESSAGE_RECIPIENT } from '../actions/screens';
 
 // Strings
 const WINDOW = 'window';
@@ -37,7 +39,7 @@ class MessageDeliveryStatus extends Component {
           height: 55,
           backgroundColor: '#fff',
           shadowOffset: 4,
-          borderBottomColor: '#ccc',
+          borderBottomColor: colors.windowMuted,
           borderBottomWidth: 0.6,
         }}
         >
@@ -59,7 +61,7 @@ class MessageDeliveryStatus extends Component {
               size={29}
               type="font-awesome"
               color="#fff"
-              onPress={() => this.props.navigation.navigate('ComposeMessageRecipient')}
+              onPress={() => this.props.navigation.navigate(COMPOSE_MESSAGE_RECIPIENT)}
             />
           </View>
         </View>

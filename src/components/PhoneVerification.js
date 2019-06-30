@@ -11,6 +11,7 @@ import { verifyPhoneNumber, authenticatedUser } from '../actions/profile';
 import AuthenticationButton from './common/AuthenticationButton';
 import AuthenticationScreen from './common/AuthenticationScreen';
 import AuthenticationTitle from './common/AuthenticationTitle';
+import { INBOX, SIGN_UP } from '../actions/screens';
 
 const styles = StyleSheet.create({
   inputContainerStyle: {
@@ -57,9 +58,9 @@ class PhoneVerification extends Component {
 
     if(phoneVerified && phoneVerified !== prevPhoneVerified) {
       if(user.displayName) {
-        this.props.navigation.navigate('Inbox')
+        this.props.navigation.navigate(INBOX)
       } else {
-        this.props.navigation.navigate('SignUp')
+        this.props.navigation.navigate(SIGN_UP)
       }
     }
   }

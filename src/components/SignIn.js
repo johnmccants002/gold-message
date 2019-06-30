@@ -14,6 +14,7 @@ import AuthenticationTitle from './common/AuthenticationTitle';
 import AuthenticationScreen from './common/AuthenticationScreen';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
+import { INBOX, SIGN_UP, PHONE_VERIFICATION } from '../actions/screens';
 
 
 const styles = StyleSheet.create({
@@ -61,9 +62,9 @@ class SignIn extends Component {
       //Leaving in here for testing purposes, this will clear the display name to facilitate testing signup
       //user.updateProfile({ displayName: ``})
       if(user.displayName) {
-        this.props.navigation.navigate('Inbox')
+        this.props.navigation.navigate(INBOX)
       } else {
-        this.props.navigation.navigate('SignUp')
+        this.props.navigation.navigate(SIGN_UP)
       }
     })
   }
@@ -77,7 +78,7 @@ class SignIn extends Component {
     const { verification } = this.props
 
     if(prevVerification !== verification) {
-      this.props.navigation.navigate('PhoneVerification')
+      this.props.navigation.navigate(PHONE_VERIFICATION)
     }
   }
 

@@ -14,8 +14,8 @@ import HeaderIconButton from './common/HeaderIconButton';
 import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import { composeMessageText, resetComposeMessage } from '../actions/composeMessages';
+import { COMPOSE_MESSAGE_RECIPIENT } from '../actions/screens';
 
-const ComposeMessageRecipient = 'ComposeMessageRecipient';
 
 const styles = StyleSheet.create({
 
@@ -31,12 +31,11 @@ class ComposeMessage extends Component {
   onNext = () => {
     const { messageText } = this.props
     if(!messageText || messageText.length == 0) {
-      console.log(`message cant be enmpty`)
 
       return
     }
 
-    this.props.navigation.navigate(ComposeMessageRecipient)
+    this.props.navigation.navigate(COMPOSE_MESSAGE_RECIPIENT)
   }
 
   onBack = () => {

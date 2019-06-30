@@ -19,8 +19,7 @@ import { sendGoldMessage, updatePhoneNumber } from '../actions/composeMessages'
 import { Icon } from 'react-native-elements';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
-
-const INBOX = 'Inbox'
+import { INBOX } from '../actions/screens';
 
 
 const styles = StyleSheet.create({

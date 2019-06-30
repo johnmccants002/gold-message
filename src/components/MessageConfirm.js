@@ -11,13 +11,12 @@ import {
 } from 'react-native';
 
 import {
-  Button, Input, ThemeProvider, Icon,
+  Button, Input, ThemeProvider, Icon, colors,
 } from 'react-native-elements';
+import { COMPOSE_MESSAGE_RECIPIENT } from '../actions/screens';
 
 // Strings
 const WINDOW = 'window';
-const ComposeMessageRecipient = 'ComposeMessageRecipient';
-const inbox = 'Inbox';
 
 const screenHeight = Dimensions.get(WINDOW).height;
 
@@ -30,7 +29,7 @@ class ComposeMessage extends Component {
     return (
       <ScrollView>
         <View style={{
-          flex: 1, flexDirection: 'row', justifyContent: 'space-between', height: 55, backgroundColor: '#fff', shadowOffset: 4, borderBottomColor: '#ccc', borderBottomWidth: 0.6,
+          flex: 1, flexDirection: 'row', justifyContent: 'space-between', height: 55, backgroundColor: '#fff', shadowOffset: 4, borderBottomColor: colors.windowMuted, borderBottomWidth: 0.6,
         }}
         >
           <View style={{ padding: 15, paddingTop: 10 }}>
@@ -46,7 +45,7 @@ class ComposeMessage extends Component {
             <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000' }}>New Gold Message</Text>
           </View>
           <View style={{ padding: 15 }}>
-            <Text style={{ color: '#ffd64d', fontSize: 17 }} onPress={() => this.props.navigation.navigate(ComposeMessageRecipient)}>Next</Text>
+            <Text style={{ color: '#ffd64d', fontSize: 17 }} onPress={() => this.props.navigation.navigate(COMPOSE_MESSAGE_RECIPIENT)}>Next</Text>
           </View>
         </View>
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>

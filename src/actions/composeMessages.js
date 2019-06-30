@@ -37,7 +37,7 @@ export const sendGoldMessage = (phone, messageText) => {
             const outboxLastMessagePromise = senderUser.collection('outbox').doc(phone).set({ lastGoldMessage: messageText, lastGoldMessageTime: createdAt })
             const outboxAddPromise = senderUser.collection('outbox').doc(phone).collection('goldMessages').doc(messageText).set({ count: increment, received: createdAt }, {merge: true})
 
-            const goldMessagesLastRecipientPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).set({ lastRecipient: phone })
+            const goldMessagesLastRecipientPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).set({ lastRecipient: phone, lastSent: createdAt }, {merge: true})
             const goldMessagesAddPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).collection('recipients').doc(phone).set({})
             const userDetailsPromise = recipientUser.get()
 
@@ -54,6 +54,31 @@ export const sendGoldMessage = (phone, messageText) => {
         }
     }
 }
+
+export const deleteGoldMessage = (goldMessage) => {
+    return async(dispatch, getStore) => {
+        try {
+            const { profile } = getStore()
+            const { user } = profile
+            const { phoneNumber } = user
+
+            const goldMessageRecipientsCollection = await usersRef.doc(phoneNumber).collection('goldMessages').doc(goldMessage).collection('recipients').get()
+                            
+            const goldMessageDeleteRecipientsPromise = goldMessageRecipientsCollection.docs.map((doc) => {
+                if(doc) {
+                    return doc.ref.delete()
+                }
+            })
+
+            await Promise.all(goldMessageDeleteRecipientsPromise)
+
+            await usersRef.doc(phoneNumber).collection('goldMessages').doc(goldMessage).delete()
+        }catch(e) {
+            console.log('e', e)
+        }
+    }
+}
+
 export const composeMessageText = (messageText) => {
     return { type: COMPOSE_MESSAGE_TEXT, payload: messageText }
 }
