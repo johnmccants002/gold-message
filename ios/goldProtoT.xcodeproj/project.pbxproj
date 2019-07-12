@@ -51,6 +51,49 @@
 		9C98996C2A164B65B29C9A5B /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A624E254C8954CBA8D2501E9 /* libRNVectorIcons.a */; };
 		A7C308668CB84B9A873E085D /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC37692D0CA04F2BB09FFAF1 /* libRNGestureHandler-tvOS.a */; };
 		AC17080222854E6F00F6DD9F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1707BA22854B8500F6DD9F /* GoogleService-Info.plist */; };
+		ACDBE25F22D84A6900A11709 /* GMComposeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBE25E22D84A6900A11709 /* GMComposeMessage.m */; };
+		ACDBE2A022D84BA600A11709 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDBE29F22D84BA600A11709 /* MessageUI.framework */; };
+		ACDBE2A422D8521A00A11709 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		ACDBE2A522D8521A00A11709 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		ACDBE2A622D8521A00A11709 /* GMComposeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBE25E22D84A6900A11709 /* GMComposeMessage.m */; };
+		ACDBE2A822D8521A00A11709 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDBE29F22D84BA600A11709 /* MessageUI.framework */; };
+		ACDBE2A922D8521A00A11709 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE037D522C608DA00DE857B /* libRNFetchBlob.a */; };
+		ACDBE2AA22D8521A00A11709 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE037CE22C5FF7C00DE857B /* libRNImagePicker.a */; };
+		ACDBE2AB22D8521A00A11709 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		ACDBE2AC22D8521A00A11709 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		ACDBE2AD22D8521A00A11709 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		ACDBE2AE22D8521A00A11709 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		ACDBE2AF22D8521A00A11709 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
+		ACDBE2B022D8521A00A11709 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
+		ACDBE2B122D8521A00A11709 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
+		ACDBE2B222D8521A00A11709 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		ACDBE2B322D8521A00A11709 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
+		ACDBE2B422D8521A00A11709 /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
+		ACDBE2B522D8521A00A11709 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		ACDBE2B622D8521A00A11709 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		ACDBE2B722D8521A00A11709 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
+		ACDBE2B822D8521A00A11709 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99431F23D44F4853B16AF090 /* libRNGestureHandler.a */; };
+		ACDBE2B922D8521A00A11709 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A624E254C8954CBA8D2501E9 /* libRNVectorIcons.a */; };
+		ACDBE2BA22D8521A00A11709 /* libPods-goldProtoT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB4BD058FC7B6394A2E11DB /* libPods-goldProtoT.a */; };
+		ACDBE2BB22D8521A00A11709 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F32A4501635446B892AB44A3 /* libRNFirebase.a */; };
+		ACDBE2BD22D8521A00A11709 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1707BA22854B8500F6DD9F /* GoogleService-Info.plist */; };
+		ACDBE2BE22D8521A00A11709 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		ACDBE2BF22D8521A00A11709 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		ACDBE2C022D8521A00A11709 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9839014D2A547D992A00306 /* AntDesign.ttf */; };
+		ACDBE2C122D8521A00A11709 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA8EDA07167A43C8B55960DF /* Entypo.ttf */; };
+		ACDBE2C222D8521A00A11709 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85348821440044C79BA8891D /* EvilIcons.ttf */; };
+		ACDBE2C322D8521A00A11709 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43C02C28DE2E498A9351CBCD /* Feather.ttf */; };
+		ACDBE2C422D8521A00A11709 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 434F874575904ABDAB129411 /* FontAwesome.ttf */; };
+		ACDBE2C522D8521A00A11709 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53DBD57E1B044E20B34D578F /* FontAwesome5_Brands.ttf */; };
+		ACDBE2C622D8521A00A11709 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E26C985A710E4E5EAA994E47 /* FontAwesome5_Regular.ttf */; };
+		ACDBE2C722D8521A00A11709 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B067B008AE946839C2302B5 /* FontAwesome5_Solid.ttf */; };
+		ACDBE2C822D8521A00A11709 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3FD368A765C4AB68023E9C8 /* Foundation.ttf */; };
+		ACDBE2C922D8521A00A11709 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB4D484E2EC54F30B1563BB2 /* Ionicons.ttf */; };
+		ACDBE2CA22D8521A00A11709 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60DE5A99578C41E7BAEB4F19 /* MaterialCommunityIcons.ttf */; };
+		ACDBE2CB22D8521A00A11709 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E514141207BB4F47B4F7B08B /* MaterialIcons.ttf */; };
+		ACDBE2CC22D8521A00A11709 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB6218231FD649FBBEAB6BC2 /* Octicons.ttf */; };
+		ACDBE2CD22D8521A00A11709 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B48A96B19C9B448AA8F1BD6D /* SimpleLineIcons.ttf */; };
+		ACDBE2CE22D8521A00A11709 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D139C2D61F59476FBAF3A31E /* Zocial.ttf */; };
 		ACE037CF22C5FF8600DE857B /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE037CE22C5FF7C00DE857B /* libRNImagePicker.a */; };
 		ACE037EA22C6092000DE857B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE037D522C608DA00DE857B /* libRNFetchBlob.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -432,6 +475,11 @@
 		A624E254C8954CBA8D2501E9 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		AB4D484E2EC54F30B1563BB2 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		AC1707BA22854B8500F6DD9F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/equiroz345/Dev/react/native/contract/goldProtoT/ios/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
+		ACDBE25D22D84A6900A11709 /* GMComposeMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMComposeMessage.h; path = goldProtoT/GMComposeMessage.h; sourceTree = "<group>"; };
+		ACDBE25E22D84A6900A11709 /* GMComposeMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GMComposeMessage.m; path = goldProtoT/GMComposeMessage.m; sourceTree = "<group>"; };
+		ACDBE29F22D84BA600A11709 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		ACDBE2D422D8521A00A11709 /* goldProtoTLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goldProtoTLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACDBE2D522D8521B00A11709 /* goldProtoT copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "goldProtoT copy-Info.plist"; path = "/Users/equiroz345/Dev/react/native/contract/goldProtoT/ios/goldProtoT copy-Info.plist"; sourceTree = "<absolute>"; };
 		ACE0377C22C5FCEE00DE857B /* libreact-native-image-picker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-image-picker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE037C922C5FF7000DE857B /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		ACE037D022C608D900DE857B /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -465,6 +513,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACDBE2A022D84BA600A11709 /* MessageUI.framework in Frameworks */,
 				ACE037EA22C6092000DE857B /* libRNFetchBlob.a in Frameworks */,
 				ACE037CF22C5FF8600DE857B /* libRNImagePicker.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
@@ -510,6 +559,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACDBE2A722D8521A00A11709 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACDBE2A822D8521A00A11709 /* MessageUI.framework in Frameworks */,
+				ACDBE2A922D8521A00A11709 /* libRNFetchBlob.a in Frameworks */,
+				ACDBE2AA22D8521A00A11709 /* libRNImagePicker.a in Frameworks */,
+				ACDBE2AB22D8521A00A11709 /* JavaScriptCore.framework in Frameworks */,
+				ACDBE2AC22D8521A00A11709 /* libRCTBlob.a in Frameworks */,
+				ACDBE2AD22D8521A00A11709 /* libRCTAnimation.a in Frameworks */,
+				ACDBE2AE22D8521A00A11709 /* libReact.a in Frameworks */,
+				ACDBE2AF22D8521A00A11709 /* libRCTActionSheet.a in Frameworks */,
+				ACDBE2B022D8521A00A11709 /* libRCTGeolocation.a in Frameworks */,
+				ACDBE2B122D8521A00A11709 /* libRCTImage.a in Frameworks */,
+				ACDBE2B222D8521A00A11709 /* libRCTLinking.a in Frameworks */,
+				ACDBE2B322D8521A00A11709 /* libRCTNetwork.a in Frameworks */,
+				ACDBE2B422D8521A00A11709 /* libRCTSettings.a in Frameworks */,
+				ACDBE2B522D8521A00A11709 /* libRCTText.a in Frameworks */,
+				ACDBE2B622D8521A00A11709 /* libRCTVibration.a in Frameworks */,
+				ACDBE2B722D8521A00A11709 /* libRCTWebSocket.a in Frameworks */,
+				ACDBE2B822D8521A00A11709 /* libRNGestureHandler.a in Frameworks */,
+				ACDBE2B922D8521A00A11709 /* libRNVectorIcons.a in Frameworks */,
+				ACDBE2BA22D8521A00A11709 /* libPods-goldProtoT.a in Frameworks */,
+				ACDBE2BB22D8521A00A11709 /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +682,8 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				ACDBE25D22D84A6900A11709 /* GMComposeMessage.h */,
+				ACDBE25E22D84A6900A11709 /* GMComposeMessage.m */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = goldProtoT;
@@ -637,6 +715,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ACDBE29F22D84BA600A11709 /* MessageUI.framework */,
 				ACE0377C22C5FCEE00DE857B /* libreact-native-image-picker.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
@@ -739,6 +818,7 @@
 				73276FE8E80746B4821D4660 /* Resources */,
 				AC17077B22854B4B00F6DD9F /* Recovered References */,
 				6C25C1154DCC3F6755957546 /* Pods */,
+				ACDBE2D522D8521B00A11709 /* goldProtoT copy-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -752,6 +832,7 @@
 				00E356EE1AD99517003FC87E /* goldProtoTTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* goldProtoT-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* goldProtoT-tvOSTests.xctest */,
+				ACDBE2D422D8521A00A11709 /* goldProtoTLocal.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -903,6 +984,26 @@
 			productReference = 2D02E4901E0B4A5D006451C7 /* goldProtoT-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		ACDBE2A122D8521A00A11709 /* goldProtoTLocal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACDBE2D122D8521A00A11709 /* Build configuration list for PBXNativeTarget "goldProtoTLocal" */;
+			buildPhases = (
+				ACDBE2A222D8521A00A11709 /* [CP] Check Pods Manifest.lock */,
+				ACDBE2A322D8521A00A11709 /* Sources */,
+				ACDBE2A722D8521A00A11709 /* Frameworks */,
+				ACDBE2BC22D8521A00A11709 /* Resources */,
+				ACDBE2CF22D8521A00A11709 /* Bundle React Native code and images */,
+				ACDBE2D022D8521A00A11709 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = goldProtoTLocal;
+			productName = "Hello World";
+			productReference = ACDBE2D422D8521A00A11709 /* goldProtoTLocal.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -928,6 +1029,10 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
+					};
+					ACDBE2A122D8521A00A11709 = {
+						DevelopmentTeam = Z3XH553T3R;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1016,6 +1121,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* goldProtoT */,
+				ACDBE2A122D8521A00A11709 /* goldProtoTLocal */,
 				00E356ED1AD99517003FC87E /* goldProtoTTests */,
 				2D02E47A1E0B4A5D006451C7 /* goldProtoT-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* goldProtoT-tvOSTests */,
@@ -1382,6 +1488,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACDBE2BC22D8521A00A11709 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACDBE2BD22D8521A00A11709 /* GoogleService-Info.plist in Resources */,
+				ACDBE2BE22D8521A00A11709 /* Images.xcassets in Resources */,
+				ACDBE2BF22D8521A00A11709 /* LaunchScreen.xib in Resources */,
+				ACDBE2C022D8521A00A11709 /* AntDesign.ttf in Resources */,
+				ACDBE2C122D8521A00A11709 /* Entypo.ttf in Resources */,
+				ACDBE2C222D8521A00A11709 /* EvilIcons.ttf in Resources */,
+				ACDBE2C322D8521A00A11709 /* Feather.ttf in Resources */,
+				ACDBE2C422D8521A00A11709 /* FontAwesome.ttf in Resources */,
+				ACDBE2C522D8521A00A11709 /* FontAwesome5_Brands.ttf in Resources */,
+				ACDBE2C622D8521A00A11709 /* FontAwesome5_Regular.ttf in Resources */,
+				ACDBE2C722D8521A00A11709 /* FontAwesome5_Solid.ttf in Resources */,
+				ACDBE2C822D8521A00A11709 /* Foundation.ttf in Resources */,
+				ACDBE2C922D8521A00A11709 /* Ionicons.ttf in Resources */,
+				ACDBE2CA22D8521A00A11709 /* MaterialCommunityIcons.ttf in Resources */,
+				ACDBE2CB22D8521A00A11709 /* MaterialIcons.ttf in Resources */,
+				ACDBE2CC22D8521A00A11709 /* Octicons.ttf in Resources */,
+				ACDBE2CD22D8521A00A11709 /* SimpleLineIcons.ttf in Resources */,
+				ACDBE2CE22D8521A00A11709 /* Zocial.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1449,6 +1580,56 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-goldProtoT/Pods-goldProtoT-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		ACDBE2A222D8521A00A11709 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-goldProtoT-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACDBE2CF22D8521A00A11709 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		ACDBE2D022D8521A00A11709 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-goldProtoT/Pods-goldProtoT-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-goldProtoT/Pods-goldProtoT-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1466,6 +1647,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				ACDBE25F22D84A6900A11709 /* GMComposeMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,6 +1665,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DCD954D1E0B4F2C00145EB5 /* goldProtoTTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACDBE2A322D8521A00A11709 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACDBE2A422D8521A00A11709 /* AppDelegate.m in Sources */,
+				ACDBE2A522D8521A00A11709 /* main.m in Sources */,
+				ACDBE2A622D8521A00A11709 /* GMComposeMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1602,10 +1794,10 @@
 			baseConfigurationReference = 9FC03996C0448181345E3160 /* Pods-goldProtoT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HTV4A5W6Y;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1621,7 +1813,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldmessage.goldmessage;
 				PRODUCT_NAME = goldProtoT;
-				PROVISIONING_PROFILE_SPECIFIER = "Gold Message-App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1855,6 +2047,65 @@
 			};
 			name = Release;
 		};
+		ACDBE2D222D8521A00A11709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF4B7D36E77D9FCA1FDC4B64 /* Pods-goldProtoT.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = Z3XH553T3R;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+				);
+				INFOPLIST_FILE = "goldProtoT copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.equiroz.test;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		ACDBE2D322D8521A00A11709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FC03996C0448181345E3160 /* Pods-goldProtoT.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z3XH553T3R;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+				);
+				INFOPLIST_FILE = "goldProtoT copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.equiroz.test;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1899,6 +2150,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACDBE2D122D8521A00A11709 /* Build configuration list for PBXNativeTarget "goldProtoTLocal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACDBE2D222D8521A00A11709 /* Debug */,
+				ACDBE2D322D8521A00A11709 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
