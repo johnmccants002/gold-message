@@ -8,3 +8,4 @@ export const COMPOSE_MESSAGE_RECIPIENT = 'ComposeMessageRecipient';
 export const PROFILE = 'Profile'
 export const EDIT_PROFILE = 'EditProfile'
 export const GOLD_MESSAGES_SENT = 'GoldMessagesSent'
+export const SELECT_MULTIPLE_MESSAGES = 'SelectMultipleMessages'

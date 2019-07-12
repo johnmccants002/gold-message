@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import {
   View,
   StyleSheet,
+  InputAccessoryView,
+  Button,
 } from 'react-native';
 
 import {
@@ -14,13 +16,7 @@ import HeaderIconButton from './common/HeaderIconButton';
 import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import { composeMessageText, resetComposeMessage } from '../actions/composeMessages';
-import { COMPOSE_MESSAGE_RECIPIENT } from '../actions/screens';
-
-
-const styles = StyleSheet.create({
-
-
-});
+import { COMPOSE_MESSAGE_RECIPIENT, SELECT_MULTIPLE_MESSAGES } from '../actions/screens';
 
 
 class ComposeMessage extends Component {
@@ -28,13 +24,20 @@ class ComposeMessage extends Component {
     header: null,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      messageText: ''
+    }
+  }
+
   onNext = () => {
-    const { messageText } = this.props
+    const { messageText } = this.state
     if(!messageText || messageText.length == 0) {
 
       return
     }
-
+    this.props.composeMessageText(messageText)
     this.props.navigation.navigate(COMPOSE_MESSAGE_RECIPIENT)
   }
 
@@ -43,8 +46,13 @@ class ComposeMessage extends Component {
     this.props.navigation.goBack()
   }
 
+  onSelectMultiple = () => {
+    this.props.navigation.navigate(SELECT_MULTIPLE_MESSAGES)
+  }
+
   render() {
-    const { messageText } = this.props
+    const { messageText } = this.state
+    const inputAccessoryViewID = "uniqueID";
     
     return (
       <View style={{ flex: 1 }}>
@@ -69,20 +77,24 @@ class ComposeMessage extends Component {
                 maxLength={145}
                 numberOfLines={4}
                 value={messageText}
-                onChangeText={(value) => { this.props.composeMessageText(value)}}
+                onChangeText={(value) => { this.setState({ messageText: value })}}
+                inputAccessoryViewID={inputAccessoryViewID}
               />
             </View>
+            <InputAccessoryView nativeID={inputAccessoryViewID}>
+              <View style={{ flex: 1, alignItems: 'flex-end'}}>
+                  <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />
+              </View>
+            </InputAccessoryView>            
           </ComposeMessageContainer>
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ composeMessages }) => {
-  const { messageText } = composeMessages
+const mapStateToProps = () => {
 
   return {
-    messageText
   }
 }
 

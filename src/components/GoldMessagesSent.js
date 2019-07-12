@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StackActions } from 'react-navigation';
+import NumberFormat from 'react-number-format';
 import {
     View,
     StyleSheet,
@@ -25,7 +26,10 @@ import colors from '../ui-conf/colors';
 
 import { EDIT_PROFILE, INBOX } from '../actions/screens';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { deleteGoldMessage } from '../actions/composeMessages';
+import { deleteGoldMessage, sendMessage } from '../actions/composeMessages';
+import { SENT_GOLD_MESSAGES_ERROR } from '../actions/types';
+import ErrorModal from './common/ErrorModal';
+import { clearError } from '../actions/errors';
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     itemContainer: {
-        height: 65,
+        height: 70,
         backgroundColor: 'white',
         marginLeft: 20,
         marginRight: 20,
@@ -63,8 +67,11 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginLeft: -10,
     },
-    goldMessageRecipientStyle: {
+    goldMessageRecipientContainerStyle: {
         margin: 5
+    },
+    goldMessageRecipientStyle: {
+        padding: 2,
     },
     headerContainer: {
         backgroundColor: colors.windowBackground,
@@ -115,19 +122,24 @@ class GoldMessagesSent extends Component {
     onTextRecipient = (item) => {
         const { phoneNumber } = item
 
-        const smsLink = `sms:${phoneNumber}`
-        Linking.openURL(smsLink);
+        this.props.sendMessage(phoneNumber, "", SENT_GOLD_MESSAGES_ERROR)
     }
 
     renderItem = ({ item }) => {
-        const { itemContainer, listItemContainer, avatarStyle, goldMessageRecipientStyle, textButtonContainer, textButtonStyle, textButtonTextStyle } = styles
-        const { displayName, photoURL } = item
+        const { itemContainer, listItemContainer, avatarStyle, goldMessageRecipientContainerStyle, goldMessageRecipientStyle, textButtonContainer, textButtonStyle, textButtonTextStyle } = styles
+        const { displayName, phoneNumber, photoURL } = item
 
         return (
             <GoldListItem style={itemContainer} disabled={true}>
                 <View style={listItemContainer}>
                     <Image source={{ uri: photoURL ? photoURL : demoImage}} style={avatarStyle} /> 
-                    <Text style={goldMessageRecipientStyle} numberOfLines={2}>{displayName}</Text>
+                    <View style={goldMessageRecipientContainerStyle} >
+                        <Text style={goldMessageRecipientStyle} numberOfLines={2}>{displayName}</Text>
+                        
+                        <NumberFormat style={{flex : 1 }} format="+# (###) ###-####" displayType={'text'}  mask="_" value={phoneNumber} renderText={
+                            (formattedValue) => <Text style={goldMessageRecipientStyle} numberOfLines={2}>{formattedValue}</Text>
+                        }/>
+                    </View>
                     <View style={textButtonContainer}>
                         <TouchableOpacity style={textButtonStyle} onPress={() => this.onTextRecipient(item)}> 
                             <Text style={textButtonTextStyle}>Text</Text>
@@ -171,12 +183,13 @@ class GoldMessagesSent extends Component {
     }
 
     render() {
-        const { selectedGoldMessage, recipients } = this.props
+        const { selectedGoldMessage, recipients, error } = this.props
         const { containerStyle, recipientListContainer, headerContainer, headerText, itemContainer, sentGoldMessageTextStyle } = styles
         const { goldMessage } = selectedGoldMessage
-
+        console.log('error', error)
         return (
             <MenuProvider style={containerStyle}>
+            <ErrorModal isVisible={error != undefined} message={`${error}`} onDismissed={() => this.props.clearError()} />
                 <Header
                     title={'Gold Message'}
                     leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={this.onBack} />}
@@ -202,14 +215,16 @@ class GoldMessagesSent extends Component {
         )
     }
 }
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, inbox }) => {
+    const { error } = inbox
     const { selectedGoldMessage } = profile
     const { recipients, goldMessage: goldMessageText } = selectedGoldMessage
 
     return {
         selectedGoldMessage,
         goldMessageText,
-        recipients
+        recipients,
+        error
     }
 }
-export default connect(mapStateToProps, { deleteGoldMessage })(GoldMessagesSent)
+export default connect(mapStateToProps, { deleteGoldMessage, sendMessage, clearError })(GoldMessagesSent)

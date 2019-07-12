@@ -68,7 +68,7 @@ class Inbox extends Component {
         return (
             <View style={containerStyle}>
                 <Header
-                    title={"New Gold Message"}
+                    title={"Gold Message"}
                     leftAvatar={{ source: { uri: photoURL ? photoURL : demoImage }, onPress: this.onProfilePress }}
                     rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
                 />

@@ -32,7 +32,7 @@ import {
       case INBOX_REFRESHED:
         return { ...state, items: payload, error : undefined, loading: false }
       case SENT_GOLD_MESSAGES_RECEIVED:
-        return { ...state, sentGoldMessages: payload, error : payload, loading: false }
+        return { ...state, sentGoldMessages: payload, error : undefined, loading: false }
       case SENT_GOLD_MESSAGES_ERROR:
       case REFRESHING_INBOX_ERROR:
         return { ...state, error : payload, loading: false }

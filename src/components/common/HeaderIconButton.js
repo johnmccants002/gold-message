@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const HeaderIconButton = ({ iconName, onPress }) => {
+const HeaderIconButton = ({ iconName, onPress, color }) => {
     const { containerStyle } = styles
 
     return (
@@ -22,7 +22,7 @@ const HeaderIconButton = ({ iconName, onPress }) => {
           name={iconName}
           size={29}
           type="font-awesome"
-          color={colors.gold1}
+          color={color ? color : colors.gold1}
           onPress={onPress}
         />
       </View>

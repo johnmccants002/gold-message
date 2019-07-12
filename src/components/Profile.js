@@ -9,20 +9,17 @@ import {
     Text,
     Image,
 } from 'react-native'
-import { CachedImage } from 'react-native-cached-image';
+import moment from 'moment';
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
 
-import { getIncomingGoldMessage, clearUnread, refreshInbox, getSentGoldMessages } from '../actions/inbox';
+import { refreshInbox, getSentGoldMessages } from '../actions/inbox';
 import GoldListItem from './common/GoldListItem';
-import moment from 'moment';
 import UserCard from './UserCard';
 import colors from '../ui-conf/colors';
 import GoldButton from './common/GoldButton';
 import { logout, loadCurrentUserProfile, selectedSentGoldMessage } from '../actions/profile';
 import { EDIT_PROFILE, GOLD_MESSAGES_SENT } from '../actions/screens';
-
-const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
 const styles = StyleSheet.create({
     containerStyle: {
@@ -67,7 +64,7 @@ const styles = StyleSheet.create({
     recipientCounterStyle: {
         color: colors.muted,
         marginLeft: 10,
-        fontSize: 14
+        fontSize: 16
     },
     avatarStyle: {
         height: 30,
@@ -125,10 +122,7 @@ class Profile extends Component {
                     <Text style={goldMessageTextStyle} numberOfLines={2}>{goldMessage}</Text>
                     <Text style={goldMessageTimeStyle} numberOfLines={2}>{time}</Text>
                 </View>
-                <View style={[goldMessageLineContainer, { marginTop: 15, marginLeft: 10, alignItems: 'center' }]}>
-                    {recipients.length > 0 && <Image source={{ uri: recipients[0].photoURL ? recipients[0].photoURL : demoImage}} style={avatarStyle} /> }
-                    {recipients.length > 1 && <Image source={{ uri: recipients[1].photoURL ? recipients[1].photoURL : demoImage}} style={avatarStyle} /> }
-                    {recipients.length > 2 && <Image source={{ uri: recipients[2].photoURL ? recipients[2].photoURL : demoImage}} style={avatarStyle} /> }
+                <View style={[goldMessageLineContainer, { marginTop: 15, marginLeft: 10, alignItems: 'center', justifyContent: 'flex-end' }]}>
                     {recipients.length > 0 && <Text style={recipientCounterStyle}>+{(recipients.length)}</Text> }
                 </View>
             </GoldListItem>

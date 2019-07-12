@@ -12,6 +12,8 @@
 #import <React/RCTRootView.h>
 #import <Firebase.h>
 
+#import "GMComposeMessage.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -28,6 +30,11 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
+  
+  
+  [GMComposeMessage setRCTRootView:rootView];
+  [GMComposeMessage setViewController:rootViewController];
+  
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;

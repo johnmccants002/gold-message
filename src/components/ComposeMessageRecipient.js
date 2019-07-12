@@ -9,6 +9,7 @@ import {
 import {
   Input
 } from 'react-native-elements';
+import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 
 import Header from './common/Header';
 import HeaderIconButton from './common/HeaderIconButton';
@@ -57,13 +58,20 @@ class ComposeMessageRecipient extends Component {
   }
 
   sendGoldMessage = () => {
-    const { messageText, messageSent, phoneNumber } = this.props
-
+    const { messageSent } = this.props
     if(messageSent) {
       this.props.navigation.navigate(INBOX)
-    } else {
-      this.props.sendGoldMessage(phoneNumber, messageText)
+
+      return
     }
+
+    const parsedNumber = parsePhoneNumberFromString(this.asYouType.getNumber().number)
+    
+    if (!parsedNumber || !parsedNumber.isValid()) {
+      return
+    } 
+    
+    this.props.sendGoldMessage(this.asYouType.getNumber().number)
   }
 
   onHandleBack = () => {
@@ -79,6 +87,10 @@ class ComposeMessageRecipient extends Component {
   onErrorDismissed = () => {
     this.props.clearError()
   }
+
+  componentWillMount() {
+    this.asYouType = new AsYouType('US')
+  }
   
   render() {
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle, contentContainerStyle, messageSentStyle } = styles
@@ -87,7 +99,8 @@ class ComposeMessageRecipient extends Component {
     const containerTitle = messageSent ? '' : 'Phone Number'
     const buttonText = messageSent ? 'Sent!' : 'Send Gold Message'
     const buttonColor = messageSent ? '#BBC2CA' : undefined
-
+    
+    this.asYouType.reset()
     return (
       <View style={{ flex: 1 }}>
       <ErrorModal isVisible={messageError != undefined} message={messageError} onDismissed={this.onErrorDismissed} />
@@ -102,10 +115,10 @@ class ComposeMessageRecipient extends Component {
                   containerStyle={inputContainerStyle}
                   inputStyle={inputStyle}
                   inputContainerStyle={inputComponentContainerStyle}
-                  placeholder="+1(999)111-5555"
+                  placeholder="(999) 555-4444"
                   maxLength={16}
                   keyboardType="phone-pad"
-                  value={phoneNumber}
+                  value={this.asYouType.input(phoneNumber)}
                   onChangeText={(value) => { this.props.updatePhoneNumber(value) }}
                   numberOfLines={1}
                 />
@@ -129,10 +142,9 @@ class ComposeMessageRecipient extends Component {
   }
 }
 const mapStateToProps = ({ composeMessages }) => {
-  const { messageText, messageSent, messageError, loading, phoneNumber } = composeMessages
+  const { messageSent, messageError, loading, phoneNumber } = composeMessages
   
   return {
-    messageText,
     messageSent,
     messageError,
     loading,

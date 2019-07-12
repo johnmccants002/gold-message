@@ -10,11 +10,15 @@ import {
 } from 'react-native'
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
+import HeaderTextButton from './common/HeaderTextButton'
 
 import { getIncomingGoldMessage, clearUnread } from '../actions/inbox';
 import GoldListItem from './common/GoldListItem';
 import moment from 'moment';
-import { updatePhoneNumber } from '../actions/composeMessages';
+import { updatePhoneNumber, sendMessage } from '../actions/composeMessages';
+import ErrorModal from './common/ErrorModal';
+import { clearError } from '../actions/errors';
+import { SENT_GOLD_MESSAGES_ERROR } from '../actions/types';
 
 // Strings
 const COMPOSE_MESSAGE = 'ComposeMessage'
@@ -55,8 +59,7 @@ class InboxProfile extends Component {
         const { selectedUser } = this.props
         const { phoneNumber } = selectedUser
 
-        const smsLink = `sms:${phoneNumber}`
-        Linking.openURL(smsLink);
+        this.props.sendMessage(phoneNumber, "", SENT_GOLD_MESSAGES_ERROR)
     }
 
     componentDidMount() {
@@ -83,16 +86,17 @@ class InboxProfile extends Component {
     }
 
     render() {
-        const { selectedUser, selectedUserGoldMessages, loading } = this.props
+        const { selectedUser, selectedUserGoldMessages, loading, error } = this.props
         const { containerStyle, goldMessageListContainer } = styles
         const { displayName, phoneNumber } = selectedUser
 
         return (
             <View style={containerStyle}>
+                <ErrorModal isVisible={error != undefined} message={error} onDismissed={() => this.props.clearError()} />
                 <Header
                     title={displayName}
                     leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={this.onBack} />}
-                    rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
+                    rightElement={() => <HeaderTextButton title={'Text'} onPress={() => this.onNewGoldMessage() } />}
                 />
                 <FlatList
                     style={goldMessageListContainer}
@@ -112,12 +116,13 @@ class InboxProfile extends Component {
     }
 }
 const mapStateToProps = ({ inbox }) => {
-    const { selectedUser, selectedUserGoldMessages, loading } = inbox
+    const { selectedUser, selectedUserGoldMessages, loading, error } = inbox
     
     return {
         selectedUser,
         selectedUserGoldMessages,
-        loading
+        loading,
+        error
     }
 }
-export default connect(mapStateToProps, { getIncomingGoldMessage, clearUnread, updatePhoneNumber })(InboxProfile)
+export default connect(mapStateToProps, { getIncomingGoldMessage, clearUnread, updatePhoneNumber, sendMessage, clearError })(InboxProfile)

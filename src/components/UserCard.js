@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import { CachedImage } from 'react-native-cached-image';
+import Autolink from 'react-native-autolink';
 import colors from '../ui-conf/colors';
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
@@ -49,7 +50,11 @@ const UserCard = ({ user }) => {
         <Image style={imageStyle} source={{ uri: photoURL ? photoURL : demoImage }} />
       </View>
         <Text style={displayNameStyle}>{displayName}</Text>
-        <Text style={aboutStyle}>{about}</Text>
+        <Autolink
+          style={aboutStyle}
+          text={about}
+          hashtag="instagram"
+          mention="twitter" />
       </View>
   )
 }

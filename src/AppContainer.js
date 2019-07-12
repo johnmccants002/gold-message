@@ -14,6 +14,7 @@ import InboxProfile from './components/InboxProfile';
 import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import GoldMessagesSent from './components/GoldMessagesSent';
+import SelectMultipleMessages from './components/SelectMultipleMessages';
 
 const screensViews = {
   SignIn,
@@ -65,6 +66,9 @@ const AppNav = createStackNavigator({
   },
   GoldMessagesSent: {
     screen: GoldMessagesSent,
+  },
+  SelectMultipleMessages: {
+    screen: SelectMultipleMessages
   }
 }, {
   initialRouteName: 'SignIn',

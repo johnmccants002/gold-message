@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import { Input } from 'react-native-elements';
+import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 import Colors from '../ui-conf/colors';
 import { phoneAuthentication, authenticatedUser } from '../actions/profile';
 import AuthenticationButton from './common/AuthenticationButton';
@@ -51,6 +52,11 @@ class SignIn extends Component {
     this.state = { phoneNumber : '' }
   }
 
+  componentWillMount() {
+    this.asYouType = new AsYouType('US')
+  }
+  
+  
   componentDidMount() {
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       this.props.authenticatedUser(user)
@@ -83,9 +89,14 @@ class SignIn extends Component {
   }
 
   authenticate = () => {
-    const { phoneNumber } = this.state
+    const parsedNumber = parsePhoneNumberFromString(this.asYouType.getNumber().number)
+    
+    if (!parsedNumber || !parsedNumber.isValid()) {
+      return
+    } 
+    
 
-    this.props.phoneAuthentication(phoneNumber)
+    this.props.phoneAuthentication(this.asYouType.getNumber().number)
   }
 
   onErrorDismissed = () => {
@@ -97,6 +108,7 @@ class SignIn extends Component {
     const { loading, error } = this.props
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle } = styles
 
+    this.asYouType.reset()
     return (
       <AuthenticationScreen>
       <ErrorModal isVisible={error != undefined} message={error} onDismissed={this.onErrorDismissed} backgroundColor={Colors.white} textColor={Colors.gold1} />
@@ -108,7 +120,7 @@ class SignIn extends Component {
           inputContainerStyle={inputComponentContainerStyle}
           keyboardType="phone-pad"
           placeholder="ENTER PHONE NUMBER"
-          value={phoneNumber}
+          value={this.asYouType.input(phoneNumber)}
           onChangeText={(value) => this.setState({ phoneNumber: value})}
         />
 
