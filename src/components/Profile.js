@@ -9,7 +9,6 @@ import {
     Text,
     Image,
 } from 'react-native'
-import moment from 'moment';
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
 
@@ -20,6 +19,7 @@ import colors from '../ui-conf/colors';
 import GoldButton from './common/GoldButton';
 import { logout, loadCurrentUserProfile, selectedSentGoldMessage } from '../actions/profile';
 import { EDIT_PROFILE, GOLD_MESSAGES_SENT } from '../actions/screens';
+import Autolink from 'react-native-autolink';
 
 const styles = StyleSheet.create({
     containerStyle: {
@@ -110,17 +110,18 @@ class Profile extends Component {
     }
     
     renderItem = ({ item }) => {
-        const { itemContainer, goldMessageLineContainer, goldMessageTextStyle, goldMessageTimeStyle, recipientCounterStyle, avatarStyle } = styles
-        const { goldMessage, recipients, lastSent } = item
-
-        const lastSentTimeMillis = lastSent ? lastSent.toMillis() : 0
-        const time = lastSentTimeMillis > 0 ? moment(lastSentTimeMillis).fromNow() : ''
+        const { itemContainer, goldMessageLineContainer, goldMessageTextStyle, recipientCounterStyle, avatarStyle } = styles
+        const { goldMessage, recipients } = item
 
         return (
             <GoldListItem style={itemContainer} onPress={() => this.onGoldMessageClicked(item)}>
                 <View style={goldMessageLineContainer}>
-                    <Text style={goldMessageTextStyle} numberOfLines={2}>{goldMessage}</Text>
-                    <Text style={goldMessageTimeStyle} numberOfLines={2}>{time}</Text>
+                    <Autolink
+                        numberOfLines={2}
+                        style={goldMessageTextStyle}
+                        text={goldMessage}
+                        hashtag="instagram"
+                        mention="twitter" />
                 </View>
                 <View style={[goldMessageLineContainer, { marginTop: 15, marginLeft: 10, alignItems: 'center', justifyContent: 'flex-end' }]}>
                     {recipients.length > 0 && <Text style={recipientCounterStyle}>+{(recipients.length)}</Text> }

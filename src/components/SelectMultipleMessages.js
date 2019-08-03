@@ -11,7 +11,6 @@ import {
 import {
   Input,
 } from 'react-native-elements';
-import moment from 'moment';
 
 import Header from './common/Header';
 import HeaderIconButton from './common/HeaderIconButton';
@@ -21,6 +20,7 @@ import { getSentGoldMessages } from '../actions/inbox';
 import GoldListItem from './common/GoldListItem';
 import colors from '../ui-conf/colors';
 import { updateMultipleGoldMessages } from '../actions/composeMessages';
+import Autolink from 'react-native-autolink';
 
 
 
@@ -108,7 +108,12 @@ class SelectMultipleMessages extends Component {
 
     return (
         <GoldListItem style={itemContainer} onPress={() => this.onCheckGoldMessage(goldMessage)}>
-          <Text style={goldMessageTextStyle} numberOfLines={2}>{goldMessage}</Text>
+                    <Autolink
+                        style={goldMessageTextStyle}
+                        text={goldMessage}
+                        numberOfLines={2}
+                        hashtag="instagram"
+                        mention="twitter" />
           <HeaderIconButton iconName={'check'} color={checked ? colors.gold1 : colors.gray1 } onPress={() => this.onCheckGoldMessage(goldMessage)} />
         </GoldListItem>
     )

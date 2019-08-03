@@ -30,6 +30,7 @@ import { deleteGoldMessage, sendMessage } from '../actions/composeMessages';
 import { SENT_GOLD_MESSAGES_ERROR } from '../actions/types';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
+import Autolink from 'react-native-autolink';
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
@@ -199,7 +200,11 @@ class GoldMessagesSent extends Component {
                     <Text style={headerText}>Gold Message</Text>
                 </View>
                 <View style={itemContainer}>
-                    <Text style={sentGoldMessageTextStyle}>{goldMessage}</Text>
+                    <Autolink
+                        style={sentGoldMessageTextStyle}
+                        text={goldMessage}
+                        hashtag="instagram"
+                        mention="twitter" />                    
                 </View>
                 <View style={headerContainer}>
                     <Text style={headerText}>Sent To</Text>

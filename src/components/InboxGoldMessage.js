@@ -1,6 +1,5 @@
 import React from 'react';
 import colors from '../ui-conf/colors';
-import moment from 'moment'
 
 import {
   StyleSheet,
@@ -43,10 +42,9 @@ const styles = StyleSheet.create({
   });
 
 const InboxGoldMessage = ({ item, onPress }) => {
-  const { goldMessageLineContainer, titleStyle, subtitleStyle, sentTimeStyle, messageCountContainer, messageCountStyle } = styles
-  const { displayName, lastGoldMessage, lastGoldMessageTime, messageCount, unread } = item
-  const lastGoldMessageTimeMillis = lastGoldMessageTime ? lastGoldMessageTime.toMillis() : 0
-  const time = lastGoldMessageTimeMillis > 0 ? moment(lastGoldMessageTimeMillis).fromNow() : ''
+  const { goldMessageLineContainer, titleStyle, subtitleStyle, messageCountContainer, messageCountStyle } = styles
+  const { displayName, lastGoldMessage, messageCount, unread } = item
+  
   const containsUnread = unread > 0
   const messageCountContainerColor = { backgroundColor: containsUnread ? colors.gold1 : colors.lightGray }
   const messageCountTextColor = { color: containsUnread ? colors.white : colors.gold1, fontSize: 12 }
@@ -55,7 +53,6 @@ const InboxGoldMessage = ({ item, onPress }) => {
       <GoldListItem onPress={onPress}>
           <View style={goldMessageLineContainer}>
               <Text style={titleStyle}>{displayName}</Text>
-              <Text style={sentTimeStyle}>{time}</Text>
           </View>
           <View style={goldMessageLineContainer}>
               <Text style={subtitleStyle}>{lastGoldMessage}</Text>

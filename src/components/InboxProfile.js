@@ -14,11 +14,11 @@ import HeaderTextButton from './common/HeaderTextButton'
 
 import { getIncomingGoldMessage, clearUnread } from '../actions/inbox';
 import GoldListItem from './common/GoldListItem';
-import moment from 'moment';
 import { updatePhoneNumber, sendMessage } from '../actions/composeMessages';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
 import { SENT_GOLD_MESSAGES_ERROR } from '../actions/types';
+import Autolink from 'react-native-autolink';
 
 // Strings
 const COMPOSE_MESSAGE = 'ComposeMessage'
@@ -71,16 +71,17 @@ class InboxProfile extends Component {
     }
     
     renderItem = ({ item }) => {
-        const { itemContainer, goldMessageTextStyle, goldMessageTimeStyle } = styles
-        const { goldMessage, received } = item
-
-        const receivedTimeMillis = received ? received.toMillis() : 0
-        const time = receivedTimeMillis > 0 ? moment(receivedTimeMillis).fromNow() : ''
+        const { itemContainer, goldMessageTextStyle } = styles
+        const { goldMessage } = item
 
         return (
             <GoldListItem style={itemContainer}>
-                <Text style={goldMessageTextStyle}>{goldMessage}</Text>
-                <Text style={goldMessageTimeStyle} numberOfLines={2}>{time}</Text>
+                <Autolink
+                        style={goldMessageTextStyle}
+                        text={goldMessage}
+                        numberOfLines={2}
+                        hashtag="instagram"
+                        mention="twitter" />
             </GoldListItem>
         )
     }
