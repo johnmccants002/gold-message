@@ -6,6 +6,7 @@ import { COMPOSE_MESSAGE_TEXT, GOLD_MESSAGE_SENT, GOLD_MESSAGE_SENT_FAILED, RESE
 import { errorReceived } from './errors';
 import ComposeMessage from '../native/ComposeMessage';
 import { sleep } from '../utils/utils';
+import { INBOX } from './screens';
 
 export const resetComposeMessage = () => {
     return {
@@ -25,7 +26,7 @@ export const updateMultipleGoldMessages = (checkedGoldMessages) => {
     }
 }
 
-export const sendGoldMessage = (phone) => {
+export const sendGoldMessage = (phone, navigation) => {
     return async(dispatch, getStore) => {
         const { profile, composeMessages } = getStore()
         const { user } = profile
@@ -61,6 +62,9 @@ export const sendGoldMessage = (phone) => {
             const userDetails = await recipientUser.get()
 
             dispatch({ type: GOLD_MESSAGE_SENT})
+
+            setTimeout(() => { navigation.navigate(INBOX) }, 1000)
+            
             if(userDetails.get('profile') !== undefined) {
                 return
             }
@@ -69,10 +73,14 @@ export const sendGoldMessage = (phone) => {
                 'Non Gold Message User',
                 'Would you like to compose a message to invite this recipient?',
                 [
-                  { text : 'Yes', onPress : () => dispatch(sendMessage(phone, '(Link to app) See your GM', GOLD_MESSAGE_SENT_FAILED)) },
-                  { text : 'Cancel', onPress : () => console.log('cancelled')},
+                  { text : 'Yes', onPress : () => {
+                        dispatch(sendMessage(phone, '(Link to app) See your GM', GOLD_MESSAGE_SENT_FAILED)) 
+                        setTimeout(() => { navigation.navigate(INBOX) }, 500)
+                    }
+                  },
+                  { text : 'Cancel', onPress : () => navigation.navigate(INBOX)},
                 ],
-                { cancelable : true },
+                { cancelable : false },
               )
             
         }catch(e) {

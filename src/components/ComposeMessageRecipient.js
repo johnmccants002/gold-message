@@ -71,7 +71,7 @@ class ComposeMessageRecipient extends Component {
       return
     } 
     
-    this.props.sendGoldMessage(this.asYouType.getNumber().number)
+    this.props.sendGoldMessage(this.asYouType.getNumber().number, this.props.navigation)
   }
 
   onHandleBack = () => {
@@ -121,6 +121,7 @@ class ComposeMessageRecipient extends Component {
                   value={this.asYouType.input(phoneNumber)}
                   onChangeText={(value) => { this.props.updatePhoneNumber(value) }}
                   numberOfLines={1}
+                  autoFocus
                 />
               }
               {messageSent &&

@@ -79,6 +79,7 @@ class ComposeMessage extends Component {
                 value={messageText}
                 onChangeText={(value) => { this.setState({ messageText: value })}}
                 inputAccessoryViewID={inputAccessoryViewID}
+                autoFocus
               />
             </View>
             <InputAccessoryView nativeID={inputAccessoryViewID}>
