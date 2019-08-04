@@ -143,6 +143,19 @@ export const saveCurrentUserProfile = (email, firstName, lastName, about, photoU
     }
 }
 
+export const updateFCMToken = (token) => {
+    return async(dispatch, getStore) => {
+        const { profile } = getStore()
+        const { user } = profile
+
+        try {
+            await firebase.firestore().collection('users').doc(user.phoneNumber).update({ token })
+        }catch(e) {
+            console.log(e)
+        }
+    }
+}
+
 export const authenticatedUser = (user) => {
     return { type: USER_AUTHENTICATED, payload: user }
 }

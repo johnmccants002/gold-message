@@ -1,5 +1,6 @@
 
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { fromLeft, zoomIn, zoomOut, fromTop, fromRight, fromBottom } from 'react-navigation-transitions'
 
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
@@ -27,7 +28,24 @@ const screensViews = {
   ComposeMessageRecipient,
 };
 
-const AppNav = createStackNavigator({
+const handleCustomTransition = ({ scenes }) => {
+  const prevScene = scenes[scenes.length - 2];
+  const nextScene = scenes[scenes.length - 1];
+  
+  if (prevScene
+    && prevScene.route.routeName === 'Inbox'
+    && nextScene.route.routeName === 'ComposeMessage') {
+    return fromBottom();
+  } else if (prevScene
+    && prevScene.route.routeName === 'ComposeMessage'
+    && nextScene.route.routeName === 'ComposeMessageRecipient') {
+    return fromBottom();
+  }
+  return fromRight();
+}
+
+const AppNav = createStackNavigator(
+{
   SignUp: {
     screen: screensViews.SignUp,
   },
@@ -85,6 +103,7 @@ const AppNav = createStackNavigator({
       height: 0,
     },
   },
-});
+  transitionConfig: (nav) => handleCustomTransition(nav)
+},);
 
 export default AppContainer = createAppContainer(AppNav);

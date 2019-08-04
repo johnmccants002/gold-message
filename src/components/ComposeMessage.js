@@ -16,7 +16,7 @@ import HeaderIconButton from './common/HeaderIconButton';
 import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import { composeMessageText, resetComposeMessage } from '../actions/composeMessages';
-import { COMPOSE_MESSAGE_RECIPIENT, SELECT_MULTIPLE_MESSAGES } from '../actions/screens';
+import { COMPOSE_MESSAGE_RECIPIENT, SELECT_MULTIPLE_MESSAGES, INBOX } from '../actions/screens';
 
 
 class ComposeMessage extends Component {
@@ -43,7 +43,7 @@ class ComposeMessage extends Component {
 
   onBack = () => {
     this.props.resetComposeMessage()
-    this.props.navigation.goBack()
+    this.props.navigation.navigate(INBOX)
   }
 
   onSelectMultiple = () => {

@@ -22,6 +22,7 @@ import { logout, loadCurrentUserProfile, saveCurrentUserProfile } from '../actio
 import { refreshInbox, getSentGoldMessages } from '../actions/inbox';
 import EditProfileInput from './EditProfileInput';
 import firebase from 'react-native-firebase';
+import GoldButton from './common/GoldButton';
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
@@ -134,6 +135,12 @@ class Profile extends Component {
         })
     }
 
+    onLogoutPressed = () => {
+        this.props.logout()
+
+        this.props.navigation.dispatch(StackActions.popToTop());
+    }
+
     render() {
         const { containerStyle, parentImageContainerStyle, imageContainerStyle, imageStyle, editImageButton } = styles
         const { 
@@ -165,7 +172,7 @@ class Profile extends Component {
                         </TouchableOpacity>
                     </View>
                 </View> 
-                <KeyboardAvoidingView style={containerStyle} behavior="position" keyboardVerticalOffset={-160} enabled>
+                <KeyboardAvoidingView style={containerStyle} behavior="position" keyboardVerticalOffset={-60} enabled>
                     <ScrollView style={{ backgroundColor: colors.windowBackground, marginBottom : 50 }}  >
                         <EditProfileInput label={'Email'} value={email} onChangeText={(email) => this.setState({ email })}/>
                         <EditProfileInput label={'First Name'} value={firstName} onChangeText={(firstName) => this.setState({ firstName })}/>
@@ -174,6 +181,9 @@ class Profile extends Component {
                     </ScrollView>
                 </KeyboardAvoidingView>
 
+                <View style={{ padding: 10 }}>
+                    <GoldButton title={'Logout'} onPress={this.onLogoutPressed} buttonColor={colors.gold1} textColor={colors.white} />
+                </View>
             </View>
         )
     }
@@ -192,4 +202,4 @@ const mapStateToProps = ({ profile }) => {
         loading
     }
 }
-export default connect(mapStateToProps, { saveCurrentUserProfile, loadCurrentUserProfile })(Profile)
+export default connect(mapStateToProps, { saveCurrentUserProfile, loadCurrentUserProfile, logout })(Profile)

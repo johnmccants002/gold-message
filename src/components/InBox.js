@@ -15,6 +15,7 @@ import InboxGoldMessage from './InboxGoldMessage';
 
 import { resetComposeMessage } from '../actions/composeMessages'
 import { COMPOSE_MESSAGE, INBOX_PROFILE, PROFILE, EDIT_PROFILE } from '../actions/screens';
+import { updateFCMToken } from '../actions/profile';
 
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
@@ -38,11 +39,26 @@ class Inbox extends Component {
         this.props.navigation.navigate(COMPOSE_MESSAGE)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const usersRef = firebase.firestore().collection('users');
         this.userDetailsRef = usersRef.doc(firebase.auth().currentUser.phoneNumber).collection('inbox').onSnapshot((snapshot) => {
             this.props.refreshInbox()
         })
+
+        try {
+            const enabled = await firebase.messaging().hasPermission();
+            if (!enabled) {
+                    await firebase.messaging().requestPermission();
+            }
+        } catch (error) {
+        }
+
+        const fcmToken = await firebase.messaging().getToken();
+        this.props.updateFCMToken(fcmToken)
+    }
+    
+    componentWillUnmount() {
+        
     }
 
     goldMessageSelected = (item) => {
@@ -68,7 +84,7 @@ class Inbox extends Component {
         return (
             <View style={containerStyle}>
                 <Header
-                    title={"Gold Message"}
+                    title={"Gold Messages"}
                     leftAvatar={{ source: { uri: photoURL ? photoURL : demoImage }, onPress: this.onProfilePress }}
                     rightElement={() => <HeaderIconButton iconName={'plus'} onPress={this.onNewGoldMessage} />}
                 />
@@ -101,4 +117,4 @@ const mapStateToProps = ({ profile, inbox }) => {
         loading
     }
 }
-export default connect(mapStateToProps, { selectedItem, getIncomingGoldMessage, refreshInbox, clearUnread, resetComposeMessage })(Inbox)
+export default connect(mapStateToProps, { selectedItem, getIncomingGoldMessage, refreshInbox, clearUnread, resetComposeMessage, updateFCMToken })(Inbox)

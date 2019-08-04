@@ -52,7 +52,7 @@ export const sendGoldMessage = (phone, navigation) => {
                 const outboxAddPromise = senderUser.collection('outbox').doc(phone).collection('goldMessages').doc(messageText).set({ count: increment, received: createdAt }, {merge: true})
 
                 const goldMessagesLastRecipientPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).set({ lastRecipient: phone, lastSent: createdAt }, {merge: true})
-                const goldMessagesAddPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).collection('recipients').doc(phone).set({})
+                const goldMessagesAddPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).collection('recipients').doc(phone).set({ lastSent: createdAt })
 
                 promises.push(inboxLastMessagePromise, inboxAddPromise, outboxLastMessagePromise, outboxAddPromise, goldMessagesLastRecipientPromise, goldMessagesAddPromise)
             }
@@ -60,12 +60,15 @@ export const sendGoldMessage = (phone, navigation) => {
             await Promise.all(promises)
             
             const userDetails = await recipientUser.get()
+            const { token, profile } = userDetails.data()
+            //TODO call cloud function to send Firebase message.
+            
 
             dispatch({ type: GOLD_MESSAGE_SENT})
 
             setTimeout(() => { navigation.navigate(INBOX) }, 1000)
             
-            if(userDetails.get('profile') !== undefined) {
+            if(profile !== undefined) {
                 return
             }
 

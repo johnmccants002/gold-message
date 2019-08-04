@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 
 const UserCard = ({ user }) => {
   const { container, imageStyle, displayNameStyle, aboutStyle } = styles
-  const { displayName, about, photoURL } = user || { }
+  const { displayName, about, photoURL } = user || {  }
   
   return (
       <View style={container}>
@@ -52,7 +52,7 @@ const UserCard = ({ user }) => {
         <Text style={displayNameStyle}>{displayName}</Text>
         <Autolink
           style={aboutStyle}
-          text={about}
+          text={about || ''}
           hashtag="instagram"
           mention="twitter" />
       </View>

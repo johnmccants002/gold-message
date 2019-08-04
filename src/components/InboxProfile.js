@@ -79,7 +79,6 @@ class InboxProfile extends Component {
                 <Autolink
                         style={goldMessageTextStyle}
                         text={goldMessage}
-                        numberOfLines={2}
                         hashtag="instagram"
                         mention="twitter" />
             </GoldListItem>

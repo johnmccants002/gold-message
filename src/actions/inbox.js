@@ -106,15 +106,40 @@ export const getSentGoldMessages = () => {
                         const goldMessageRecipientsPromises = goldMessageRecipientsCollection.docs.map((doc) => {
                             return usersRef.doc(doc.id).get()
                         })
+
+                        const sentTimes = { }
+                        goldMessageRecipientsCollection.docs.forEach((doc) => {
+                            const { lastSent } = doc.data()
+
+                            sentTimes[doc.id] = lastSent
+                        })
+                        
                         const goldMessageRecipients = await Promise.all(goldMessageRecipientsPromises)
                         const recipients = goldMessageRecipients.map((goldMessageRecipient) => {
                             const goldMessageRecipientData = goldMessageRecipient.data()
-                            const { profile } = goldMessageRecipientData || { }
-
-                            return {...(profile || {}), ...(goldMessageRecipientData || {}), phoneNumber: goldMessageRecipient.id }
+                            const { profile, ...other } = goldMessageRecipientData || { profile: { } }
+                            
+                            return {...profile, ...other, phoneNumber: goldMessageRecipient.id, lastSent: sentTimes[goldMessageRecipient.id] }
                         })
 
-                        return resolve({ goldMessage: goldMessage.id, lastRecipient, lastSent, recipients: recipients })
+                        const recipientsSorted = recipients.sort(function({ lastSent: lastSentRecipientA }, { lastSent: lastSentRecipientB }){
+                            
+                            if(!lastSentRecipientA && !lastSentRecipientB) {
+                                return 0
+                            }
+                            
+                            if(!lastSentRecipientA) {
+                                return 1
+                            }
+                            
+                            if(!lastSentRecipientB) {
+                                return -1
+                            }
+
+                            return lastSentRecipientB.seconds - lastSentRecipientA.seconds;
+                        })
+
+                        return resolve({ goldMessage: goldMessage.id, lastRecipient, lastSent, recipients: recipientsSorted })
                     } catch (e) {
                         console.log('e', e)
                     }

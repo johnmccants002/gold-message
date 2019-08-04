@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     itemContainer: {
-        height: 70,
+        minHeight: 70,
         backgroundColor: 'white',
         marginLeft: 20,
         marginRight: 20,
@@ -131,15 +131,17 @@ class GoldMessagesSent extends Component {
         const { displayName, phoneNumber, photoURL } = item
 
         return (
-            <GoldListItem style={itemContainer} disabled={true}>
+            <GoldListItem style={[itemContainer, { minHeight: 30, padding: 10 }]} disabled={true}>
                 <View style={listItemContainer}>
-                    <Image source={{ uri: photoURL ? photoURL : demoImage}} style={avatarStyle} /> 
                     <View style={goldMessageRecipientContainerStyle} >
-                        <Text style={goldMessageRecipientStyle} numberOfLines={2}>{displayName}</Text>
-                        
-                        <NumberFormat style={{flex : 1 }} format="+# (###) ###-####" displayType={'text'}  mask="_" value={phoneNumber} renderText={
-                            (formattedValue) => <Text style={goldMessageRecipientStyle} numberOfLines={2}>{formattedValue}</Text>
-                        }/>
+                        {displayName && 
+                            <Text style={goldMessageRecipientStyle} numberOfLines={2}>{displayName}</Text>
+                        }
+                        {!displayName &&
+                            <NumberFormat style={{flex : 1 }} format="+# (###) ###-####" displayType={'text'}  mask="_" value={phoneNumber} renderText={
+                                (formattedValue) => <Text style={goldMessageRecipientStyle} numberOfLines={2}>{formattedValue}</Text>
+                            }/>
+                        }
                     </View>
                     <View style={textButtonContainer}>
                         <TouchableOpacity style={textButtonStyle} onPress={() => this.onTextRecipient(item)}> 
@@ -172,7 +174,7 @@ class GoldMessagesSent extends Component {
 
     rightMenu = () => {
         return (
-            <Menu style={{ backgroundColor: 'yello'}} >
+            <Menu>
             <MenuTrigger>
                 <HeaderIconButton iconName={'ellipsis-h'} />
             </MenuTrigger>

@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
       textAlign: 'right'
   },
   messageCountContainer: {
-      flex: 1,
+      width: 20,
+      justifyContent: "flex-end",
       alignItems: 'flex-end'
   },
   messageCountStyle: {
@@ -56,13 +57,13 @@ const InboxGoldMessage = ({ item, onPress }) => {
           </View>
           <View style={goldMessageLineContainer}>
               <Text style={subtitleStyle}>{lastGoldMessage}</Text>
-              <View style={messageCountContainer}>
                 {containsUnread && 
-                    <View style={[messageCountStyle, messageCountContainerColor]}>
-                        <Text style={messageCountTextColor}>{unread}</Text>
-                    </View>
+                <View style={messageCountContainer}>
+                        <View style={[messageCountStyle, messageCountContainerColor]}>
+                            <Text style={messageCountTextColor}>{unread}</Text>
+                        </View>
+                </View>
                 }
-              </View>
           </View>
       </GoldListItem>
   )
