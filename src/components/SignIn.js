@@ -59,11 +59,11 @@ class SignIn extends Component {
   
   componentDidMount() {
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      this.props.authenticatedUser(user)
       //firebase.auth().signOut();
       if(!user || !user.displayName) {
         return
       }
+      this.props.authenticatedUser(user)
 
       //Leaving in here for testing purposes, this will clear the display name to facilitate testing signup
       //user.updateProfile({ displayName: ``})

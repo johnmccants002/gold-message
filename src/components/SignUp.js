@@ -65,7 +65,9 @@ class SignUp extends Component {
 
     componentDidMount() {
         this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-          this.props.authenticatedUser(user)
+            if(user) {
+                this.props.authenticatedUser(user)
+            }
         })
       }
 

@@ -60,7 +60,7 @@ export const sendGoldMessage = (phone, navigation) => {
             await Promise.all(promises)
             
             const userDetails = await recipientUser.get()
-            const { token, profile } = userDetails.data()
+            const { token, profile } = userDetails && userDetails.data() ? userDetails.data() : { }
             //TODO call cloud function to send Firebase message.
             
 

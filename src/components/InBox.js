@@ -40,9 +40,15 @@ class Inbox extends Component {
     }
 
     async componentDidMount() {
+        if(firebase.auth().currentUser == null) {
+            return
+        }
+        
         const usersRef = firebase.firestore().collection('users');
         this.userDetailsRef = usersRef.doc(firebase.auth().currentUser.phoneNumber).collection('inbox').onSnapshot((snapshot) => {
-            this.props.refreshInbox()
+            if(firebase.auth().currentUser != null) {
+                this.props.refreshInbox()
+            }
         })
 
         try {
@@ -53,8 +59,10 @@ class Inbox extends Component {
         } catch (error) {
         }
 
-        const fcmToken = await firebase.messaging().getToken();
-        this.props.updateFCMToken(fcmToken)
+        if(firebase.auth().currentUser != null) {
+            const fcmToken = await firebase.messaging().getToken();
+            this.props.updateFCMToken(fcmToken)
+        }
     }
     
     componentWillUnmount() {
