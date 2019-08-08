@@ -28,22 +28,6 @@ const screensViews = {
   ComposeMessageRecipient,
 };
 
-const handleCustomTransition = ({ scenes }) => {
-  const prevScene = scenes[scenes.length - 2];
-  const nextScene = scenes[scenes.length - 1];
-  
-  if (prevScene
-    && prevScene.route.routeName === 'Inbox'
-    && nextScene.route.routeName === 'ComposeMessage') {
-    return fromBottom();
-  } else if (prevScene
-    && prevScene.route.routeName === 'ComposeMessage'
-    && nextScene.route.routeName === 'ComposeMessageRecipient') {
-    return fromBottom();
-  }
-  return fromRight();
-}
-
 const AppNav = createStackNavigator(
 {
   SignUp: {
@@ -102,8 +86,7 @@ const AppNav = createStackNavigator(
       elevation: 0,
       height: 0,
     },
-  },
-  transitionConfig: (nav) => handleCustomTransition(nav)
+  }
 },);
 
 export default AppContainer = createAppContainer(AppNav);
