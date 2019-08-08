@@ -1,4 +1,5 @@
 import firebase from 'react-native-firebase'
+
 import { REFRESHING_INBOX, INBOX_REFRESHED, REFRESHING_INBOX_ERROR, SELECTED_USER_GOLD_MESSAGES, SELECTED_USER, SELECTED_USER_GOLD_MESSAGES_LOADING, SENT_GOLD_MESSAGES_LOADING, SENT_GOLD_MESSAGES_ERROR, SENT_GOLD_MESSAGES_RECEIVED } from './types';
 import { errorReceived } from './errors';
 
@@ -48,7 +49,8 @@ export const getIncomingGoldMessage = (phone) => {
             const userPhoneNumber = user.phoneNumber
             const goldMessagesSnapshot = await usersRef.doc(userPhoneNumber).collection('inbox').doc(phone).collection('goldMessages').get()
             const goldMessages = goldMessagesSnapshot.docs.map((doc) => { 
-                    return { goldMessage: doc.id, ...doc.data() } 
+                const { goldMessage: goldMessageText } = doc.data()
+                    return { goldMessage: goldMessageText || doc.id, ...doc.data() } 
             })
             
 
@@ -98,8 +100,8 @@ export const getSentGoldMessages = () => {
             
             const goldMessagesPromises = sentGoldMessages.docs.map((goldMessage) => {
                 return new Promise(async(resolve, reject) => {
+                    const { lastRecipient, lastSent, goldMessage: goldMessageText } = goldMessage.data()
                     try {
-                        const { lastRecipient, lastSent } = goldMessage.data()
 
                         const goldMessageRecipientsCollection = await goldMessage.ref.collection('recipients').get()
                         
@@ -139,11 +141,11 @@ export const getSentGoldMessages = () => {
                             return lastSentRecipientB.seconds - lastSentRecipientA.seconds;
                         })
 
-                        return resolve({ goldMessage: goldMessage.id, lastRecipient, lastSent, recipients: recipientsSorted })
+                        return resolve({ goldMessage: goldMessageText  || goldMessage.id, lastRecipient, lastSent, recipients: recipientsSorted })
                     } catch (e) {
                         console.log('e', e)
                     }
-                    return resolve({ goldMessage: doc.id, recipients: [] })
+                    return resolve({ goldMessage: goldMessageText || goldMessage.id, recipients: [] })
                 })
             })
             

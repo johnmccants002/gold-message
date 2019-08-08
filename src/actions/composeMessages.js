@@ -1,5 +1,7 @@
 import firebase from 'react-native-firebase'
 import { Linking, Alert } from 'react-native'
+import base64 from 'react-native-base64'
+
 const usersRef = firebase.firestore().collection('users');
 
 import { COMPOSE_MESSAGE_TEXT, GOLD_MESSAGE_SENT, GOLD_MESSAGE_SENT_FAILED, RESET_COMPOSE_MESSAGE, CLEAR_ERROR, GOLD_MESSAGE_SENDING, UPDATE_PHONE_NUMBER, MULTIPLE_GOLD_MESSAGES } from './types';
@@ -45,14 +47,16 @@ export const sendGoldMessage = (phone, navigation) => {
             const goldMessagesCount = goldMessages.length
             for(let i = 0; i < goldMessagesCount; i++) {
                 const messageText = goldMessages[i]
+                const encodedMessageText = base64.encode(messageText)
+
                 const inboxLastMessagePromise = recipientUser.collection('inbox').doc(userPhoneNumber).set({ lastGoldMessage: messageText, lastGoldMessageTime: createdAt, unread: increment }, {merge: true})
-                const inboxAddPromise = recipientUser.collection('inbox').doc(userPhoneNumber).collection('goldMessages').doc(messageText).set({ count: increment, received: createdAt }, {merge: true})
+                const inboxAddPromise = recipientUser.collection('inbox').doc(userPhoneNumber).collection('goldMessages').doc(encodedMessageText).set({ goldMessage: messageText, count: increment, received: createdAt }, {merge: true})
 
                 const outboxLastMessagePromise = senderUser.collection('outbox').doc(phone).set({ lastGoldMessage: messageText, lastGoldMessageTime: createdAt })
-                const outboxAddPromise = senderUser.collection('outbox').doc(phone).collection('goldMessages').doc(messageText).set({ count: increment, received: createdAt }, {merge: true})
+                const outboxAddPromise = senderUser.collection('outbox').doc(phone).collection('goldMessages').doc(encodedMessageText).set({ goldMessage: messageText, count: increment, received: createdAt }, {merge: true})
 
-                const goldMessagesLastRecipientPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).set({ lastRecipient: phone, lastSent: createdAt }, {merge: true})
-                const goldMessagesAddPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(messageText).collection('recipients').doc(phone).set({ lastSent: createdAt })
+                const goldMessagesLastRecipientPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(encodedMessageText).set({ goldMessage: messageText, lastRecipient: phone, lastSent: createdAt }, {merge: true})
+                const goldMessagesAddPromise = usersRef.doc(userPhoneNumber).collection('goldMessages').doc(encodedMessageText).collection('recipients').doc(phone).set({ lastSent: createdAt })
 
                 promises.push(inboxLastMessagePromise, inboxAddPromise, outboxLastMessagePromise, outboxAddPromise, goldMessagesLastRecipientPromise, goldMessagesAddPromise)
             }
@@ -109,7 +113,15 @@ export const deleteGoldMessage = (goldMessage) => {
             const { user } = profile
             const { phoneNumber } = user
 
-            const goldMessageRecipientsCollection = await usersRef.doc(phoneNumber).collection('goldMessages').doc(goldMessage).collection('recipients').get()
+            const encodedMessageText = base64.encode(goldMessage)
+
+            let goldMessageDoc = await usersRef.doc(phoneNumber).collection('goldMessages').doc(encodedMessageText).get()
+            if(!goldMessageDoc.exists) {
+                goldMessageDoc = await usersRef.doc(phoneNumber).collection('goldMessages').doc(goldMessage).get()
+            }
+            const goldMessageDocReference = goldMessageDoc.ref
+
+            const goldMessageRecipientsCollection = await goldMessageDocReference.collection('recipients').get()
                             
             const goldMessageDeleteRecipientsPromise = goldMessageRecipientsCollection.docs.map((doc) => {
                 if(doc) {
@@ -119,7 +131,7 @@ export const deleteGoldMessage = (goldMessage) => {
 
             await Promise.all(goldMessageDeleteRecipientsPromise)
 
-            await usersRef.doc(phoneNumber).collection('goldMessages').doc(goldMessage).delete()
+            await goldMessageDocReference.delete()
         }catch(e) {
             console.log('e', e)
         }
