@@ -52,7 +52,7 @@ class ComposeMessage extends Component {
 
   render() {
     const { messageText } = this.state
-    const inputAccessoryViewID = "uniqueID";
+    const inputAccessoryViewID = "inputAccessoryView1";
     
     return (
       <View style={{ flex: 1 }}>
@@ -81,12 +81,12 @@ class ComposeMessage extends Component {
                 inputAccessoryViewID={inputAccessoryViewID}
                 autoFocus
               />
-            </View>
-            <InputAccessoryView nativeID={inputAccessoryViewID}>
-              <View style={{ flex: 1, alignItems: 'flex-end'}}>
-                  <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />
-              </View>
-            </InputAccessoryView>            
+              <InputAccessoryView nativeID={inputAccessoryViewID}>
+                <View style={{ flex: 1, alignItems: 'flex-end'}}>
+                    <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />
+                </View>
+              </InputAccessoryView>  
+            </View>          
           </ComposeMessageContainer>
       </View>
     );

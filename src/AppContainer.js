@@ -1,5 +1,5 @@
 
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { fromLeft, zoomIn, zoomOut, fromTop, fromRight, fromBottom } from 'react-navigation-transitions'
 
 import SignUp from './components/SignUp';
@@ -27,15 +27,21 @@ const screensViews = {
   MessageConfirm,
   ComposeMessageRecipient,
 };
-
-const AppNav = createStackNavigator(
-{
-  SignUp: {
-    screen: screensViews.SignUp,
-  },
+const AuthStack = createStackNavigator({ 
   SignIn: {
     screen: screensViews.SignIn,
   },
+  SignUp: {
+    screen: screensViews.SignUp,
+  },
+  PhoneVerification: {
+    screen: PhoneVerification,
+  },
+ });
+
+const AppStack = createStackNavigator(
+{
+  
   Inbox: {
     screen: screensViews.Inbox,
   },
@@ -54,9 +60,6 @@ const AppNav = createStackNavigator(
   ComposeMessageRecipient: {
     screen: screensViews.ComposeMessageRecipient,
   },
-  PhoneVerification: {
-    screen: PhoneVerification,
-  },
   InboxProfile: {
     screen: InboxProfile,
   },
@@ -72,21 +75,26 @@ const AppNav = createStackNavigator(
   SelectMultipleMessages: {
     screen: SelectMultipleMessages
   }
-}, {
-  initialRouteName: 'SignIn',
-  defaultNavigationOptions: {
-    headerLeft: null,
-    headerStyle: {
-      shadowOpacity: 0,
-      shadowOffset: {
+});
+
+export default AppContainer = createAppContainer(createSwitchNavigator(
+  {
+    App: AppStack,
+    Auth: AuthStack,
+  }, {
+    initialRouteName: 'Auth',
+    defaultNavigationOptions: {
+      headerLeft: null,
+      headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0,
+        },
+        shadowRadius: 0,
+        borderBottomWidth: 0,
+        elevation: 0,
         height: 0,
       },
-      shadowRadius: 0,
-      borderBottomWidth: 0,
-      elevation: 0,
-      height: 0,
-    },
-  }
-},);
-
-export default AppContainer = createAppContainer(AppNav);
+    }
+  },
+));
