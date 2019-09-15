@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
 
 class PhoneVerification extends Component {
 
+  static navigationOptions = {
+    header: null,
+}
+
   constructor(props) {
     super(props);
     this.state = { verificationCode : '' }

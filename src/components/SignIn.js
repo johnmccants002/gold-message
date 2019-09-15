@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
 
 class SignIn extends Component {
 
+  static navigationOptions = {
+    header: null,
+}
+
   constructor(props) {
     super(props);
     this.state = { phoneNumber : '' }

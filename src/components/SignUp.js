@@ -58,6 +58,10 @@ const styles = StyleSheet.create({
 
 class SignUp extends Component {
 
+    static navigationOptions = {
+        header: null,
+    }
+
     constructor(props) {
         super(props);
         this.state = { email : '', firstName: '', lastName: '' }
