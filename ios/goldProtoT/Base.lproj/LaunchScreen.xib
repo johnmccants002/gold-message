@@ -16,19 +16,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="jht-WL-oXG">
-                    <rect key="frame" x="178" y="178" width="125" height="125"/>
+                    <rect key="frame" x="190" y="190" width="100" height="100"/>
                     <color key="backgroundColor" red="0.96669858694076538" green="0.83886986970901489" blue="0.28217506408691406" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="jht-WL-oXG" secondAttribute="height" multiplier="1:1" id="tHy-81-v8c"/>
+                        <constraint firstAttribute="width" constant="100" id="Fyd-7N-H4h"/>
+                        <constraint firstAttribute="height" constant="100" id="mzo-8f-N49"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.96669858694076538" green="0.83886986970901489" blue="0.28217506408691406" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="jht-WL-oXG" secondAttribute="trailing" constant="177" id="9dd-gY-AGm"/>
-                <constraint firstAttribute="bottom" secondItem="jht-WL-oXG" secondAttribute="bottom" constant="177" id="OTq-ol-cic"/>
-                <constraint firstItem="jht-WL-oXG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="178" id="RtC-cE-z6H"/>
-                <constraint firstItem="jht-WL-oXG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="178" id="qLG-MC-T8K"/>
+                <constraint firstItem="jht-WL-oXG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="L0y-ns-se9"/>
+                <constraint firstItem="jht-WL-oXG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iRz-DO-ebs"/>
+                <constraint firstItem="jht-WL-oXG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="j9X-wF-7tu"/>
+                <constraint firstItem="jht-WL-oXG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="laH-7P-lXR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

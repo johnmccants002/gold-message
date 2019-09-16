@@ -129,8 +129,6 @@ class SignIn extends Component {
         />
 
         <AuthenticationButton title="Sign In" onPress={() => this.authenticate()} loading={loading} />
-
-        <Text style={styles.instructions}>Recover password</Text>
       </AuthenticationScreen>
     );
   }

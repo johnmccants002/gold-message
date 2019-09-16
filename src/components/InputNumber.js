@@ -45,7 +45,7 @@ class InputNumber extends Component {
         >
           <View style={{ padding: 15, paddingTop: 10 }}>
             <Icon
-              name="times"
+              name="chevron-left"
               size={29}
               type="font-awesome"
               color={Colors.gold1}

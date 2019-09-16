@@ -26,6 +26,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		19071EAE22F66A4600A94919 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19071E8122F66A4500A94919 /* Foundation.framework */; };
 		19071EB022F66A6700A94919 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19071EAF22F66A6700A94919 /* CoreFoundation.framework */; };
+		1926010D232DFD4D00FA8044 /* libRCTSelectContact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1926010C232DFD2B00FA8044 /* libRCTSelectContact.a */; };
 		19323B26230D010B0063406B /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19323AF9230D010B0063406B /* iTunesArtwork@2x.png */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -175,6 +176,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		1926010B232DFD2B00FA8044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 192600DB232DFD2B00FA8044 /* SelectContact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2B58405A1D10DE8700235F31;
+			remoteInfo = RCTSelectContact;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -459,6 +467,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		19071E8122F66A4500A94919 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		19071EAF22F66A6700A94919 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		192600DB232DFD2B00FA8044 /* SelectContact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SelectContact.xcodeproj; path = "../node_modules/react-native-select-contact/ios/SelectContact.xcodeproj"; sourceTree = "<group>"; };
 		19323AF9230D010B0063406B /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "goldProtoT/Images.xcassets/iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
 		198A1A51230FB49F001A0E7A /* goldProtoT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = goldProtoT.entitlements; path = goldProtoT/goldProtoT.entitlements; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* goldProtoT-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "goldProtoT-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -520,6 +529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1926010D232DFD4D00FA8044 /* libRCTSelectContact.a in Frameworks */,
 				19071EB022F66A6700A94919 /* CoreFoundation.framework in Frameworks */,
 				19071EAE22F66A4600A94919 /* Foundation.framework in Frameworks */,
 				ACDBE2A022D84BA600A11709 /* MessageUI.framework in Frameworks */,
@@ -722,6 +732,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		192600DC232DFD2B00FA8044 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1926010C232DFD2B00FA8044 /* libRCTSelectContact.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,6 +807,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				192600DB232DFD2B00FA8044 /* SelectContact.xcodeproj */,
 				ACE037D022C608D900DE857B /* RNFetchBlob.xcodeproj */,
 				ACE037C922C5FF7000DE857B /* RNImagePicker.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -1136,6 +1155,10 @@
 					ProductGroup = AC1707AB22854B5000F6DD9F /* Products */;
 					ProjectRef = 832541DD701B444D93975BAE /* RNVectorIcons.xcodeproj */;
 				},
+				{
+					ProductGroup = 192600DC232DFD2B00FA8044 /* Products */;
+					ProjectRef = 192600DB232DFD2B00FA8044 /* SelectContact.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1203,6 +1226,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1926010C232DFD2B00FA8044 /* libRCTSelectContact.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTSelectContact.a;
+			remoteRef = 1926010B232DFD2B00FA8044 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */ = {

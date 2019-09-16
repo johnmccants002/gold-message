@@ -18,7 +18,7 @@ const HeaderBackIcon = ({ onPress }) => {
     return (
       <View style={containerStyle}>
         <Icon
-          name="times"
+          name="chevron-left"
           size={29}
           type="font-awesome"
           color={colors.gold1}

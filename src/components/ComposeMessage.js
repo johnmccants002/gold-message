@@ -58,7 +58,7 @@ class ComposeMessage extends Component {
       <View style={{ flex: 1 }}>
         <Header
           title={"New Gold Message"}
-          leftElement={() => <HeaderIconButton iconName={'times'} onPress={() => this.onBack()} />}
+          leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={() => this.onBack()} />}
           rightElement={() => <HeaderTextButton title={'Next'} onPress={() => this.onNext() } />}
         />
         

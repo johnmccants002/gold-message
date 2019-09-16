@@ -21,6 +21,8 @@ import { Icon } from 'react-native-elements';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
 import { INBOX } from '../actions/screens';
+import HeaderImageButton from './common/HeaderImageButton';
+import { selectContactPhone } from 'react-native-select-contact';
 
 
 const styles = StyleSheet.create({
@@ -91,6 +93,17 @@ class ComposeMessageRecipient extends Component {
   componentWillMount() {
     this.asYouType = new AsYouType('US')
   }
+
+  onSelectContact = async() => {
+    const { selectedPhone } = await selectContactPhone()
+    if(!selectedPhone) {
+      return
+    }
+
+    const { number } = selectedPhone
+    this.props.updatePhoneNumber(number)
+
+  }
   
   render() {
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle, contentContainerStyle, messageSentStyle } = styles
@@ -106,7 +119,8 @@ class ComposeMessageRecipient extends Component {
       <ErrorModal isVisible={messageError != undefined} message={messageError} onDismissed={this.onErrorDismissed} />
         <Header
           title={"New Gold Message"}
-          leftElement={() => <HeaderIconButton iconName={'times'} onPress={this.onHandleBack} />} />
+          leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={this.onHandleBack} />}
+          rightElement={() => <HeaderImageButton source={require('../assets/contacts.png')} onPress={this.onSelectContact}/>}/>
         
         <ComposeMessageContainer title={containerTitle}>
             <View style={contentContainerStyle} >

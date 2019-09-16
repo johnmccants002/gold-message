@@ -34,7 +34,7 @@ class ComposeMessage extends Component {
         >
           <View style={{ padding: 15, paddingTop: 10 }}>
             <Icon
-              name="times"
+              name="chevron-left"
               size={29}
               type="font-awesome"
               color="#ffd64d"

@@ -126,8 +126,8 @@ class SelectMultipleMessages extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Header
-          title={"New Gold Message"}
-          leftElement={() => <HeaderIconButton iconName={'times'} onPress={() => this.onBack()} />}
+          title={"Select Gold Message"}
+          leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={() => this.onBack()} />}
           rightElement={() => <HeaderTextButton title={'Done'} onPress={() => this.onNext() } />}
         />
         <FlatList
