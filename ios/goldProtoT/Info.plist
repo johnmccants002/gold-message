@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>goldProtoT</string>
+	<string>Gold Message</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.47249699259-r0qm3m37i6o7heqbnupqihv2o96gdv4v</string>
+				<string>com.googleusercontent.apps.47249699259-d5ani0am0du6opdn4jjhj9p5ptg4fbnq</string>
 			</array>
 		</dict>
 	</array>
@@ -52,6 +52,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your contacts</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Potentially required by a library our app uses but is never requested</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
