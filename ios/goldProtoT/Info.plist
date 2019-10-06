@@ -51,17 +51,17 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your camera</string>
+	<string>We use your camera to allow you to take a photo of yourself for your profile pic.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your contacts</string>
+	<string>We use your contacts to make easier to send a gold message to someone you know</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Potentially required by a library our app uses but is never requested</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Potentially required by a library our app uses but is never requested</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+	<string>We use your photo gallery to allow you to save a photo of yourself</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your photo gallery</string>
+	<string>We use your photo gallery to allow you to choose a photo of yourself for your profile pic</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

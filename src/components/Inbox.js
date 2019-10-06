@@ -6,16 +6,17 @@ import {
     StyleSheet,
     FlatList,
     RefreshControl,
+    Alert,
 } from 'react-native'
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
-import { selectedItem, refreshInbox, clearUnread, getIncomingGoldMessage } from '../actions/inbox'
+import { selectedItem, refreshInbox, clearUnread, getIncomingGoldMessage, blockUser } from '../actions/inbox'
 
 import InboxGoldMessage from './InboxGoldMessage';
 
 import { resetComposeMessage } from '../actions/composeMessages'
-import { COMPOSE_MESSAGE, INBOX_PROFILE, PROFILE, EDIT_PROFILE } from '../actions/screens';
-import { updateFCMToken } from '../actions/profile';
+import { COMPOSE_MESSAGE, INBOX_PROFILE, PROFILE, SIGN_IN } from '../actions/screens';
+import { updateFCMToken, storeInboxSnapshotUnsubscribe } from '../actions/profile';
 
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
@@ -43,13 +44,20 @@ class Inbox extends Component {
         if(firebase.auth().currentUser == null) {
             return
         }
+
+        this.onAuthStateChangedUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if(!user) {
+                this.props.navigation.navigate(SIGN_IN)
+            }
+        })
         
         const usersRef = firebase.firestore().collection('users');
-        this.userDetailsRef = usersRef.doc(firebase.auth().currentUser.phoneNumber).collection('inbox').onSnapshot((snapshot) => {
+        this.inboxSnapshotUnbsubscribe = usersRef.doc(firebase.auth().currentUser.phoneNumber).collection('inbox').onSnapshot((snapshot) => {
             if(firebase.auth().currentUser != null) {
                 this.props.refreshInbox()
             }
         })
+        this.props.storeInboxSnapshotUnsubscribe(this.inboxSnapshotUnbsubscribe)
 
         try {
             const enabled = await firebase.messaging().hasPermission();
@@ -64,20 +72,61 @@ class Inbox extends Component {
             this.props.updateFCMToken(fcmToken)
         }
     }
-    
+
     componentWillUnmount() {
-        
+        try {
+            if(this.onAuthStateChangedUnsubscribe) {
+                this.onAuthStateChangedUnsubscribe()
+            }
+        } catch{}
+
+        try {
+            if(this.inboxSnapshotUnbsubscribe) {
+                this.inboxSnapshotUnbsubscribe()
+            }
+        } catch{}
     }
 
     goldMessageSelected = (item) => {
         this.props.selectedItem(item)
         this.props.navigation.navigate(INBOX_PROFILE)
     }
+
+    onPromptOptions = (item) => {
+        const { displayName } = item
+        
+        Alert.alert(
+            displayName,
+            undefined,
+            [
+            { text : 'Block User', onPress : () => {
+                    this.onConfirmBlock(item)
+                }
+            },
+            { text : 'Cancel' }
+            ]
+        )
+    }
+
+    onConfirmBlock = (item) => {
+        const { displayName } = item
+        Alert.alert(
+            displayName,
+            'Are you sure you want to block this user?',
+            [
+            { text : 'Confirm', onPress : () => {
+                    this.props.blockUser(item)
+                }
+            },
+            { text : 'Cancel' }
+            ]
+        )
+    }
     
     renderItem = ({ item }) => {
 
         return (
-            <InboxGoldMessage key={item.phoneNumber} item={item} onPress={() => this.goldMessageSelected(item)} />
+            <InboxGoldMessage key={item.phoneNumber} item={item} onPress={() => this.goldMessageSelected(item)} onLongPress={() => this.onPromptOptions(item)} />
         )
     }
 
@@ -125,4 +174,4 @@ const mapStateToProps = ({ profile, inbox }) => {
         loading
     }
 }
-export default connect(mapStateToProps, { selectedItem, getIncomingGoldMessage, refreshInbox, clearUnread, resetComposeMessage, updateFCMToken })(Inbox)
+export default connect(mapStateToProps, { selectedItem, getIncomingGoldMessage, refreshInbox, clearUnread, resetComposeMessage, updateFCMToken, storeInboxSnapshotUnsubscribe, blockUser })(Inbox)

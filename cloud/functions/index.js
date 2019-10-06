@@ -14,6 +14,14 @@ exports.notifyOnGoldMessage = functions.firestore.document('/users/{recipient}/i
       const recipientUser = await admin.firestore().doc(`/users/${recipient}`).get()
       const { profile: recipientProfile, token: recipientToken } = recipientUser.data()
 
+      const recipientSenderInbox = await admin.firestore().doc(`/users/${recipient}/inbox/${sender}`).get()
+      const { blocked } = recipientSenderInbox.data() || { }
+      if(blocked) {
+        console.log('Sender is blocked, skipping push')
+
+        return
+      }
+
       const senderUser = await admin.firestore().doc(`/users/${sender}`).get()
       const { profile: senderProfile } = senderUser.data()
       const { firstName: senderFirstName } = senderProfile

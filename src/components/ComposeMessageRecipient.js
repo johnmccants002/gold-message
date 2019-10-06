@@ -4,6 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Alert,
 } from 'react-native';
 
 import {
@@ -70,6 +71,11 @@ class ComposeMessageRecipient extends Component {
     const parsedNumber = parsePhoneNumberFromString(this.asYouType.getNumber().number)
     
     if (!parsedNumber || !parsedNumber.isValid()) {
+              
+      Alert.alert(
+        'Invalid Phone',
+        'The number you have entered is not a valid phone number'
+      )
       return
     } 
     

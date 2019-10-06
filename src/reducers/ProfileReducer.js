@@ -9,6 +9,7 @@ import {
     LOAD_USER_PROFILE_ERROR,
     LOAD_USER_PROFILE,
     SELECTED_SENT_GOLD_MESSAGE,
+    INBOX_SNAPSHOT_UNSUBSCRIBE,
 } from '../actions/types';
   
   const INITIAL_STATE = {
@@ -19,6 +20,7 @@ import {
       displayName: '',
       error: undefined,
       selectedGoldMessage: undefined,
+      inboxSnapshotUnsubscribe: undefined,
   };
   
   export default (state = INITIAL_STATE, action) => {
@@ -43,6 +45,8 @@ import {
         return { ...state, loading : payload }
       case SELECTED_SENT_GOLD_MESSAGE:
         return { ...state, selectedGoldMessage : payload }
+      case INBOX_SNAPSHOT_UNSUBSCRIBE:
+        return { ...state, inboxSnapshotUnsubscribe: payload }
       default:
         return state;
     }

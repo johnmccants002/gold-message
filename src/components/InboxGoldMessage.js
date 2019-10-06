@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   }
   });
 
-const InboxGoldMessage = ({ item, onPress }) => {
+const InboxGoldMessage = ({ item, onPress, onLongPress }) => {
   const { goldMessageLineContainer, titleStyle, subtitleStyle, messageCountContainer, messageCountStyle } = styles
   const { displayName, lastGoldMessage, messageCount, unread } = item
   
@@ -51,7 +51,7 @@ const InboxGoldMessage = ({ item, onPress }) => {
   const messageCountTextColor = { color: containsUnread ? colors.white : colors.gold1, fontSize: 12 }
 
   return (
-      <GoldListItem onPress={onPress}>
+      <GoldListItem onPress={onPress} onLongPress={onLongPress}>
           <View style={goldMessageLineContainer}>
               <Text style={titleStyle}>{displayName}</Text>
           </View>

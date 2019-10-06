@@ -6,13 +6,14 @@ import {
     FlatList,
     RefreshControl,
     Text,
-    Linking
+    Linking,
+    Alert,
 } from 'react-native'
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
 import HeaderTextButton from './common/HeaderTextButton'
 
-import { getIncomingGoldMessage, clearUnread } from '../actions/inbox';
+import { getIncomingGoldMessage, clearUnread, reportGoldMessage } from '../actions/inbox';
 import GoldListItem from './common/GoldListItem';
 import { updatePhoneNumber, sendMessage } from '../actions/composeMessages';
 import ErrorModal from './common/ErrorModal';
@@ -69,13 +70,45 @@ class InboxProfile extends Component {
         this.props.getIncomingGoldMessage(phoneNumber)
         this.props.clearUnread(phoneNumber)
     }
+
+    onPromptOptions = (item) => {
+        const { goldMessage } = item
+        console.log('item', item)
+                
+        Alert.alert(
+            goldMessage,
+            undefined,
+            [
+            { text : 'Report', onPress : () => {
+                    this.onConfirmReport(item)
+                }
+            },
+            { text : 'Cancel' }
+            ]
+        )
+    }
     
+    onConfirmReport = (item) => {
+        const { goldMessage } = item
+        Alert.alert(
+            goldMessage,
+            'Are you sure you want to report this message?',
+            [
+            { text : 'Confirm', onPress : () => {
+                    this.props.reportGoldMessage(item)
+                }
+            },
+            { text : 'Cancel' }
+            ]
+        )
+    }
+
     renderItem = ({ item }) => {
         const { itemContainer, goldMessageTextStyle } = styles
         const { goldMessage } = item
 
         return (
-            <GoldListItem style={itemContainer}>
+            <GoldListItem style={itemContainer} onLongPress={() => this.onPromptOptions(item)}>
                 <Autolink
                         style={goldMessageTextStyle}
                         text={goldMessage}
@@ -125,4 +158,4 @@ const mapStateToProps = ({ inbox }) => {
         error
     }
 }
-export default connect(mapStateToProps, { getIncomingGoldMessage, clearUnread, updatePhoneNumber, sendMessage, clearError })(InboxProfile)
+export default connect(mapStateToProps, { getIncomingGoldMessage, clearUnread, updatePhoneNumber, sendMessage, clearError, reportGoldMessage })(InboxProfile)

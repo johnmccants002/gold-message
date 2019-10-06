@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const GoldListItem = ({ style, onPress, children, disabled }) => {
+const GoldListItem = ({ style, onPress, children, disabled, onLongPress }) => {
   const { itemContainer } = styles
 
   return (
-      <TouchableOpacity style={[itemContainer, style]} onPress={onPress} disabled={disabled}>
+      <TouchableOpacity style={[itemContainer, style]} onPress={onPress} disabled={disabled} onLongPress={onLongPress}>
         {children}
       </TouchableOpacity>
   )

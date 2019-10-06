@@ -1,8 +1,13 @@
 import firebase from 'react-native-firebase'
 
-import { USER_AUTHENTICATED, USER_AUTHENTICATION_ERROR, PHONE_VERIFICATION_RECEIVED, PHONE_VERIFIED, LOADING, LOGOUT, LOAD_USER_PROFILE, LOAD_USER_PROFILE_COMPLETE, LOAD_USER_PROFILE_ERROR, SELECTED_SENT_GOLD_MESSAGE } from './types';
+import {
+    Alert,
+} from 'react-native';
+import { USER_AUTHENTICATED, USER_AUTHENTICATION_ERROR, PHONE_VERIFICATION_RECEIVED, PHONE_VERIFIED, LOADING, LOGOUT, LOAD_USER_PROFILE, LOAD_USER_PROFILE_COMPLETE, LOAD_USER_PROFILE_ERROR, SELECTED_SENT_GOLD_MESSAGE, INBOX_SNAPSHOT_UNSUBSCRIBE } from './types';
 import { errorReceived } from './errors';
 import { ImageCacheManager } from 'react-native-cached-image';
+import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
+import Contacts from 'react-native-contacts';
 
 export const phoneAuthentication = (phoneNumber) => {
     return async(dispatch) => {
@@ -25,10 +30,29 @@ export const verifyPhoneNumber = (verificationCode) => {
             dispatch({ type: LOADING, payload: true })
 
             await verification.confirm(verificationCode)
-            dispatch({ type: PHONE_VERIFIED, payload: true })
+            dispatch(confirmEULA())
         }catch(e) {
             dispatch(errorReceived(USER_AUTHENTICATION_ERROR, e))
         }
+    }
+}
+
+export const confirmEULA = () => {
+    return async(dispatch) => {
+        Alert.alert(
+            'EULA',
+            'By using this app you agree to our terms of service and privacy policy.\nWe have no tolerance for objectionable content or abusive users.\nYou will be banned for any inappropriate usage!',
+            [
+            { text : 'Continue', onPress : () => {
+                    dispatch({ type: PHONE_VERIFIED, payload: true })
+                }
+            },
+            { text : 'Cancel', onPress : async() => {
+                dispatch(logout())
+            }},
+            ],
+            { cancelable : false },
+        )
     }
 }
 
@@ -57,7 +81,7 @@ export const completeSignIn = (email, firstName, lastName) => {
             const updateProfilePromise = user.updateProfile({ displayName: `${firstName} ${lastName}`})
             
             await Promise.all([updateEmailPromise, updateProfilePromise])
-            await firebase.firestore().collection('users').doc(user.phoneNumber).set({
+            await firebase.firestore().collection('users').doc(firebase.auth().currentUser.phoneNumber).set({
                 profile: {
                     displayName: firebase.auth().currentUser.displayName,
                     firstName,
@@ -102,6 +126,22 @@ export const loadCurrentUserProfile = () => {
 export const selectedSentGoldMessage = (goldMessage) => {
     return async(dispatch) => {
         dispatch({ type: SELECTED_SENT_GOLD_MESSAGE, payload: goldMessage })
+        const { mapped } = await getContacts()
+        const { recipients } = goldMessage
+        
+        const contactPopulatedRecipients = recipients.map((recipient) => {
+            const { displayName, phoneNumber } = recipient
+            if(displayName || !mapped[phoneNumber]) {
+                return recipient
+            }
+
+            return {...recipient, ...mapped[phoneNumber] }
+
+        })     
+
+        dispatch({ type: SELECTED_SENT_GOLD_MESSAGE, payload: {...goldMessage, recipients: contactPopulatedRecipients } })
+
+        
     }
 }
 
@@ -156,11 +196,56 @@ export const updateFCMToken = (token) => {
     }
 }
 
+export const storeInboxSnapshotUnsubscribe = (reference) => {
+    return { type: INBOX_SNAPSHOT_UNSUBSCRIBE, payload: reference }
+}
+
 export const authenticatedUser = (user) => {
     return { type: USER_AUTHENTICATED, payload: user }
 }
+
+export const getContacts = () => {
+    return new Promise((resolve, reject) => {
+        Contacts.getAll((error, contacts) => {
+            if(error) {
+                return reject({error})
+            }
+            const mappedContacts = {}
+            const asYouType = new AsYouType('US')
+            for(let i = 0; i < contacts.length; i++) {
+                const { phoneNumbers, givenName, familyName } = contacts[i]
+                if(!phoneNumbers || phoneNumbers.length == 0) {
+                    continue
+                }
+                for(let p = 0; p < phoneNumbers.length; p++) {
+                    const { number: rawPhone } = phoneNumbers[p]
+                    
+                    asYouType.input(rawPhone)
+
+                    const formattedPhone = asYouType.getNumber().number
+                    mappedContacts[formattedPhone] = {
+                        displayName: `${givenName || ''} ${familyName || ''}`.trim(),
+                        phoneNumber: formattedPhone,
+                        firstName: givenName,
+                        lastName: familyName
+                    }
+                    asYouType.reset()
+                }
+            }
+
+            return resolve({ contacts, mapped: mappedContacts })
+        })
+     })
+
+}
 export const logout = () => {
-    return async(dispatch) => {
+    return async(dispatch, getStore) => {
+        const { profile } = getStore()
+        const { inboxSnapshotUnsubscribe } = profile
+        if(inboxSnapshotUnsubscribe) {
+            inboxSnapshotUnsubscribe()
+        }
+        dispatch(storeInboxSnapshotUnsubscribe(undefined))
         await firebase.auth().signOut()
         dispatch({ type: LOGOUT })
     }

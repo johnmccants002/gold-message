@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import firebase from 'react-native-firebase'
 import {
   Text,
+  Alert,
   StyleSheet,
 } from 'react-native';
 

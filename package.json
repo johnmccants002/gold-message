@@ -16,6 +16,7 @@
     "react-native-autolink": "^1.8.1",
     "react-native-base64": "0.0.2",
     "react-native-cached-image": "^1.4.3",
+    "react-native-contacts": "^5.0.4",
     "react-native-elements": "^1.1.0",
     "react-native-firebase": "~5.3.1",
     "react-native-gesture-handler": "^1.1.0",

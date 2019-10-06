@@ -27,6 +27,7 @@
 		19071EAE22F66A4600A94919 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19071E8122F66A4500A94919 /* Foundation.framework */; };
 		19071EB022F66A6700A94919 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19071EAF22F66A6700A94919 /* CoreFoundation.framework */; };
 		1926010D232DFD4D00FA8044 /* libRCTSelectContact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1926010C232DFD2B00FA8044 /* libRCTSelectContact.a */; };
+		19287E38234A6E0800D8BA8E /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19287E0F234A6DF600D8BA8E /* libRCTContacts.a */; };
 		19323B26230D010B0063406B /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19323AF9230D010B0063406B /* iTunesArtwork@2x.png */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -183,6 +184,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 2B58405A1D10DE8700235F31;
 			remoteInfo = RCTSelectContact;
+		};
+		19287E0E234A6DF600D8BA8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19287E05234A6DF500D8BA8E /* RCTContacts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1441618E1BD0A79300FA4F59;
+			remoteInfo = RCTContacts;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -468,6 +476,7 @@
 		19071E8122F66A4500A94919 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		19071EAF22F66A6700A94919 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		192600DB232DFD2B00FA8044 /* SelectContact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SelectContact.xcodeproj; path = "../node_modules/react-native-select-contact/ios/SelectContact.xcodeproj"; sourceTree = "<group>"; };
+		19287E05234A6DF500D8BA8E /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 		19323AF9230D010B0063406B /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "goldProtoT/Images.xcassets/iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
 		198A1A51230FB49F001A0E7A /* goldProtoT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = goldProtoT.entitlements; path = goldProtoT/goldProtoT.entitlements; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* goldProtoT-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "goldProtoT-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -529,6 +538,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19287E38234A6E0800D8BA8E /* libRCTContacts.a in Frameworks */,
 				1926010D232DFD4D00FA8044 /* libRCTSelectContact.a in Frameworks */,
 				19071EB022F66A6700A94919 /* CoreFoundation.framework in Frameworks */,
 				19071EAE22F66A4600A94919 /* Foundation.framework in Frameworks */,
@@ -740,6 +750,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		19287E06234A6DF500D8BA8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19287E0F234A6DF600D8BA8E /* libRCTContacts.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,6 +825,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				19287E05234A6DF500D8BA8E /* RCTContacts.xcodeproj */,
 				192600DB232DFD2B00FA8044 /* SelectContact.xcodeproj */,
 				ACE037D022C608D900DE857B /* RNFetchBlob.xcodeproj */,
 				ACE037C922C5FF7000DE857B /* RNImagePicker.xcodeproj */,
@@ -1100,6 +1119,10 @@
 					ProjectRef = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
 				},
 				{
+					ProductGroup = 19287E06234A6DF500D8BA8E /* Products */;
+					ProjectRef = 19287E05234A6DF500D8BA8E /* RCTContacts.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -1233,6 +1256,13 @@
 			fileType = archive.ar;
 			path = libRCTSelectContact.a;
 			remoteRef = 1926010B232DFD2B00FA8044 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		19287E0F234A6DF600D8BA8E /* libRCTContacts.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTContacts.a;
+			remoteRef = 19287E0E234A6DF600D8BA8E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */ = {
