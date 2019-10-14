@@ -24,13 +24,14 @@ import HeaderIconButton from './common/HeaderIconButton'
 import GoldListItem from './common/GoldListItem';
 import colors from '../ui-conf/colors';
 
-import { EDIT_PROFILE, INBOX } from '../actions/screens';
+import { EDIT_PROFILE, INBOX, USER_PROFILE } from '../actions/screens';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { deleteGoldMessage, sendMessage } from '../actions/composeMessages';
 import { SENT_GOLD_MESSAGES_ERROR } from '../actions/types';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
 import Autolink from 'react-native-autolink';
+import { selectedItem } from '../actions/inbox';
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
 
@@ -126,6 +127,11 @@ class GoldMessagesSent extends Component {
         this.props.sendMessage(phoneNumber, "", SENT_GOLD_MESSAGES_ERROR)
     }
 
+    onViewProfile = (item) => {
+        this.props.selectedItem(item)
+        this.props.navigation.navigate(USER_PROFILE)
+    }
+
     renderItem = ({ item }) => {
         const { itemContainer, listItemContainer, avatarStyle, goldMessageRecipientContainerStyle, goldMessageRecipientStyle, textButtonContainer, textButtonStyle, textButtonTextStyle } = styles
         const { displayName, phoneNumber, photoURL } = item
@@ -134,8 +140,10 @@ class GoldMessagesSent extends Component {
             <GoldListItem style={[itemContainer, { minHeight: 30, padding: 10 }]} disabled={true}>
                 <View style={listItemContainer}>
                     <View style={goldMessageRecipientContainerStyle} >
-                        {displayName && 
-                            <Text style={goldMessageRecipientStyle} numberOfLines={2}>{displayName}</Text>
+                        {displayName &&
+                            <TouchableOpacity onPress={() => this.onViewProfile(item)}>
+                                <Text style={goldMessageRecipientStyle} numberOfLines={2}>{displayName}</Text>
+                            </TouchableOpacity>
                         }
                         {!displayName &&
                             <NumberFormat style={{flex : 1 }} format="+# (###) ###-####" displayType={'text'}  mask="_" value={phoneNumber} renderText={
@@ -234,4 +242,4 @@ const mapStateToProps = ({ profile, inbox }) => {
         error
     }
 }
-export default connect(mapStateToProps, { deleteGoldMessage, sendMessage, clearError })(GoldMessagesSent)
+export default connect(mapStateToProps, { deleteGoldMessage, sendMessage, clearError, selectedItem })(GoldMessagesSent)

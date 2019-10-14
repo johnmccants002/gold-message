@@ -10,6 +10,8 @@ import ComposeMessage from '../native/ComposeMessage';
 import { sleep } from '../utils/utils';
 import { INBOX } from './screens';
 
+const APP_URL = "https://apps.apple.com/us/app/gold-message/id1466581916?ls=1"
+
 export const resetComposeMessage = () => {
     return {
         type: RESET_COMPOSE_MESSAGE
@@ -81,7 +83,7 @@ export const sendGoldMessage = (phone, navigation) => {
                 'Would you like to compose a message to invite this recipient?',
                 [
                   { text : 'Yes', onPress : () => {
-                        dispatch(sendMessage(phone, '(Link to app) See your GM', GOLD_MESSAGE_SENT_FAILED)) 
+                        dispatch(sendMessage(phone, `Check out the Gold Message I just sent. Here's the link to the app to see it ${APP_URL}`, GOLD_MESSAGE_SENT_FAILED)) 
                         setTimeout(() => { navigation.navigate(INBOX) }, 500)
                     }
                   },
@@ -122,14 +124,20 @@ export const deleteGoldMessage = (goldMessage) => {
             const goldMessageDocReference = goldMessageDoc.ref
 
             const goldMessageRecipientsCollection = await goldMessageDocReference.collection('recipients').get()
-                            
+                           
+            const deleteRecipientsGoldMessageCopy = goldMessageRecipientsCollection.docs.map((doc) => {
+                if(doc) {
+                    return usersRef.doc(doc.id).collection('inbox').doc(phoneNumber).collection('goldMessages').doc(goldMessageDoc.id).delete()
+                }
+            })
+
             const goldMessageDeleteRecipientsPromise = goldMessageRecipientsCollection.docs.map((doc) => {
                 if(doc) {
                     return doc.ref.delete()
                 }
             })
 
-            await Promise.all(goldMessageDeleteRecipientsPromise)
+            await Promise.all([...goldMessageDeleteRecipientsPromise, ...deleteRecipientsGoldMessageCopy])
 
             await goldMessageDocReference.delete()
         }catch(e) {

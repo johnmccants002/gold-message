@@ -114,6 +114,10 @@ class SignIn extends Component {
     const { inputContainerStyle, inputStyle, inputComponentContainerStyle } = styles
 
     this.asYouType.reset()
+    const formattedNumber = this.asYouType.input(phoneNumber)
+    
+    const { nationalNumber } = this.asYouType.getNumber() || { nationalNumber: '' }
+    let useFormatted = nationalNumber.length >= 4
     return (
       <AuthenticationScreen>
       <ErrorModal isVisible={error != undefined} message={error} onDismissed={this.onErrorDismissed} backgroundColor={Colors.white} textColor={Colors.gold1} />
@@ -125,7 +129,7 @@ class SignIn extends Component {
           inputContainerStyle={inputComponentContainerStyle}
           keyboardType="phone-pad"
           placeholder="ENTER PHONE NUMBER"
-          value={this.asYouType.input(phoneNumber)}
+          value={useFormatted ? formattedNumber : phoneNumber}
           onChangeText={(value) => this.setState({ phoneNumber: value})}
         />
 

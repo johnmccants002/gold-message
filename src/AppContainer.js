@@ -16,6 +16,7 @@ import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import GoldMessagesSent from './components/GoldMessagesSent';
 import SelectMultipleMessages from './components/SelectMultipleMessages';
+import UserProfile from './components/UserProfile';
 
 const screensViews = {
   SignIn,
@@ -74,6 +75,9 @@ const AppStack = createStackNavigator(
   },
   SelectMultipleMessages: {
     screen: SelectMultipleMessages
+  },
+  UserProfile: {
+    screen: UserProfile
   }
 });
 

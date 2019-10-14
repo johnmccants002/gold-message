@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Header = ({ title, rightElement, leftElement, leftAvatar }) => {
+const Header = ({ title, rightElement, leftElement, leftAvatar, onPress }) => {
     const { titleStyle, containerStyleOuter } = styles
 
     return (
       <SafeAreaView>
         <ListItem
             title={title}
+            onPress={onPress}
             leftAvatar={leftAvatar}
             rightElement={rightElement}
             leftElement={leftElement}

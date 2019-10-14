@@ -20,6 +20,7 @@ import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
 import { SENT_GOLD_MESSAGES_ERROR } from '../actions/types';
 import Autolink from 'react-native-autolink';
+import { USER_PROFILE } from '../actions/screens'
 
 // Strings
 const COMPOSE_MESSAGE = 'ComposeMessage'
@@ -128,6 +129,7 @@ class InboxProfile extends Component {
                 <ErrorModal isVisible={error != undefined} message={error} onDismissed={() => this.props.clearError()} />
                 <Header
                     title={displayName}
+                    onPress={() => this.props.navigation.navigate(USER_PROFILE)}
                     leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={this.onBack} />}
                     rightElement={() => <HeaderTextButton title={'Text'} onPress={() => this.onNewGoldMessage() } />}
                 />

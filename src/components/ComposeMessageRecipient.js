@@ -119,7 +119,13 @@ class ComposeMessageRecipient extends Component {
     const buttonText = messageSent ? 'Sent!' : 'Send Gold Message'
     const buttonColor = messageSent ? '#BBC2CA' : undefined
     
+    
     this.asYouType.reset()
+    const formattedNumber = this.asYouType.input(phoneNumber)
+    
+    const { nationalNumber } = this.asYouType.getNumber() || { nationalNumber: '' }
+    let useFormatted = nationalNumber.length >= 4
+
     return (
       <View style={{ flex: 1 }}>
       <ErrorModal isVisible={messageError != undefined} message={messageError} onDismissed={this.onErrorDismissed} />
@@ -138,7 +144,7 @@ class ComposeMessageRecipient extends Component {
                   placeholder="(999) 555-4444"
                   maxLength={16}
                   keyboardType="phone-pad"
-                  value={this.asYouType.input(phoneNumber)}
+                  value={useFormatted ? formattedNumber : phoneNumber}
                   onChangeText={(value) => { this.props.updatePhoneNumber(value) }}
                   numberOfLines={1}
                   autoFocus

@@ -49,6 +49,7 @@ export const selectedItem = (item) => {
     return { type: SELECTED_USER,  payload: item }
 }
 
+
 export const getIncomingGoldMessage = (phone) => {
     return async(dispatch, getStore) => {
         const { profile } = getStore()
