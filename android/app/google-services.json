@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "47249699259-p86oe98l5mjc7n4aiefi5mg0cl3op2au.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goldmessage.android",
+            "certificate_hash": "ec6d5f4a7234d73b239b83b0cb8078c6e6ca0a0c"
+          }
+        },
+        {
           "client_id": "47249699259-j32i66g01sd31t3clt4ts8fbg1u16dph.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -32,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "47249699259-r0qm3m37i6o7heqbnupqihv2o96gdv4v.apps.googleusercontent.com",
+              "client_id": "47249699259-d5ani0am0du6opdn4jjhj9p5ptg4fbnq.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.goldmessage.test"
+                "bundle_id": "com.goldmessage.goldmessage"
               }
             }
           ]

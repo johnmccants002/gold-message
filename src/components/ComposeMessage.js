@@ -5,6 +5,7 @@ import {
   StyleSheet,
   InputAccessoryView,
   Button,
+  Platform
 } from 'react-native';
 
 import {
@@ -17,6 +18,8 @@ import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import { composeMessageText, resetComposeMessage } from '../actions/composeMessages';
 import { COMPOSE_MESSAGE_RECIPIENT, SELECT_MULTIPLE_MESSAGES, INBOX } from '../actions/screens';
+
+const isIPhone = Platform.OS === 'ios'
 
 
 class ComposeMessage extends Component {
@@ -63,13 +66,13 @@ class ComposeMessage extends Component {
         />
         
           <ComposeMessageContainer title={'Type Your Gold Message'}>
-            <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 20 }} >
+            <View style={{ flex: 1, justifyContent: 'space-between' }} >
               <Input
                 containerStyle={{
-                  margin: 0, padding: 0, borderBottomWidth: 1, borderColor: '#fff', marginBottom: 0, marginTop: 0,
+                  marginTop: 0, padding: 0, borderBottomWidth: 1, borderColor: '#fff', marginBottom: 0, marginTop: 0,
                 }}
                 inputStyle={{
-                  color: '#000', padding: 0, margin: 0, textAlign: 'center', fontSize: 25,
+                  color: '#000', padding: 0, marginTop: 10, textAlign: 'center', fontSize: 25,
                 }}
                 inputContainerStyle={{ padding: 0, margin: 0, borderBottomWidth: 0 }}
                 placeholder="Start typing..."
@@ -81,11 +84,13 @@ class ComposeMessage extends Component {
                 inputAccessoryViewID={inputAccessoryViewID}
                 autoFocus
               />
-              <InputAccessoryView nativeID={inputAccessoryViewID}>
-                <View style={{ flex: 1, alignItems: 'flex-end'}}>
-                    <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />
-                </View>
-              </InputAccessoryView>  
+              {isIPhone &&
+                <InputAccessoryView nativeID={inputAccessoryViewID}>
+                  <View style={{ flex: 1, alignItems: 'flex-end'}}>
+                      <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />
+                  </View>
+              </InputAccessoryView>
+              }
             </View>          
           </ComposeMessageContainer>
       </View>

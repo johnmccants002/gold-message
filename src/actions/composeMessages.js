@@ -1,5 +1,5 @@
 import firebase from 'react-native-firebase'
-import { Linking, Alert } from 'react-native'
+import { Linking, Alert, Platform, PermissionsAndroid } from 'react-native'
 import base64 from 'react-native-base64'
 
 const usersRef = firebase.firestore().collection('users');
@@ -10,7 +10,13 @@ import ComposeMessage from '../native/ComposeMessage';
 import { sleep } from '../utils/utils';
 import { INBOX } from './screens';
 
-const APP_URL = "https://apps.apple.com/us/app/gold-message/id1466581916?ls=1"
+const IOS_APP_URL = "https://apps.apple.com/us/app/gold-message/id1466581916?ls=1"
+const ANDROID_APP_URL = "https://apps.apple.com/us/app/gold-message/id1466581916?ls=1"
+
+const APP_URL = Platform.select({
+    ios: IOS_APP_URL,
+    android: ANDROID_APP_URL
+})
 
 export const resetComposeMessage = () => {
     return {
@@ -100,11 +106,19 @@ export const sendGoldMessage = (phone, navigation) => {
 
 export const sendMessage = (phoneNumber, messageText, errorType) => {
     return async(dispatch) => {
-        const { success, message } = await ComposeMessage.sendMessage(phoneNumber, messageText)
 
-        if(!success) {
-            dispatch(errorReceived(errorType, message))
-        } 
+        if(Platform.OS === 'ios') {
+            const { success, message } = await ComposeMessage.sendMessage(phoneNumber, messageText)
+
+            if(!success) {
+                dispatch(errorReceived(errorType, message))
+            } 
+        } else {
+            Linking.openURL(`sms:${phoneNumber}?body=${messageText}`).catch((reason) => {
+                dispatch(errorReceived(errorType, reason))
+            })
+        }
+        
     }
 }
 
@@ -149,3 +163,16 @@ export const deleteGoldMessage = (goldMessage) => {
 export const composeMessageText = (messageText) => {
     return { type: COMPOSE_MESSAGE_TEXT, payload: messageText }
 }
+
+export const requestContactsPermission = async() => {
+    try {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        return true
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+
+    return false
+  }

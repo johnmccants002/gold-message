@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: .5,
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
@@ -47,7 +48,6 @@ class ComposeMessageContainer extends Component {
           <View style={titleContainer}>
             <Text style={titleStyle} >{title}</Text>
           </View>
-
           {children}
         </KeyboardAvoidingView>
     );

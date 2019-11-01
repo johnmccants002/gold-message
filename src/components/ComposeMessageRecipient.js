@@ -17,7 +17,7 @@ import HeaderIconButton from './common/HeaderIconButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import GoldButton from './common/GoldButton';
 
-import { sendGoldMessage, updatePhoneNumber } from '../actions/composeMessages'
+import { sendGoldMessage, updatePhoneNumber, requestContactsPermission } from '../actions/composeMessages'
 import { Icon } from 'react-native-elements';
 import ErrorModal from './common/ErrorModal';
 import { clearError } from '../actions/errors';
@@ -101,6 +101,11 @@ class ComposeMessageRecipient extends Component {
   }
 
   onSelectContact = async() => {
+    const granted = await requestContactsPermission()
+    if(!granted) {
+      return
+    }
+
     const { selectedPhone } = await selectContactPhone()
     if(!selectedPhone) {
       return
