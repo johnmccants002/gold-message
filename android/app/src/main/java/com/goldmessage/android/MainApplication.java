@@ -2,6 +2,7 @@ package com.goldmessage.android;
 
 import android.app.Application;
 
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.facebook.react.ReactApplication;
 import com.streem.selectcontact.SelectContactPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -45,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
               new RNFirebaseAuthPackage(),
               new RNFirebaseFirestorePackage(),
               new RNFirebaseStoragePackage(),
-              new RNFirebaseMessagingPackage()
+              new RNFirebaseMessagingPackage(),
+              new ReactNativeContacts()
       );
     }
 

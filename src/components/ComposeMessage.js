@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import {
   View,
   StyleSheet,
-  InputAccessoryView,
-  Button,
+  Text,
   Platform
 } from 'react-native';
 
@@ -18,6 +17,7 @@ import HeaderTextButton from './common/HeaderTextButton';
 import ComposeMessageContainer from './ComposeMessageContainer';
 import { composeMessageText, resetComposeMessage } from '../actions/composeMessages';
 import { COMPOSE_MESSAGE_RECIPIENT, SELECT_MULTIPLE_MESSAGES, INBOX } from '../actions/screens';
+import GoldButton from './common/GoldButton';
 
 const isIPhone = Platform.OS === 'ios'
 
@@ -54,49 +54,64 @@ class ComposeMessage extends Component {
   }
 
   render() {
+    const { inputContainerStyle, inputStyle, inputComponentContainerStyle, contentContainerStyle } = styles
     const { messageText } = this.state
     const inputAccessoryViewID = "inputAccessoryView1";
     
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingHorizontal: 20 }}>
         <Header
           title={"New Gold Message"}
           leftElement={() => <HeaderIconButton iconName={'chevron-left'} onPress={() => this.onBack()} />}
-          rightElement={() => <HeaderTextButton title={'Next'} onPress={() => this.onNext() } />}
+          rightElement={() => <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />}
         />
-        
-          <ComposeMessageContainer title={'Type Your Gold Message'}>
-            <View style={{ flex: 1, justifyContent: 'space-between' }} >
+      
+        <ComposeMessageContainer title={`Type Your Gold Messaged`}>
+            <View style={contentContainerStyle} >
               <Input
-                containerStyle={{
-                  marginTop: 0, padding: 0, borderBottomWidth: 1, borderColor: '#fff', marginBottom: 0, marginTop: 0,
-                }}
-                inputStyle={{
-                  color: '#000', padding: 0, marginTop: 10, textAlign: 'center', fontSize: 25,
-                }}
-                inputContainerStyle={{ padding: 0, margin: 0, borderBottomWidth: 0 }}
-                placeholder="Start typing..."
-                multiline
-                maxLength={145}
-                numberOfLines={4}
-                value={messageText}
-                onChangeText={(value) => { this.setState({ messageText: value })}}
-                inputAccessoryViewID={inputAccessoryViewID}
-                autoFocus
-              />
-              {isIPhone &&
-                <InputAccessoryView nativeID={inputAccessoryViewID}>
-                  <View style={{ flex: 1, alignItems: 'flex-end'}}>
-                      <HeaderIconButton iconName={'clone'} onPress={() => this.onSelectMultiple()} />
-                  </View>
-              </InputAccessoryView>
-              }
-            </View>          
-          </ComposeMessageContainer>
+                  containerStyle={inputContainerStyle}
+                  inputStyle={inputStyle}
+                  inputContainerStyle={inputComponentContainerStyle}
+                  placeholder="Start typing..."
+                  multiline
+                  maxLength={145}
+                  numberOfLines={4}
+                  value={messageText}
+                  onChangeText={(value) => { this.setState({ messageText: value })}}
+                  autoFocus
+                />
+            </View>
+            {isIPhone &&
+              <GoldButton title={`Continue`} onPress={() => this.onNext()} />
+            }
+        </ComposeMessageContainer>
+
+        {!isIPhone &&
+          <GoldButton title={`Continue`} onPress={() => this.onNext()} />
+        }
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  inputContainerStyle: {
+    margin: 0, padding: 0, borderBottomWidth: 1, borderColor: '#fff', marginBottom: 0, marginTop: 0,
+  },
+  inputStyle: {
+    color: '#000', padding: 0, margin: 0, textAlign: 'center', fontSize: 25,
+  },
+  inputComponentContainerStyle: {
+    padding: 0,
+    margin: 0,
+    borderBottomWidth: 0,
+    minHeight: 100,
+  },
+   contentContainerStyle: {
+     flex: 1,
+     justifyContent: 'space-between',
+  },
+});
 
 const mapStateToProps = () => {
 

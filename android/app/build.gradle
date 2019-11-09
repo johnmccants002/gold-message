@@ -153,6 +153,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
+    implementation project(':react-native-contacts')
     implementation project(':react-native-select-contact')
     implementation project(':react-native-fetch-blob')
     implementation project(':react-native-image-picker')

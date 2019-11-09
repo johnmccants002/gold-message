@@ -197,7 +197,7 @@ class GoldMessagesSent extends Component {
         const { selectedGoldMessage, recipients, error } = this.props
         const { containerStyle, recipientListContainer, headerContainer, headerText, itemContainer, sentGoldMessageTextStyle } = styles
         const { goldMessage } = selectedGoldMessage
-        console.log('error', error)
+        
         return (
             <MenuProvider style={containerStyle}>
             <ErrorModal isVisible={error != undefined} message={`${error}`} onDismissed={() => this.props.clearError()} />
