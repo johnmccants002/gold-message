@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet,
 } from 'react-native';
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
 
 import { Input } from 'react-native-elements';
 import Colors from '../ui-conf/colors';

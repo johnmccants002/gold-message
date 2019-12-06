@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
+import messaging from '@react-native-firebase/messaging'
+import firestore from '@react-native-firebase/firestore'
 import {
     View,
     StyleSheet,

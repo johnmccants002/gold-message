@@ -4,10 +4,8 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
   Image,
 } from 'react-native';
-import { CachedImage } from 'react-native-cached-image';
 import Autolink from 'react-native-autolink';
 import colors from '../ui-conf/colors';
 

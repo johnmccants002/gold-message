@@ -11,7 +11,6 @@ import {
     TouchableOpacity
 } from 'react-native'
 import ImagePicker from 'react-native-image-picker';
-import { CachedImage } from 'react-native-cached-image';
 import { Icon } from 'react-native-elements';
 import Header from './common/Header'
 import HeaderIconButton from './common/HeaderIconButton'
@@ -21,7 +20,7 @@ import colors from '../ui-conf/colors';
 import { logout, loadCurrentUserProfile, saveCurrentUserProfile } from '../actions/profile';
 import { refreshInbox, getSentGoldMessages } from '../actions/inbox';
 import EditProfileInput from './EditProfileInput';
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
 import GoldButton from './common/GoldButton';
 
 const demoImage = 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'

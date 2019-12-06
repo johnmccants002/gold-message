@@ -1,11 +1,12 @@
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
+import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 
 import {
     Alert,
 } from 'react-native';
 import { USER_AUTHENTICATED, USER_AUTHENTICATION_ERROR, PHONE_VERIFICATION_RECEIVED, PHONE_VERIFIED, LOADING, LOGOUT, LOAD_USER_PROFILE, LOAD_USER_PROFILE_COMPLETE, LOAD_USER_PROFILE_ERROR, SELECTED_SENT_GOLD_MESSAGE, INBOX_SNAPSHOT_UNSUBSCRIBE } from './types';
 import { errorReceived } from './errors';
-import { ImageCacheManager } from 'react-native-cached-image';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 import Contacts from 'react-native-contacts';
 
@@ -153,11 +154,16 @@ export const saveCurrentUserProfile = (email, firstName, lastName, about, photoU
         try {
             dispatch({ type: LOADING, payload: true })
 
+            console.log('photoURL', photoURL, 'currentPhotoUrl', currentPhotoUrl)
             let updatePhotoUrl = photoURL
-            if(photoURL && currentPhotoUrl != photoURL) {
-              const profileImageRef = await firebase.storage().ref(user.phoneNumber).child('profileImage').putFile(photoURL)
-              updatePhotoUrl = await profileImageRef.downloadURL
-            }
+            try {
+                if(photoURL && currentPhotoUrl != photoURL) {
+                    const { metadata } = await firebase.storage().ref(user.phoneNumber).child('profileImage').putFile(photoURL)
+                    const { fullPath } = metadata || { }
+                    const profileImageRef = firebase.storage().ref(fullPath);
+                    updatePhotoUrl = await profileImageRef.getDownloadURL()
+                }
+            } catch {}
             const profile = {
                 displayName: `${firstName} ${lastName}`,
                 email,

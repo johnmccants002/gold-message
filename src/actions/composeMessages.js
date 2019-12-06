@@ -1,4 +1,5 @@
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
+import firestore from '@react-native-firebase/firestore'
 import { Linking, Alert, Platform, PermissionsAndroid } from 'react-native'
 import base64 from 'react-native-base64'
 
@@ -165,6 +166,10 @@ export const composeMessageText = (messageText) => {
 }
 
 export const requestContactsPermission = async() => {
+    if(Platform.OS == 'ios') {
+        return true
+    }
+    
     try {
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS);
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {

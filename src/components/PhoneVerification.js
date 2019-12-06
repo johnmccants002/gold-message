@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
 import {
   View,
   StyleSheet,

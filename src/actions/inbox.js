@@ -1,4 +1,6 @@
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
+import firestore from '@react-native-firebase/firestore'
+
 import {
     Alert,
 } from 'react-native';
